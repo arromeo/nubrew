@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import FindScreen from '../screens/FindScreen';
 import RateDrinkScreen from '../screens/RateDrinkScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
+import CameraScreen from '../screens/CameraScreen';
 
 
 const HomeStack = createStackNavigator({
@@ -42,7 +43,7 @@ FindStack.navigationOptions = {
 };
 
 const FavoriteStack = createStackNavigator({
-  Favorite: FavoriteScreen,
+  tabBarLabel: FavoriteScreen,
 });
 
 FavoriteStack.navigationOptions = {
@@ -56,7 +57,7 @@ FavoriteStack.navigationOptions = {
 };
 
 const RateDrinkStack = createStackNavigator({
-  Rate: RateDrinkScreen,
+  tabBarLabel: RateDrinkScreen,
 });
 
 RateDrinkStack.navigationOptions = {
@@ -69,9 +70,24 @@ RateDrinkStack.navigationOptions = {
   ),
 };
 
+const CameraStack = createStackNavigator({
+  tabBarLabel: CameraScreen,
+});
+
+CameraStack.navigationOptions = {
+  tabBarLabel: 'Camera',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-camera'}
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   HomeStack,
   FindStack,
   RateDrinkStack,
   FavoriteStack,
+  CameraStack
 });
