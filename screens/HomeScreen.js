@@ -13,6 +13,12 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      editThisLater: 0,
+    }
+  }
   static navigationOptions = {
     header: null,
   };
@@ -20,7 +26,8 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView style={styles.container}>
+
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -30,61 +37,70 @@ export default class HomeScreen extends React.Component {
               }
               style={styles.welcomeImage}
             />
+            <Text>NuBrew</Text>
           </View>
 
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
+          <View style={styles.contentContainer}>
+            <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
+              <Text>Event Header</Text>
+              <MonoText style={styles.codeHighlightText}>Event details goes here blah blah blah</MonoText>
+            </View>
+            <Image
+              source={
+                __DEV__
+                  ? require('../assets/images/robot-dev.png')
+                  : require('../assets/images/robot-prod.png')
+              }
+              style={styles.eventImage}
+            />
+          </View>
 
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+          <View style={styles.contentContainer}>
+            <View style={[styles.recommendationContainer, styles.homeScreenFilename]}>
+              <Image
+                source={
+                  __DEV__
+                    ? require('../assets/images/robot-dev.png')
+                    : require('../assets/images/robot-prod.png')
+                }
+                style={styles.recommendationImage}
+              />
+              <Text>Brewer + Name</Text>
+              <MonoText style={styles.codeHighlightText}>Drink Keywords Go Here</MonoText>
             </View>
 
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
+            <View style={[styles.recommendationContainer, styles.homeScreenFilename]}>
+              <Image
+                source={
+                  __DEV__
+                    ? require('../assets/images/robot-dev.png')
+                    : require('../assets/images/robot-prod.png')
+                }
+                style={styles.recommendationImage}
+              />
+              <Text>Location Recommendations</Text>
+              <MonoText style={styles.codeHighlightText}>Get drink recommendations</MonoText>
+            </View>
           </View>
 
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
+          <View style={styles.contentContainer}>
+            <View style={[styles.bottomOptionsContainer, styles.optionScreenFilename]}>
+              <Text>FIND ICON</Text>
+            </View>
+
+            <View style={[styles.bottomOptionsContainer, styles.optionScreenFilename]}>
+              <Text>RATE ICON</Text>
+            </View>
+
+            <View style={[styles.bottomOptionsContainer, styles.optionScreenFilename]}>
+              <Text>YOUR FAV ICON</Text>
+            </View>
           </View>
+
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
       </View>
     );
-  }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
   }
 
   _handleLearnMorePress = () => {
@@ -103,42 +119,69 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
   contentContainer: {
     paddingTop: 30,
+    borderWidth: 0.5,
+    borderColor: "black",
+    borderWidth: 1,
+    borderStyle: "dotted",
+    flexDirection: "row",
   },
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20,
+    borderWidth: 1,
+    borderStyle: "dotted",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: 15,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  eventDetailsContainer: {
+    borderWidth: 1,
+    borderStyle: "dotted",
+    flexDirection: "column",
+    width: '70%',
+    margin: 10,
+  },
+  recommendationContainer: {
+    borderWidth: 1,
+    borderStyle: "dotted",
+    flexDirection: "column",
+    width: '45%',
+    margin: 10,
+  },
+  bottomOptionsContainer: {
+    borderWidth: 1,
+    borderStyle: "dotted",
+    flexDirection: "column",
+    width: '28.33%',
+    margin: 10,
+  },
+  recommendationImage: {
+
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 50,
+    height: 40,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
+  eventImage: {
+    width: 100,
+    height: 80,
+    resizeMode: 'contain',
+    margin: 10,
+    width: '20%',
   },
   homeScreenFilename: {
     marginVertical: 7,
   },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
+  optionScreenFilename: {
+    marginVertical: 7,
   },
   getStartedText: {
     fontSize: 17,
@@ -148,6 +191,8 @@ const styles = StyleSheet.create({
   },
   tabBarInfoContainer: {
     position: 'absolute',
+    borderWidth: 1,
+    borderStyle: "dotted",
     bottom: 0,
     left: 0,
     right: 0,
@@ -173,16 +218,5 @@ const styles = StyleSheet.create({
   },
   navigationFilename: {
     marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
   },
 });
