@@ -1,21 +1,21 @@
 
 exports.up = function(knex, Promise) {
   function createCategoriesTable() {
-    return knex.schema.createTable('categories', function (table) {
+    return knex.schema.createTable('categories', function(table) {
       table.increments();
       table.string('category');
     });
   }
 
   function createSeasonsTable() {
-    return knex.schema.createTable('seasons', function (table) {
+    return knex.schema.createTable('seasons', function(table) {
       table.increments();
       table.string('season');
     });
   }
 
   function createBeersTable() {
-    return knex.schema.createTable('beers', function (table) {
+    return knex.schema.createTable('beers', function(table) {
       table.increments();
       table.integer('ibu');
       table.string('abv');
@@ -27,16 +27,19 @@ exports.up = function(knex, Promise) {
   }
 
   function createBreweriesTable() {
-    return knex.schema.createTable('breweries', function (table) {
+    return knex.schema.createTable('breweries', function(table) {
       table.increments();
       table.string('name').notNullable();
       table.string('description');
-      table.string('location');
+      table.string('street_address');
+      table.string('city');
+      table.string('province');
+      table.string('postal_code');
     });
   }
 
   function createBeersBreweriesTable() {
-    return knex.schema.createTable('beers_breweries', function (table) {
+    return knex.schema.createTable('beers_breweries', function(table) {
       table.increments();
       table.integer('beer_id');
       table.integer('brewery_id');
@@ -46,17 +49,41 @@ exports.up = function(knex, Promise) {
   }
 
   function createStoresTable() {
-    return knex.schema.createTable('stores', function (table) {
+    return knex.schema.createTable('stores', function(table) {
       table.increments();
       table.string('name').notNullable();
       table.string('description');
-      table.string('location');
-      table.string('hours');
+      table.string('street_address');
+      table.string('city');
+      table.string('province');
+      table.string('postal_code');
+    });
+  }
+
+  function createStoreHoursTable() {
+    return knex.schema.createTable('store_hours', function(table) {
+      table.increments();
+      table.integer('store_id');
+      table.string('monday_start');
+      table.string('monday_end');
+      table.string('tuesday_start');
+      table.string('tuesday_end');
+      table.string('wednesday_start');
+      table.string('wednesday_end');
+      table.string('thursday_start');
+      table.string('thursday_end');
+      table.string('friday_start');
+      table.string('friday_end');
+      table.string('saturday_start');
+      table.string('saturday_end');
+      table.string('sunday_start');
+      table.string('sunday_end');
+      table.foreign('store_id').references('stores.id');
     });
   }
 
   function createBeersStoresTable() {
-    return knex.schema.createTable('beers_stores', function (table) {
+    return knex.schema.createTable('beers_stores', function(table) {
       table.increments();
       table.integer('beer_id');
       table.integer('store_id');
@@ -66,7 +93,7 @@ exports.up = function(knex, Promise) {
   }
 
   function createEventsTable() {
-    return knex.schema.createTable('events', function (table) {
+    return knex.schema.createTable('events', function(table) {
       table.increments();
       table.integer('store_id');
       table.foreign('store_id').references('stores.id');
@@ -77,7 +104,7 @@ exports.up = function(knex, Promise) {
   }
   
   function createUsersTable() {
-    return knex.schema.createTable('users', function (table) {
+    return knex.schema.createTable('users', function(table) {
       table.increments();
       table.string('first_name');
       table.string('last_name');
@@ -87,7 +114,7 @@ exports.up = function(knex, Promise) {
   }
 
   function createBeersUsersTriedTable() {
-    return knex.schema.createTable('beers_users_tried', function (table) {
+    return knex.schema.createTable('beers_users_tried', function(table) {
       table.increments();
       table.integer('user_id');
       table.integer('beer_id');
@@ -107,12 +134,14 @@ exports.up = function(knex, Promise) {
     .then(createBeersBreweriesTable)
     .then(createBeersStoresTable)
     .then(createEventsTable)
-    .then(createBeersUsersTriedTable);
+    .then(createBeersUsersTriedTable)
+    .then(createStoreHoursTable);
 };
 
 exports.down = function(knex, Promise) {
 
   return knex.schema.dropTableIfExists('beers_users_tried')
+    .then(() => knex.schema.dropTableIfExists('store_hours')
     .then(() => knex.schema.dropTableIfExists('events')
     .then(() => knex.schema.dropTableIfExists('beers_stores')
     .then(() => knex.schema.dropTableIfExists('beers_breweries')
@@ -121,6 +150,5 @@ exports.down = function(knex, Promise) {
     .then(() => knex.schema.dropTableIfExists('stores')
     .then(() => knex.schema.dropTableIfExists('breweries')
     .then(() => knex.schema.dropTableIfExists('seasons')
-    .then(() => knex.schema.dropTableIfExists('categories'))))))))));
-
+    .then(() => knex.schema.dropTableIfExists('categories')))))))))));
 };
