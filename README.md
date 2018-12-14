@@ -66,12 +66,17 @@
   - Description
   - Vote_count (for community favorites, cannot be less than 0)
   - Image
-  - Search Image (feature?)
 
 - Breweries
   - Name
   - Description
-  - Location
+
+- Addresses
+  - Street
+  - Postal_code
+  - City
+  - County
+  - 
 
 - Beers_Breweries (collaboration)
   - Brewery_ID (FK)
@@ -83,7 +88,6 @@
 
 - Stores
   - Name
-  - Location
   - Hours
 
 - Events (feature)
@@ -118,11 +122,22 @@
 From Index
 	1. We should see the details of nearby events with an image
 
+    - Data Required:
+      1. Events Table
+
 	2. The top community beer (image and name)
 		A. Clicking brings up details page on that particular beer.
+
+    - Data Required:
+      1. Beers table LIMIT 1
+
 	3. Get recommendation button
 		A. Displays a list of recommended beers that have yet to be tried.
 		B. Same as 6Ba.
+
+    - Data Required:
+      1. Beers Table
+      
 	4. Search button in bottom nav to prompt a search
 		A. A text field to enter in search terms.
 		B. A button to search via photo
@@ -130,24 +145,63 @@ From Index
 			b. Back button in the upper left.
 		C. Option to search by beer, store, or possibly brewery
 			a. Beer search would bring up list of stores
+
+      - Data Required:
+        1. Beers Table and Beers_Stores Table
+
 			b. Store search would bring up recommendations based off of store inventory
+
+      - Data Required:
+        1. Beers Table and Beers_Stores Table
+
 			c. Brewery will bring up a list of stores?
+
+      - Data Required:
+        1. Beers_Brewery Table and join with store table
+
 	5. Rate your drink to prompt a vote
 		A. A text field to search by name
 		B. A camera icon button below to search by photo of bottle.
 			a. Based off of the search, it displays a stored picture of the bottle, name and brewery.
+
+      -Data Required:
+        1. Beers_brewery, beers
+        2. POST - Users & beers_users_tried
+
 			b. If search unsuccessful, redirects back to search.
+
+      -Data Required:
+        1. Beers_brewery, beers
+
 			c. If search has more than one result, prompt for user clarification.
+
+      -Data Required:
+        1. Beers_brewery, beers
+        2. POST - Users & beers_users_tried
+
 	6. Favorites button to get the previously favorited drink.
 		A. Quick search to filter results.
 		B. Displays a list of previously favorited beers.
+      - Data Required:
+        1. beers_users_tried, beers
+
 			a. Clicking the beer opens a details page that will display buttons to find.
+
+      - Data Required:
+        1. beers
+
 				aa. Each line would have an option to remove.
+
+          - Data Required:
+            1. beers_users_tried
+
 	7. Profile button to log in/log out/view profile.
 		A. If not logged in it prompts for credentials
 		B. If logged in displays brief user profile
 		C. Log out button near bottom.
 
+    - Data Required:
+      1. users
 
 
 
