@@ -7,22 +7,17 @@ exports.up = function(knex, Promise) {
     });
   }
 
-  function createSeasonsTable() {
-    return knex.schema.createTable('seasons', function(table) {
-      table.increments();
-      table.string('season');
-    });
-  }
-
   function createBeersTable() {
     return knex.schema.createTable('beers', function(table) {
       table.increments();
+      table.integer('category_id');
       table.integer('ibu');
       table.string('abv');
       table.string('name').notNullable();
       table.string('description');
       table.integer('vote_count');
       table.string('img_url');
+      table.foreign('category_id').references('categories.id');
     });
   }
 
@@ -126,7 +121,6 @@ exports.up = function(knex, Promise) {
   }
 
   return createCategoriesTable()
-    .then(createSeasonsTable)
     .then(createBreweriesTable)
     .then(createStoresTable)
     .then(createUsersTable)
@@ -149,6 +143,5 @@ exports.down = function(knex, Promise) {
     .then(() => knex.schema.dropTableIfExists('users')
     .then(() => knex.schema.dropTableIfExists('stores')
     .then(() => knex.schema.dropTableIfExists('breweries')
-    .then(() => knex.schema.dropTableIfExists('seasons')
-    .then(() => knex.schema.dropTableIfExists('categories')))))))))));
+    .then(() => knex.schema.dropTableIfExists('categories'))))))))));
 };
