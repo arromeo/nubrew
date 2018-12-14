@@ -4,8 +4,11 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import FindScreen from '../screens/FindScreen';
+import RateDrinkScreen from '../screens/RateDrinkScreen';
+import FavoriteScreen from '../screens/FavoriteScreen';
+import CameraScreen from '../screens/CameraScreen';
+
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -25,36 +28,66 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const FindStack = createStackNavigator({
+  Find: FindScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+FindStack.navigationOptions = {
+  tabBarLabel: 'Find',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-search'}
     />
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const FavoriteStack = createStackNavigator({
+  tabBarLabel: FavoriteScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+FavoriteStack.navigationOptions = {
+  tabBarLabel: 'Favorites',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-star'}
+    />
+  ),
+};
+
+const RateDrinkStack = createStackNavigator({
+  tabBarLabel: RateDrinkScreen,
+});
+
+RateDrinkStack.navigationOptions = {
+  tabBarLabel: 'Rate',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'}
+    />
+  ),
+};
+
+const CameraStack = createStackNavigator({
+  tabBarLabel: CameraScreen,
+});
+
+CameraStack.navigationOptions = {
+  tabBarLabel: 'Camera',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-camera'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  FindStack,
+  RateDrinkStack,
+  FavoriteStack,
+  CameraStack
 });
