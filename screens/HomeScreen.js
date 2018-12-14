@@ -20,25 +20,13 @@ export default class HomeScreen extends React.Component {
     }
   }
   static navigationOptions = {
-    header: null,
+    title: 'NuBrew',
   };
 
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container}>
-
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-            <Text>NuBrew</Text>
-          </View>
 
           <View style={styles.contentContainer}>
             <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
@@ -120,7 +108,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 15,
+    paddingBottom: 15,
     borderWidth: 0.5,
     borderColor: "black",
     borderWidth: 1,
