@@ -1,13 +1,13 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, FlatList, Image } from 'react-native';
-import { SearchBar } from 'react-native-elements'
 
 export default class FindScreen extends React.Component {
   static navigationOptions = {
-    title: 'Find',
+    title: 'Favorites',
   };
 
   render() {
+
     const data = [
       {
         name: "Beer1",
@@ -59,34 +59,29 @@ export default class FindScreen extends React.Component {
       }
     ]
 
-    const someMethod = () => {
-      return;
-    }
-
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.searchContainer}>
-        <SearchBar
-          onChangeText={someMethod}
-          onClearText={someMethod}
-          placeholder='Type Here...' />
-
-          <FlatList
+        <FlatList
           data={data}
           renderItem={({item}) => 
-            <View style={styles.listItemContainer} key={item.id}>
-              <View style={styles.searchResultContainer} key={item.id}>
-                <Text>Type: {item.categories_id} (Season: {item.seasonal_id})</Text>
-                <Text>{`${item.name} (${item.brewery})`}</Text>
-                <Text>{item.description}</Text>
-                <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
-              </View>
+          <View style={styles.listItemContainer} key={item.id}>
+            <Image
+                source={
+                  __DEV__
+                    ? require('../assets/images/robot-dev.png')
+                    : require('../assets/images/robot-prod.png')
+                }
+                style={styles.recommendationImage}
+              />
+            <View style={styles.searchResultContainer} key={item.id}>
+              <Text>Type: {item.categories_id} (Season: {item.seasonal_id})</Text>
+              <Text>{`${item.name} (${item.brewery})`}</Text>
+              <Text>{item.description}</Text>
+              <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
             </View>
-          }
-          />
-          
-        </View>
-
+          </View>
+        }
+        />
       </ScrollView>
     );
   }
@@ -97,14 +92,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
-  },
-  listItemContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
   },
   contentContainer: {
     paddingTop: 15,
@@ -124,18 +111,18 @@ const styles = StyleSheet.create({
     width: '45%',
     margin: 10,
   },
-  bottomOptionsContainer: {
+  listItemContainer: {
     borderWidth: 1,
     borderStyle: "dotted",
-    flexDirection: "column",
-    width: '28.33%',
-    margin: 10,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   searchResultContainer: {
     borderWidth: 1,
     borderStyle: "dotted",
     flexDirection: "column",
-    width: '90%',
     margin: 10,
     justifyContent: 'center', 
     alignItems: 'center',

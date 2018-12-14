@@ -1,11 +1,9 @@
 import React from 'react';
 import {
   Image,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
@@ -71,20 +69,6 @@ export default class HomeScreen extends React.Component {
             </View>
           </View>
 
-          <View style={styles.contentContainer}>
-            <View style={[styles.bottomOptionsContainer, styles.optionScreenFilename]}>
-              <Text>FIND ICON</Text>
-            </View>
-
-            <View style={[styles.bottomOptionsContainer, styles.optionScreenFilename]}>
-              <Text>RATE ICON</Text>
-            </View>
-
-            <View style={[styles.bottomOptionsContainer, styles.optionScreenFilename]}>
-              <Text>YOUR FAV ICON</Text>
-            </View>
-          </View>
-
         </ScrollView>
 
       </View>
@@ -115,18 +99,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "dotted",
     flexDirection: "row",
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingTop: 15,
-    paddingLeft: 10,
-    paddingRight: 10,
   },
   eventDetailsContainer: {
     borderWidth: 1,
@@ -177,35 +149,5 @@ const styles = StyleSheet.create({
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    borderWidth: 1,
-    borderStyle: "dotted",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
   },
 });

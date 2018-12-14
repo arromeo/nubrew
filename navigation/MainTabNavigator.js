@@ -5,7 +5,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import FindScreen from '../screens/FindScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import RateDrinkScreen from '../screens/RateDrinkScreen';
+import FavoriteScreen from '../screens/FavoriteScreen';
+
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -39,16 +41,30 @@ FindStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const FavoriteStack = createStackNavigator({
+  Favorite: FavoriteScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+FavoriteStack.navigationOptions = {
+  tabBarLabel: 'Favorites',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-star'}
+    />
+  ),
+};
+
+const RateDrinkStack = createStackNavigator({
+  Rate: RateDrinkScreen,
+});
+
+RateDrinkStack.navigationOptions = {
+  tabBarLabel: 'Rate',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'}
     />
   ),
 };
@@ -56,5 +72,6 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   FindStack,
-  SettingsStack,
+  RateDrinkStack,
+  FavoriteStack,
 });
