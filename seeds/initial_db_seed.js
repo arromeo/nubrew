@@ -1,5 +1,26 @@
 
 exports.seed = function(knex, Promise) {
+
+  function clearAllTables() {
+    return clearDependentTables()
+      .then(()=> knex('categories').del())
+      .then(()=> knex('breweries').del())
+      .then(()=> knex('users').del())
+      .then(()=> knex('beers').del())
+      .then(()=> knex('stores').del())
+      .then(()=> knex('seasons').del())
+  }
+
+  function clearDependentTables() {
+    return Promise.All([
+      knex('beers_users').del(),
+      knex('events').del(),
+      knex('beers_stores').del(),
+      knex('beers_breweries').del(),
+      knex('store_hours').del()
+    ]);
+  }
+
   function seedCategoriesTable() {
     knex('categories').del();
     return knex('categories').insert([
@@ -30,50 +51,74 @@ exports.seed = function(knex, Promise) {
 
   function seedBreweriesTable() {
     knex('breweries').del();
-
+    return knex('breweries').insert([
+      {
+        name: '',
+        location: '',
+        description: ''
+      },
+      {
+        name: '',
+        location: '',
+        description: ''
+      },
+      {
+        name: '',
+        location: '',
+        description: ''
+      },
+      {
+        name: '',
+        location: '',
+        description: ''
+      },
+      {
+        name: '',
+        location: '',
+        description: ''
+      },
+      {
+        name: '',
+        location: '',
+        description: ''
+      }
+    ]);
   }
 
   function seedStoresTable() {
-    knex('stores').del();
 
   }
 
   function seedSeasonsTable() {
-    knex('seasons').del();
 
   }
 
   function seedUsersTable() {
-    knex('users').del();
 
   }
 
   function seedBeersTable() {
-    knex('beers').del();
 
   }
 
   function seedBeersBreweriesTable() {
-    knex('beers_breweries').del();
 
   }
 
   function seedBeersStoresTable() {
-    knex('beers_stores').del();
 
   }
 
   function seedEventsTable() {
-    knex('events').del();
 
   }
 
   function seedBeersUsersTriedTable() {
-    knex('beers_users').del();
 
   }
 
-  return seedCategoriesTable()
+  return clearAllTables()
+    .then(seedCategoriesTable)
     .then(seedSeasonsTable)
     .then(seedBreweriesTable)
     .then(seedStoresTable)
@@ -83,5 +128,4 @@ exports.seed = function(knex, Promise) {
     .then(seedBeersStoresTable)
     .then(seedEventsTable)
     .then(seedBeersUsersTriedTable);
-
 };

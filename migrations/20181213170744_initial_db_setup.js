@@ -57,7 +57,6 @@ exports.up = function(knex, Promise) {
       table.string('city');
       table.string('province');
       table.string('postal_code');
-      table.string('hours');
     });
   }
 
