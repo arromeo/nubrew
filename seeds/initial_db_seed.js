@@ -44,7 +44,8 @@ exports.seed = function(knex, Promise) {
       {id: 19, category: 'Porter'},
       {id: 20, category: 'Belgian'},
       {id: 21, category: 'Saison'},
-      {id: 22, category: 'Fruit'}
+      {id: 22, category: 'Fruit'},
+      {id: 23, category: 'Barleywine'}
     ]);
   }
 
@@ -103,6 +104,42 @@ exports.seed = function(knex, Promise) {
         city: 'Vancouver',
         province: 'BC',
         postal_code: 'V6B 1B8'
+      },
+      {
+        id: 7,
+        name: 'Driftwood',
+        description: '',
+        street_address: '476-336 Hillside Ave',
+        city: 'Victoria',
+        province: 'BC',
+        postal_code: 'V8T 1Y7'
+      },
+      {
+        id: 8,
+        name: 'Persephone Brewing Company',
+        description: '',
+        street_address: '1053 Stewart Rd',
+        city: 'Gibsons',
+        province: 'BC',
+        postal_code: 'V0N 1V7'
+      },
+      {
+        id: 9,
+        name: 'Red Truck Beer Company',
+        description: '',
+        street_address: '295 E 1st Ave',
+        city: 'Vancouver',
+        province: 'BC',
+        postal_code: 'V5T 1A7'
+      },
+      {
+        id: 10,
+        name: 'Whistler Brewing Company',
+        description: '',
+        street_address: '1045 Millar Creek Rd',
+        city: 'Whistler',
+        province: 'BC',
+        postal_code: 'V0N 1B1'
       },
     ]);
   }
@@ -228,6 +265,66 @@ exports.seed = function(knex, Promise) {
         category_id: 18,
         img_url: 'https://cdn.justwineapp.com/assets/beer/bottle/33-acres-brewing-company-33-acres-darkness_1475535649.png',
       },
+      {
+        id: 6,
+        name: 'White Bark',
+        description: '',
+        ibu: 0,
+        abv: '5.0%',
+        vote_count: 0,
+        category_id: 10,
+        img_url: 'https://bigpetesliquorstore.com/wp-content/uploads/2018/04/186718.jpg'
+      },
+      {
+        id: 7,
+        name: 'Arcus Pilsner',
+        description: '',
+        ibu: 0,
+        abv: '5.0%',
+        vote_count: 0,
+        category_id: 12,
+        img_url: 'http://hiredgunscreative.com/wp-content/uploads/2017/06/arcus-01.jpg'
+      },
+      {
+        id: 8,
+        name: 'Old Cellar Dweller',
+        description: '',
+        ibu: 100,
+        abv: '14.00%',
+        vote_count: 0,
+        category_id: 23,
+        img_url: 'https://driftwoodbeer.com/app/uploads/2016/02/OldCellarDweller.png'
+      },
+      {
+        id: 9,
+        name: 'Keller Pilsner',
+        description: '',
+        ibu: 33,
+        abv: '5.0%',
+        vote_count: 0,
+        category_id: 12,
+        img_url: 'http://www.persephonebrewing.com/wp-content/uploads/2015/10/KELLER-PILSNER-BOTTLE-MOCK-copy-1.jpg'
+      },
+      {
+        id: 10,
+        name: 'Lager',
+        description: '',
+        ibu: 0,
+        abv: '5.0%',
+        vote_count: 0,
+        category_id: 11,
+        img_url: 'https://cdn.justwineapp.com/assets/beer/bottle/red-truck-beer-company-red-truck-lager_1476827149.png'
+      },
+      {
+        id: 11,
+        name: 'Bearpaw Honey Lager',
+        description: 'Light hopped and aged for 8 weeks for a smooth mellow and slightly sweet finish.',
+        ibu: 0,
+        abv: '5.0%',
+        vote_count: 0,
+        category_id: 11,
+        img_url: 'https://www.liquormarts.ca/sites/mlcc_public_website/files/styles/product/public/product/15301_7e53d75100512c9cfe3561c388e738c3.png'
+      },
     ]);
   }
 
@@ -257,6 +354,36 @@ exports.seed = function(knex, Promise) {
         id: 5,
         beer_id: 5,
         brewery_id: 3
+      },
+      {
+        id: 6,
+        beer_id: 6,
+        brewery_id: 7
+      },
+      {
+        id: 7,
+        beer_id: 7,
+        brewery_id: 7
+      },
+      {
+        id: 8,
+        beer_id: 8,
+        brewery_id: 7
+      },
+      {
+        id: 9,
+        beer_id: 9,
+        brewery_id: 8
+      },
+      {
+        id: 10,
+        beer_id: 10,
+        brewery_id: 9
+      },
+      {
+        id: 11,
+        beer_id: 11,
+        brewery_id: 10
       },
     ])
   }
@@ -308,6 +435,61 @@ exports.seed = function(knex, Promise) {
         beer_id: 5,
         store_id: 1
       },
+      {
+        id: 10,
+        beer_id: 6,
+        store_id: 2
+      },
+      {
+        id: 11,
+        beer_id: 6,
+        store_id: 4
+      },
+      {
+        id: 12,
+        beer_id: 7,
+        store_id: 1
+      },
+      {
+        id: 13,
+        beer_id: 7,
+        store_id: 3
+      },
+      {
+        id: 14,
+        beer_id: 8,
+        store_id: 2
+      },
+      {
+        id: 15,
+        beer_id: 8,
+        store_id: 5
+      },
+      {
+        id: 16,
+        beer_id: 8,
+        store_id: 2
+      },
+      {
+        id: 17,
+        beer_id: 9,
+        store_id: 1
+      },
+      {
+        id: 18,
+        beer_id: 9,
+        store_id: 2
+      },
+      {
+        id: 19,
+        beer_id: 10,
+        store_id: 3
+      },
+      {
+        id: 20,
+        beer_id: 10,
+        store_id: 5
+      }
     ]);
   }
 
