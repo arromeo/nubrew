@@ -3,6 +3,13 @@ import { ScrollView, StyleSheet, View, Text, FlatList, Image } from 'react-nativ
 import { SearchBar } from 'react-native-elements'
 
 export default class FindScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchResult: null,
+    }
+  }
+  
   static navigationOptions = {
     title: 'Find',
   };
@@ -45,50 +52,97 @@ export default class FindScreen extends React.Component {
         image: 'url',
         id: 3,
       },
-      {
-        name: "Beer4",
-        brewery: "Brewery4",
-        description: "blah blah blah blah",
-        categories_id: "Porter",
-        seasonal_id: "Summer",
-        ibu: 150,
-        abv: 0.05,
-        vote_count: 5,
-        image: 'url',
-        id: 4
-      }
     ]
 
     const someMethod = () => {
       return;
     }
 
-    return (
-      <ScrollView style={styles.container}>
-        <View style={styles.searchContainer}>
-        <SearchBar
-          onChangeText={someMethod}
-          onClearText={someMethod}
-          placeholder='Type Here...' />
+    const beerSearch = () => {
+      return (
+        <ScrollView style={styles.container}>
+          <View style={styles.searchContainer}>
+          <SearchBar
+            onChangeText={someMethod}
+            onClearText={someMethod}
+            placeholder='Type Here...' />
 
-          <FlatList
-          data={data}
-          renderItem={({item}) => 
-            <View style={styles.listItemContainer} key={item.id}>
-              <View style={styles.searchResultContainer} key={item.id}>
-                <Text>Type: {item.categories_id} (Season: {item.seasonal_id})</Text>
-                <Text>{`${item.name} (${item.brewery})`}</Text>
-                <Text>{item.description}</Text>
-                <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
+            <FlatList
+            data={data}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => 
+              <View style={styles.listItemContainer} key={item.id}>
+                <View style={styles.searchResultContainer} key={item.id}>
+                  <Text>Type: {item.categories_id}</Text>
+                  <Text>{`${item.name} (${item.brewery})`}</Text>
+                  <Text>{item.description}</Text>
+                  <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
+                </View>
               </View>
-            </View>
-          }
-          />
-          
-        </View>
+            }
+            />
+            
+          </View>
+        </ScrollView>
+      )
+    }
+    
+    const storeSearch = () => {
+      return (
+        <ScrollView style={styles.container}>
+          <View style={styles.searchContainer}>
+          <SearchBar
+            onChangeText={someMethod}
+            onClearText={someMethod}
+            placeholder='Type Here...' />
 
-      </ScrollView>
-    );
+            <FlatList
+            data={data}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => 
+              <View style={styles.listItemContainer} key={item.id}>
+                <View style={styles.searchResultContainer} key={item.id}>
+                  <Text>{item.name}</Text>
+                  <Text>{item.location}</Text>
+                </View>
+              </View>
+            }
+            />
+            
+          </View>
+        </ScrollView>
+      )
+    }
+
+    const brewerySearch = () => {
+      return (
+        <ScrollView style={styles.container}>
+          <View style={styles.searchContainer}>
+          <SearchBar
+            onChangeText={someMethod}
+            onClearText={someMethod}
+            placeholder='Type Here...' />
+
+            <FlatList
+            data={data}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => 
+              <View style={styles.listItemContainer} key={item.id}>
+                <View style={styles.searchResultContainer} key={item.id}>
+                  <Text>{item.name}</Text>
+                  <Text>{item.location}</Text>
+                </View>
+              </View>
+            }
+            />
+            
+          </View>
+        </ScrollView>
+      )
+    }
+
+    // if search category is beer... do... else if store... do... else if brewery... do...
+    return beerSearch();
   }
 }
 

@@ -5,7 +5,9 @@ import {
   StyleSheet,
   Text,
   View,
+  FlatList,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
@@ -14,7 +16,27 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      editThisLater: 0,
+      event: [
+        {
+          id: 1,
+          name: "Event1",
+          description: "Blah blah blah blah",
+          image: '../assets/images/robot-dev.png'
+        },
+        {
+          id: 2,
+          name: "Event2",
+          description: "Blah blah blah blah",
+          image: '../assets/images/robot-dev.png'
+        }
+      ],
+      recommendedBeer: {
+        id: 1,
+        brewery: "Brewery1",
+        name: "Beer1",
+        description: "beer this beer that blah blah",
+        keywords: "not sure how this one will work, not currently in use",
+      },
     }
   }
   static navigationOptions = {
@@ -22,23 +44,33 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+    const event = this.state.event;
+    const recommendedBeer = this.state.recommendedBeer;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container}>
 
           <View style={styles.contentContainer}>
-            <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
-              <Text>Event Header</Text>
-              <MonoText style={styles.codeHighlightText}>Event details goes here blah blah blah</MonoText>
-            </View>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.eventImage}
-            />
+
+            <FlatList
+              data={event}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({item}) => 
+              <View style={styles.eventContainer}>
+                <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
+                  <Text>{item.name}</Text>
+                  <MonoText style={styles.codeHighlightText}>{item.description}</MonoText>
+                </View>
+                <Image
+                  source={
+                    __DEV__
+                      ? require('../assets/images/robot-dev.png')
+                      : require('../assets/images/robot-prod.png')
+                  }
+                  style={styles.eventImage}
+                />
+              </View>
+            }/>
           </View>
 
           <View style={styles.contentContainer}>
@@ -49,23 +81,15 @@ export default class HomeScreen extends React.Component {
                     ? require('../assets/images/robot-dev.png')
                     : require('../assets/images/robot-prod.png')
                 }
-                style={styles.recommendationImage}
+                size={100}
               />
-              <Text>Brewer + Name</Text>
-              <MonoText style={styles.codeHighlightText}>Drink Keywords Go Here</MonoText>
+              <Text>{recommendedBeer.brewery} {recommendedBeer.name}</Text>
+              <MonoText style={styles.codeHighlightText}>{recommendedBeer.description}</MonoText>
             </View>
 
             <View style={[styles.recommendationContainer, styles.homeScreenFilename]}>
-              <Image
-                source={
-                  __DEV__
-                    ? require('../assets/images/robot-dev.png')
-                    : require('../assets/images/robot-prod.png')
-                }
-                style={styles.recommendationImage}
-              />
-              <Text>Location Recommendations</Text>
-              <MonoText style={styles.codeHighlightText}>Get drink recommendations</MonoText>
+              <Ionicons name="md-medal" size={100} color="black"/>
+              <Text>Crowd Recommendations</Text>
             </View>
           </View>
 
@@ -99,6 +123,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "dotted",
     flexDirection: "row",
+    flex: 1,
+  },
+  eventContainer: {
+    flex: 1,
+    flexDirection: "row",
   },
   eventDetailsContainer: {
     borderWidth: 1,
@@ -113,6 +142,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: '45%',
     margin: 10,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
   },
   bottomOptionsContainer: {
     borderWidth: 1,
@@ -120,9 +153,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: '28.33%',
     margin: 10,
-  },
-  recommendationImage: {
-
   },
   welcomeImage: {
     width: 50,

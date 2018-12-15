@@ -20,7 +20,6 @@ export default class SettingsScreen extends React.Component {
             onClearText={someMethod}
             placeholder='Type Here...' />
         </View>
-
       </ScrollView>
 
     )

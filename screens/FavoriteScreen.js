@@ -2,67 +2,75 @@ import React from 'react';
 import { ScrollView, StyleSheet, View, Text, FlatList, Image } from 'react-native';
 
 export default class FindScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      favorites: [
+        {
+          name: "Beer1",
+          brewery: "Brewery1",
+          description: "blah blah blah blah",
+          categories_id: "Pale Ale",
+          seasonal_id: "Summer",
+          ibu: 150,
+          abv: 0.05,
+          vote_count: 5,
+          image: 'url',
+          id: 1,
+        },
+        {
+          name: "Beer2",
+          brewery: "Brewery2",
+          description: "blah blah blah blah",
+          categories_id: "Winter Ale",
+          seasonal_id: "Winter",
+          ibu: 150,
+          abv: 0.05,
+          vote_count: 5,
+          image: 'url',
+          id: 2,
+        },
+        {
+          name: "Beer3",
+          brewery: "Brewery3",
+          description: "blah blah blah blah",
+          categories_id: "Hefenweizen",
+          seasonal_id: "Summer",
+          ibu: 150,
+          abv: 0.05,
+          vote_count: 5,
+          image: 'url',
+          id: 3,
+        },
+        {
+          name: "Beer4",
+          brewery: "Brewery4",
+          description: "blah blah blah blah",
+          categories_id: "Porter",
+          seasonal_id: "Summer",
+          ibu: 150,
+          abv: 0.05,
+          vote_count: 5,
+          image: 'url',
+          id: 4
+        }
+      ]
+    }
+  }
+
   static navigationOptions = {
     title: 'Favorites',
   };
 
   render() {
 
-    const data = [
-      {
-        name: "Beer1",
-        brewery: "Brewery1",
-        description: "blah blah blah blah",
-        categories_id: "Pale Ale",
-        seasonal_id: "Summer",
-        ibu: 150,
-        abv: 0.05,
-        vote_count: 5,
-        image: 'url',
-        id: 1,
-      },
-      {
-        name: "Beer2",
-        brewery: "Brewery2",
-        description: "blah blah blah blah",
-        categories_id: "Winter Ale",
-        seasonal_id: "Winter",
-        ibu: 150,
-        abv: 0.05,
-        vote_count: 5,
-        image: 'url',
-        id: 2,
-      },
-      {
-        name: "Beer3",
-        brewery: "Brewery3",
-        description: "blah blah blah blah",
-        categories_id: "Hefenweizen",
-        seasonal_id: "Summer",
-        ibu: 150,
-        abv: 0.05,
-        vote_count: 5,
-        image: 'url',
-        id: 3,
-      },
-      {
-        name: "Beer4",
-        brewery: "Brewery4",
-        description: "blah blah blah blah",
-        categories_id: "Porter",
-        seasonal_id: "Summer",
-        ibu: 150,
-        abv: 0.05,
-        vote_count: 5,
-        image: 'url',
-        id: 4
-      }
-    ]
-
+    const data = this.state.favorites;
+    
     return (
       <ScrollView style={styles.container}>
         <FlatList
           data={data}
+          keyExtractor={item => item.id.toString()}
           renderItem={({item}) => 
           <View style={styles.listItemContainer} key={item.id}>
             <Image
