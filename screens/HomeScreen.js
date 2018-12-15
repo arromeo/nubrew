@@ -48,7 +48,6 @@ export default class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    console.log("teeeeeeeeeeeeeeeeeeeeeeeeeest");
     fetch(`${port.DEV_PORT}/api/test`)
       .then(res => res.json())
       .then(edit => this.setState ({
