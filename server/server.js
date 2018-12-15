@@ -11,29 +11,58 @@ app.get('/api/test', (request, response) => {
 });
 
 app.get('/api/index', (request, response) => {
+  // Fetches two events and a featured beer that's relevent to the index page.
   knex
     .select("*")
     .from("events")
     .then((EventsResults) => {
       knex('beers')
-      .select(['*', 'beers.name AS beer_name', 'breweries.name AS brewery_name'])
+      .select([
+        'beers.name AS beer_name',
+        'breweries.name AS brewery_name',
+        'img_url',
+        'category',
+        'ibu',
+        'abv'  
+      ])
       .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
       .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
       .innerJoin('categories', 'beers.category_id', 'categories.id')
       .then((beerResults) => {
-        console.log(beerResults);
         response.json({
-          event1: EventsResults[0],
-          event2: EventsResults[1],
-          beerName: beerResults[0].beer_name,
-          breweryName: beerResults[0].brewery_name,
-          beerIbu: beerResults[0].ibu,
-          category: beerResults[0].category
+          events: EventsResults,
+          featured_beer: beerResults
         })
       })
       .catch((err) => {
         console.error(err);
       });
+    });
+});
+
+app.get('/api/user/:user_id/favorites', (request, response) => {
+  knex
+    .select([
+      'category',
+      'beers.name AS beer_name',
+      'breweries.name AS brewery_name',
+      'ibu',
+      'abv',
+      'img_url'])
+    .from('beers_users_tried')
+    .innerJoin('beers', 'beers_users_tried.beer_id', 'beers.id')
+    .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
+    .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+    .innerJoin('categories', 'beers.category_id', 'categories.id')
+    .where('beers_users_tried.user_id', request.params.user_id)
+    .then((favoritesResult) => {
+      console.log(favoritesResult);
+      response.json({
+        favoritesResult
+      })
+    })
+    .catch((err) => {
+      console.error(err);
     });
 });
 
