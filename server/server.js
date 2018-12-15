@@ -10,7 +10,6 @@ app.get('/api/test', (request, response) => {
   response.json({result: 'This should be the new fetched data!'});
 });
 
-
 // Fetches two events and a featured beer that's relevent to the index page.
 app.get('/api/index', (request, response) => {
   knex
@@ -48,6 +47,24 @@ app.get('/api/index', (request, response) => {
     });
 });
 
+// Returns information needed for user profile page
+app.get('/api/user/:user_id', (request, response) => {
+  knex
+  .select(
+    'first_name',
+    'last_name',
+    'email')
+  .from('users')
+  .where('users.id', request.params.user_id)
+  .then((result) => {
+    response.json({
+      result
+    })
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+})
 
 // Returns an array of beers currently in favorites.
 app.get('/api/user/:user_id/favorites', (request, response) => {
