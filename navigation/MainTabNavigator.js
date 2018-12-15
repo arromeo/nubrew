@@ -9,7 +9,6 @@ import RateDrinkScreen from '../screens/RateDrinkScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import CameraScreen from '../screens/CameraScreen';
 
-
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
@@ -89,5 +88,5 @@ export default createBottomTabNavigator({
   FindStack,
   RateDrinkStack,
   FavoriteStack,
-  CameraStack
+  CameraStack,
 });

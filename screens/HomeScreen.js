@@ -9,6 +9,7 @@ import {
   Text,
   View,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { WebBrowser } from 'expo';
@@ -61,6 +62,8 @@ export default class HomeScreen extends React.Component {
   render() {
     const event = this.state.event;
     const recommendedBeer = this.state.recommendedBeer;
+    const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.container}>
       <Text>{this.state.editThisLater}</Text>
@@ -71,7 +74,18 @@ export default class HomeScreen extends React.Component {
               data={event}
               keyExtractor={item => item.id.toString()}
               renderItem={({item}) => 
-              <View style={styles.eventContainer}>
+              <TouchableOpacity
+                style={[styles.eventContainer, styles.homeScreenFilename]}
+                onPress={() => {
+                  console.log(item);
+                  navigate({
+                    routeName: 'Find',
+                    params: {
+                      type: 'Event',
+                      item
+                    }
+                  });}}
+                >
                 <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
                   <Text>{item.name}</Text>
                   <MonoText style={styles.codeHighlightText}>{item.description}</MonoText>
@@ -84,12 +98,22 @@ export default class HomeScreen extends React.Component {
                   }
                   style={styles.eventImage}
                 />
-              </View>
+              </TouchableOpacity>
             }/>
           </View>
 
           <View style={styles.contentContainer}>
-            <View style={[styles.recommendationContainer, styles.homeScreenFilename]}>
+            <TouchableOpacity 
+              style={[styles.recommendationContainer, styles.homeScreenFilename]}
+              onPress={() => {
+                navigate({
+                  routeName: 'Find',
+                  params: {
+                    type: 'Beer',
+                    recommendedBeer
+                  }
+                });}}
+              >
               <Image
                 source={
                   __DEV__
@@ -100,12 +124,21 @@ export default class HomeScreen extends React.Component {
               />
               <Text>{recommendedBeer.brewery} {recommendedBeer.name}</Text>
               <MonoText style={styles.codeHighlightText}>{recommendedBeer.description}</MonoText>
-            </View>
-
-            <View style={[styles.recommendationContainer, styles.homeScreenFilename]}>
+            </TouchableOpacity>
+     
+            <TouchableOpacity 
+              style={[styles.recommendationContainer, styles.homeScreenFilename]}
+              onPress={() => {
+                navigate({
+                  routeName: 'Find',
+                  params: {
+                    type: 'CrowdRecommendations',
+                  }
+                });}}
+            >
               <Ionicons name="md-medal" size={100} color="black"/>
               <Text>Crowd Recommendations</Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
         </ScrollView>
