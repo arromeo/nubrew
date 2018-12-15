@@ -1,3 +1,7 @@
+
+// make sure this gets deleted at the end and figure out how to set-up proxy
+const port = require('../dev_port.json');
+
 import React from 'react';
 import { ScrollView, TouchableOpacity, StyleSheet, View, Text } from 'react-native';
 import { Camera, Permissions } from 'expo';

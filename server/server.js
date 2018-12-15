@@ -4,7 +4,7 @@ const app = express();
 const PORT = 5000;
 
 app.get('/api/test', (request, response) => {
-  response.json({result: 'string'});
+  response.json({result: 'This should be the new fetched data!'});
 });
 
 app.listen(PORT, () => {

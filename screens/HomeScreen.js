@@ -1,3 +1,6 @@
+// make sure this gets deleted at the end and figure out how to set-up proxy
+const port = require('../dev_port.json');
+
 import React from 'react';
 import {
   Image,
@@ -9,13 +12,13 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { WebBrowser } from 'expo';
-
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      editThisLater: 'this should change if the fetch works',
       event: [
         {
           id: 1,
@@ -44,8 +47,8 @@ export default class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    
-    fetch('http://10.0.2.2:5000/api/test')
+    console.log("teeeeeeeeeeeeeeeeeeeeeeeeeest");
+    fetch(`${port.DEV_PORT}/api/test`)
       .then(res => res.json())
       .then(edit => this.setState ({
         editThisLater: edit.result
@@ -60,8 +63,8 @@ export default class HomeScreen extends React.Component {
     const recommendedBeer = this.state.recommendedBeer;
     return (
       <View style={styles.container}>
+      <Text>{this.state.editThisLater}</Text>
         <ScrollView style={styles.container}>
-          <Text>-->{this.state.editThisLater}</Text>
           <View style={styles.contentContainer}>
 
             <FlatList
