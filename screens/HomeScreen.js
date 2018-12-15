@@ -43,13 +43,25 @@ export default class HomeScreen extends React.Component {
     title: 'NuBrew',
   };
 
+  componentDidMount() {
+    
+    fetch('http://10.0.2.2:5000/api/test')
+      .then(res => res.json())
+      .then(edit => this.setState ({
+        editThisLater: edit.result
+      }))
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   render() {
     const event = this.state.event;
     const recommendedBeer = this.state.recommendedBeer;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container}>
-
+          <Text>-->{this.state.editThisLater}</Text>
           <View style={styles.contentContainer}>
 
             <FlatList
