@@ -71,7 +71,7 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
 });
 
 
-// Return beers that a store has in inventory.
+// Returns beers sold by store.
 app.get('/api/store/:store_id/inventory', (request, response) => {
   knex
     .select([
@@ -94,6 +94,30 @@ app.get('/api/store/:store_id/inventory', (request, response) => {
       });
     })
 });
+
+// Returns list of beers made by brewery.
+app.get('/api/brewery/:brewery_id/beers', (request, response) => {
+  knex
+    .select([
+      'category',
+      'beers.name AS beer_name',
+      'breweries.name AS brewery_name',
+      'ibu',
+      'abv',
+      'img_url'])
+    .from('beers_breweries')
+    .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+    .innerJoin('beers', 'beers_breweries.beer_id', 'beers.id')
+    .innerJoin('categories', 'beers.category_id', 'categories.id')
+    .where('beers_breweries.brewery_id', request.params.brewery_id)
+    .then((result) => {
+      response.json({
+        result
+      });
+    })
+});
+
+
 
 app.listen(PORT, () => {
   console.log('Listening on port 5000....');
