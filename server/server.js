@@ -14,8 +14,13 @@ app.get('/api/test', (request, response) => {
 // Fetches two events and a featured beer that's relevent to the index page.
 app.get('/api/index', (request, response) => {
   knex
-    .select("*")
+    .select(
+      'details',
+      'events.name AS event_name',
+      'stores.name AS store_name',
+      'time')
     .from("events")
+    .innerJoin('stores', 'events.store_id', 'stores.id')
     .then((eventsResults) => {
       knex('beers')
       .select([
@@ -93,6 +98,9 @@ app.get('/api/store/:store_id/inventory', (request, response) => {
         result
       });
     })
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 // Returns list of beers made by brewery.
@@ -115,9 +123,31 @@ app.get('/api/brewery/:brewery_id/beers', (request, response) => {
         result
       });
     })
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
-
+// Returns list of upcoming events.
+app.get('/api/events', (request, response) => {
+  knex
+    .select([
+      'events.details AS event_details',
+      'stores.name AS store_name',
+      'events.name AS event_name',
+      'time'
+      ])
+    .from('events')
+    .innerJoin('stores', 'events.store_id', 'stores.id')
+    .then((result) => {
+      response.json({
+        result
+      })
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
 
 app.listen(PORT, () => {
   console.log('Listening on port 5000....');
