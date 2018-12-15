@@ -74,7 +74,7 @@ const ProfileStack = createStackNavigator({
 });
 
 ProfileStack.navigationOptions = {
-  tabBarLabel: 'Camera',
+  tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
