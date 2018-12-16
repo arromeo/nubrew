@@ -1,5 +1,4 @@
 const express = require('express');
-const dataHelper = require('./helpers/dataHelper.js');
 const knexConfig  = require("../knexfile");
 const knex        = require("knex")(knexConfig['development']);
 
@@ -7,7 +6,7 @@ const app = express();
 const PORT = 5000;
 
 app.get('/api/test', (request, response) => {
-  response.json({result: 'This should be the new fetched data!'});
+  response.json({result: 'Connection to NuBeer API successful!'});
 });
 
 // Fetches two events and a featured beer that's relevent to the index page.
@@ -94,6 +93,64 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
     });
 });
 
+// Returns list of recommended beers.
+// TODO: This currently contains a list of all untried beers. A recommendation
+// algorithm should be implemented here.
+app.get('/api/user/:user_id/recommended', (request, response) => {
+
+  knex
+    .select('beer_id')
+    .from('beers_users_tried')
+    .where('user_id', request.params.user_id)
+    .then((triedResult) => {
+      triedResult = triedResult.map(item => item.beer_id);
+      knex
+        .select([
+          'category',
+          'beers.name AS beer_name',
+          'breweries.name AS brewery_name',
+          'ibu',
+          'abv',
+          'img_url'])
+        .from('beers')
+        .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
+        .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+        .innerJoin('categories', 'beers.category_id', 'categories.id')
+        .whereNotIn('beers.id', triedResult)
+        .then((result) => {
+          response.json({result});
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+})
+
+// Returns a list of all beers.
+app.get('/api/beers', (request, response) => {
+  knex
+  .select([
+    'category',
+    'beers.name AS beer_name',
+    'breweries.name AS brewery_name',
+    'ibu',
+    'abv',
+    'img_url'])
+  .from('beers')
+  .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
+  .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+  .innerJoin('categories', 'beers.category_id', 'categories.id')
+  .then((result) => {
+    response.json({result});
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+})
 
 // Returns beers sold by store.
 app.get('/api/store/:store_id/inventory', (request, response) => {
