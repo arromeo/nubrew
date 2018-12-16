@@ -19,36 +19,9 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-<<<<<<< HEAD
-      editThisLater: 'this should change if the fetch works',
-      event: [
-        {
-          id: 1,
-          event_name: "Event1",
-          details: "Blah blah blah blah",
-          store_name: "place1",
-          image: '../assets/images/robot-dev.png'
-        },
-        {
-          id: 2,
-          event_name: "Event2",
-          details: "Blah blah blah blah",
-          store_name: "place2",
-          image: '../assets/images/robot-dev.png'
-        }
-      ],
-      recommendedBeer: {
-        id: 1,
-        brewery: "Brewery1",
-        name: "Beer1",
-        description: "beer this beer that blah blah",
-        keywords: "not sure how this one will work, not currently in use",
-      },
-=======
-      event: "Loading",
-      recommendedBeer: "Loading",
-      loading: "false",
->>>>>>> test
+      event: null,
+      recommendedBeer: null,
+      loading: true,
     }
   }
   static navigationOptions = {
@@ -65,6 +38,7 @@ export default class HomeScreen extends React.Component {
       .then(data => this.setState ({
         event: data.result.events,
         recommendedBeer: data.result.featured_beer[this.randomGen(data.result.featured_beer)],
+        loading: false
       }))
       .catch(error => {
         console.error(error);
@@ -78,75 +52,80 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container}>
-          <View style={styles.contentContainer}>
+        {this.state.loading && 
+          <View><Text>LoadingScreen goes here</Text></View>
+        }
+        {!this.state.loading && 
+          <ScrollView style={styles.container}>
+            <View style={styles.contentContainer}>
 
-            <FlatList
-              data={event}
-              keyExtractor={item => item.id.toString()}
-              renderItem={({item}) => 
-              <TouchableOpacity
-                style={[styles.eventContainer, styles.homeScreenFilename]}
+              <FlatList
+                data={event}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({item}) => 
+                <TouchableOpacity
+                  style={[styles.eventContainer, styles.homeScreenFilename]}
+                  onPress={() => {
+                    navigate({
+                      routeName: 'Find',
+                      params: {
+                        type: 'Event',
+                        item
+                      }
+                    });}}
+                  >
+                  <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
+                    <Text>{item.event_name} at {item.store_name}</Text>
+                    <MonoText style={styles.codeHighlightText}>{item.details.split('').slice(0, 60).join("")}...</MonoText>
+                  </View>
+                </TouchableOpacity>
+              }/>
+            </View>
+
+            <View style={styles.contentContainer}>
+              <TouchableOpacity 
+                style={[styles.recommendationContainer, styles.homeScreenFilename]}
                 onPress={() => {
                   navigate({
                     routeName: 'Find',
                     params: {
-                      type: 'Event',
-                      item
+                      type: 'Beer',
+                      recommendedBeer
                     }
                   });}}
                 >
-                <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
-                  <Text>{item.event_name} at {item.store_name}</Text>
-                  <MonoText style={styles.codeHighlightText}>{item.details.split('').slice(0, 60).join("")}...</MonoText>
-                </View>
+                <Image
+                  source={
+                    __DEV__
+                      ? require('../assets/images/robot-dev.png')
+                      : require('../assets/images/robot-prod.png')
+                  }
+                  size={100}
+                />
+                <Text>{recommendedBeer.brewery_name}'s</Text>
+                <Text>{recommendedBeer.beer_name}</Text>
+                <MonoText style={styles.codeHighlightText}>IBU: {recommendedBeer.ibu}</MonoText>
+                <MonoText style={styles.codeHighlightText}>ABV: {recommendedBeer.abv}</MonoText>
               </TouchableOpacity>
-            }/>
-          </View>
-
-          <View style={styles.contentContainer}>
-            <TouchableOpacity 
-              style={[styles.recommendationContainer, styles.homeScreenFilename]}
-              onPress={() => {
-                navigate({
-                  routeName: 'Find',
-                  params: {
-                    type: 'Beer',
-                    recommendedBeer
-                  }
-                });}}
+      
+              <TouchableOpacity 
+                style={[styles.recommendationContainer, styles.homeScreenFilename]}
+                onPress={() => {
+                  navigate({
+                    routeName: 'Find',
+                    params: {
+                      type: 'CrowdRecommendations',
+                    }
+                  });}}
               >
-              <Image
-                source={
-                  __DEV__
-                    ? require('../assets/images/robot-dev.png')
-                    : require('../assets/images/robot-prod.png')
-                }
-                size={100}
-              />
-              <Text>{recommendedBeer.brewery_name}'s</Text>
-              <Text>{recommendedBeer.beer_name}</Text>
-              <MonoText style={styles.codeHighlightText}>IBU: {recommendedBeer.ibu}</MonoText>
-              <MonoText style={styles.codeHighlightText}>ABV: {recommendedBeer.abv}</MonoText>
-            </TouchableOpacity>
-     
-            <TouchableOpacity 
-              style={[styles.recommendationContainer, styles.homeScreenFilename]}
-              onPress={() => {
-                navigate({
-                  routeName: 'Find',
-                  params: {
-                    type: 'CrowdRecommendations',
-                  }
-                });}}
-            >
-              <Ionicons name="md-medal" size={100} color="black"/>
-              <Text>Crowd</Text>
-              <Text>Recommendations</Text>
-            </TouchableOpacity>
-          </View>
+                <Ionicons name="md-medal" size={100} color="black"/>
+                <Text>Crowd</Text>
+                <Text>Recommendations</Text>
+              </TouchableOpacity>
+            </View>
 
-        </ScrollView>
+          </ScrollView>
+        }
 
       </View>
     );
