@@ -225,6 +225,11 @@ app.get('/api/events', (request, response) => {
     });
 });
 
+app.get('/api/find', (request, response) => {
+  console.log(request.body);
+  response.json(request.body);
+})
+
 app.listen(PORT, () => {
   console.log('Listening on port 5000....');
 });

@@ -10,8 +10,9 @@ export default class FindScreen extends React.Component {
     super(props);
     this.state = {
       input: "",
-      searchCategory: "Select...",
+      pickerValue: "Select...",
       searchResult: null,
+      loading: true,
     }
   }
   
@@ -21,84 +22,113 @@ export default class FindScreen extends React.Component {
 
   render() {
 
-    const searchDatabase = () => {
-      return;
-    }
-
-    const selectSearchCriteria = (category) => {
-      this.setState = {
-        searchCategory: category,
+    const searchDatabase = (value, category) => {
+      const data = {
+        category: category,
+        keywords: value,
       }
+      return fetch(`${port}/find`, 
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify(data),
+        })
+      .then(response => console.log(response))
+      .catch((error) => {
+        console.error(error);
+      })
     }
 
-    const beerSearch = () => {
+    const beerSearch = (data) => {
       return (
-        <FlatList
-        data={this.state.searchResult}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => 
-          <View style={styles.listItemContainer} key={item.id}>
-            <View style={styles.searchResultContainer} key={item.id}>
-              <Text>Type: {item.categories_id}</Text>
-              <Text>{`${item.name} (${item.brewery})`}</Text>
-              <Text>{item.description}</Text>
-              <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
+        <View>
+          {this.state.loading &&
+            <View><Text>LoadingScreen goes here</Text></View>
+          }
+          <FlatList
+          data={this.state.searchResult}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => 
+            <View style={styles.listItemContainer} key={item.id}>
+              <View style={styles.searchResultContainer} key={item.id}>
+                <Text>Type: {item.categories_id}</Text>
+                <Text>{`${item.name} (${item.brewery})`}</Text>
+                <Text>{item.description}</Text>
+                <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
+              </View>
             </View>
-          </View>
-        }
-        />
+          }
+          />
+        </View>
       )
     }
     
-    const storeSearch = () => {
+    const storeSearch = (data) => {
       return (
-        <FlatList
-        data={data}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => 
-          <View style={styles.listItemContainer} key={item.id}>
-            <View style={styles.searchResultContainer} key={item.id}>
-              <Text>{item.name}</Text>
-              <Text>{item.location}</Text>
+        <View>
+          {this.state.loading &&
+            <View><Text>LoadingScreen goes here</Text></View>
+          }
+          <FlatList
+          data={data}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => 
+            <View style={styles.listItemContainer} key={item.id}>
+              <View style={styles.searchResultContainer} key={item.id}>
+                <Text>{item.name}</Text>
+                <Text>{item.location}</Text>
+              </View>
             </View>
-          </View>
-        }
-        />
+          }
+          />
+        </View>
       )
     }
 
-    const brewerySearch = () => {
+    const brewerySearch = (data) => {
       return (
-        <FlatList
-        data={data}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => 
-          <View style={styles.listItemContainer} key={item.id}>
-            <View style={styles.searchResultContainer} key={item.id}>
-              <Text>{item.name}</Text>
-              <Text>{item.location}</Text>
+        <View>
+          {this.state.loading &&
+            <View><Text>LoadingScreen goes here</Text></View>
+          }
+          <FlatList
+          data={data}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => 
+            <View style={styles.listItemContainer} key={item.id}>
+              <View style={styles.searchResultContainer} key={item.id}>
+                <Text>{item.name}</Text>
+                <Text>{item.location}</Text>
+              </View>
             </View>
-          </View>
-        }
-        />
+          }
+          />
+        </View>
       )
     }
 
-    const eventSearch = () => {
+    const eventSearch = (data) => {
       return (
-        <FlatList
-        data={data}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => 
-          <View style={styles.listItemContainer} key={item.id}>
-            <View style={styles.searchResultContainer} key={item.id}>
-              <Text>{item.name}</Text>
-              <Text>{item.location}</Text>
-              <Text>{item.details}</Text>
+        <View>
+          {this.state.loading &&
+            <View><Text>LoadingScreen goes here</Text></View>
+          }
+          <FlatList
+          data={data}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => 
+            <View style={styles.listItemContainer} key={item.id}>
+              <View style={styles.searchResultContainer} key={item.id}>
+                <Text>{item.name}</Text>
+                <Text>{item.location}</Text>
+                <Text>{item.details}</Text>
+              </View>
             </View>
-          </View>
-        }
-        />
+          }
+          />
+        </View>
       )
     }
 
@@ -113,11 +143,11 @@ export default class FindScreen extends React.Component {
             onChangeText={(text) => { this.setState({input: text}) }}
             value={this.state.input}
             placeholder='Type Here...' />
-          <View style={styles.searchCategoryContainer}>
+          <View style={styles.pickerValueContainer}>
             <Picker
-              selectedValue={{height: 50, width: '100%'}}
-              style={styles.searchCategoryContainer}
-              onValueChange={(itemValue, itemIndex) => this.setState({searchCategory: itemValue})}>
+              selectedValue={this.state.pickerValue}
+              style={styles.pickerValueContainer}
+              onValueChange={(itemValue) => this.setState({pickerValue: itemValue})}>
               <Picker.Item label="Beers" value="Beer" />
               <Picker.Item label="Breweries" value="Brewery" />
               <Picker.Item label="Stores" value="Store" />
@@ -128,23 +158,20 @@ export default class FindScreen extends React.Component {
           
         <Button 
           title="Search"
-          onPress={() => searchDatabase()}
+          onPress={() => searchDatabase(this.state.input, this.state.pickerValue)}
           />
-        {this.state.loading &&
-          <View><Text>LoadingScreen goes here</Text></View>
-        }
         {!this.state.loading &&
           <View style={styles.searchContainer}>
-            {this.state.searchCategory === "Beer" &&
+            {this.state.pickerValue === "Beer" &&
               beerSearch()
             }
-            {this.state.searchCategory === "Brewery" &&
+            {this.state.pickerValue === "Brewery" &&
               brewerySearch()
             }
-            {this.state.searchCategory === "Store" &&
+            {this.state.pickerValue === "Store" &&
               storeSearch()
             }
-            {this.state.searchCategory === "Event" &&
+            {this.state.pickerValue === "Event" &&
               eventSearch()
             }
           </View>
@@ -201,7 +228,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
   },
-  searchCategoryContainer: {
+  pickerValueContainer: {
     flex: 0.5,
     width: '100%',
     justifyContent: 'center', 
