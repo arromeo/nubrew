@@ -15,6 +15,7 @@ app.get('/api/index', (request, response) => {
   knex
     .select(
       'details',
+      'events.id',
       'events.name AS event_name',
       'stores.name AS store_name',
       'time')

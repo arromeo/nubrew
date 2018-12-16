@@ -23,14 +23,16 @@ export default class HomeScreen extends React.Component {
       event: [
         {
           id: 1,
-          name: "Event1",
-          description: "Blah blah blah blah",
+          event_name: "Event1",
+          details: "Blah blah blah blah",
+          store_name: "place1",
           image: '../assets/images/robot-dev.png'
         },
         {
           id: 2,
-          name: "Event2",
-          description: "Blah blah blah blah",
+          event_name: "Event2",
+          details: "Blah blah blah blah",
+          store_name: "place2",
           image: '../assets/images/robot-dev.png'
         }
       ],
@@ -47,11 +49,16 @@ export default class HomeScreen extends React.Component {
     title: 'NuBrew',
   };
 
+  randomGen = (data) => {
+    return Math.floor(Math.random() * data.length);
+  }
+
   componentDidMount() {
-    fetch(`${port.DEV_PORT}/api/test`)
+    fetch(`${port.DEV_PORT}/api/index`)
       .then(res => res.json())
-      .then(edit => this.setState ({
-        editThisLater: edit.result
+      .then(data => this.setState ({
+        event: data.result.events,
+        recommendedBeer: data.result.featured_beer[this.randomGen(data.result.featured_beer)],
       }))
       .catch(error => {
         console.error(error);
@@ -65,7 +72,6 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-      <Text>{this.state.editThisLater}</Text>
         <ScrollView style={styles.container}>
           <View style={styles.contentContainer}>
 
@@ -85,17 +91,9 @@ export default class HomeScreen extends React.Component {
                   });}}
                 >
                 <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
-                  <Text>{item.name}</Text>
-                  <MonoText style={styles.codeHighlightText}>{item.description}</MonoText>
+                  <Text>{item.event_name} at {item.store_name}</Text>
+                  <MonoText style={styles.codeHighlightText}>{item.details.split('').slice(0, 60).join("")}...</MonoText>
                 </View>
-                <Image
-                  source={
-                    __DEV__
-                      ? require('../assets/images/robot-dev.png')
-                      : require('../assets/images/robot-prod.png')
-                  }
-                  style={styles.eventImage}
-                />
               </TouchableOpacity>
             }/>
           </View>
@@ -120,8 +118,10 @@ export default class HomeScreen extends React.Component {
                 }
                 size={100}
               />
-              <Text>{recommendedBeer.brewery} {recommendedBeer.name}</Text>
-              <MonoText style={styles.codeHighlightText}>{recommendedBeer.description}</MonoText>
+              <Text>{recommendedBeer.brewery_name}'s</Text>
+              <Text>{recommendedBeer.beer_name}</Text>
+              <MonoText style={styles.codeHighlightText}>IBU: {recommendedBeer.ibu}</MonoText>
+              <MonoText style={styles.codeHighlightText}>ABV: {recommendedBeer.abv}</MonoText>
             </TouchableOpacity>
      
             <TouchableOpacity 
@@ -135,7 +135,8 @@ export default class HomeScreen extends React.Component {
                 });}}
             >
               <Ionicons name="md-medal" size={100} color="black"/>
-              <Text>Crowd Recommendations</Text>
+              <Text>Crowd</Text>
+              <Text>Recommendations</Text>
             </TouchableOpacity>
           </View>
 
@@ -169,6 +170,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "dotted",
     flexDirection: "row",
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
   },
   eventContainer: {
@@ -179,7 +182,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "dotted",
     flexDirection: "column",
-    width: '70%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 10,
   },
   recommendationContainer: {
