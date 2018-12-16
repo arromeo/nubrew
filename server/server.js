@@ -71,6 +71,7 @@ app.get('/api/user/:user_id', (request, response) => {
 app.get('/api/user/:user_id/favorites', (request, response) => {
   knex
     .select([
+      'beers_users_tried.beer_id AS id',
       'category',
       'beers.name AS beer_name',
       'breweries.name AS brewery_name',
@@ -89,7 +90,7 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
       });
     })
     .catch((err) => {
-      console.error(err);
+      console.error("This is the error " + err);
     });
 });
 

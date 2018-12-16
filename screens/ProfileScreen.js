@@ -7,14 +7,44 @@ import { ScrollView, TouchableOpacity, StyleSheet, View, Text } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 
 export default class CameraScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: true,
+      user: null,
+    }
+  }
   static navigationOptions = {
     title: 'Profile',
   };
 
+  componentDidMount() {
+    // TODO find out a way to pass userID dynamically between stacks
+    let userId = 1;
+    let url = `${port.DEV_PORT}/api/user/${userId}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => this.setState ({
+        loading: false,
+        user: data.result[0]
+      }))
+  }
 
   render() {
+    const user = this.state.user;
+
     return (
-      <Text>PROFILE INFORMATION</Text>
+      <ScrollView style={styles.container}>
+        {this.state.loading && 
+          <View><Text>LoadingScreen goes here</Text></View>
+        }
+        {!this.state.loading &&
+          <View style={styles.profileContainer}>
+            <Text>Name: {user.first_name} {user.last_name}</Text>
+            <Text>Email: {user.email}</Text>
+          </View>
+        }
+      </ScrollView>
     )
   }
 }
@@ -25,14 +55,15 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#fff',
   },
-  cameraIconContainer: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
+  profileContainer: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderWidth: 0.5,
+    borderColor: "black",
+    borderWidth: 1,
+    borderStyle: "dotted",
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
   },
-  cameraIcon: {
-    paddingBottom: 20,
-  }
 })
