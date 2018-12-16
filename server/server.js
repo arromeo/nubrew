@@ -5,6 +5,8 @@ const knex        = require("knex")(knexConfig['development']);
 const app = express();
 const PORT = 5000;
 
+app.use(require("body-parser").json())
+
 app.get('/api/test', (request, response) => {
   response.json({result: 'Connection to NuBeer API successful!'});
 });
@@ -225,9 +227,17 @@ app.get('/api/events', (request, response) => {
     });
 });
 
-app.get('/api/find', (request, response) => {
-  console.log(request.body);
-  response.json(request.body);
+app.post('/api/find', (request, response) => {
+  switch (request.body.category) {
+    case "Beer":
+      break;
+    case "Beer":
+    break;
+    case "Beer":
+    break;
+    case "Beer":
+    break;
+  }
 })
 
 app.listen(PORT, () => {

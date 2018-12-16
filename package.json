@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
+    "body-parser": "^1.18.3",
     "expo": "^31.0.2",
     "express": "^4.16.4",
     "install": "^0.12.2",

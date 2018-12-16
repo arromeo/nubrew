@@ -10,7 +10,7 @@ export default class FindScreen extends React.Component {
     super(props);
     this.state = {
       input: "",
-      pickerValue: "Select...",
+      pickerValue: "Beer",
       searchResult: null,
       loading: true,
     }
@@ -27,15 +27,16 @@ export default class FindScreen extends React.Component {
         category: category,
         keywords: value,
       }
-      return fetch(`${port}/find`, 
+      return fetch(`${port.DEV_PORT}/api/find`, 
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         })
-      .then(response => console.log(response))
+      .then(res => res.json())
+      .then(data => this.setState({
+        searchResult: data.result
+      }))
       .catch((error) => {
         console.error(error);
       })
