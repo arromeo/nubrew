@@ -2,13 +2,15 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, FlatList, Image } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, FlatList, Picker, Button } from 'react-native';
 import { SearchBar } from 'react-native-elements'
 
 export default class FindScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      input: "",
+      searchCategory: "Select...",
       searchResult: null,
     }
   }
@@ -18,134 +20,137 @@ export default class FindScreen extends React.Component {
   };
 
   render() {
-    const data = [
-      {
-        name: "Beer1",
-        brewery: "Brewery1",
-        description: "blah blah blah blah",
-        categories_id: "Pale Ale",
-        seasonal_id: "Summer",
-        ibu: 150,
-        abv: 0.05,
-        vote_count: 5,
-        image: 'url',
-        id: 1,
-      },
-      {
-        name: "Beer2",
-        brewery: "Brewery2",
-        description: "blah blah blah blah",
-        categories_id: "Winter Ale",
-        seasonal_id: "Winter",
-        ibu: 150,
-        abv: 0.05,
-        vote_count: 5,
-        image: 'url',
-        id: 2,
-      },
-      {
-        name: "Beer3",
-        brewery: "Brewery3",
-        description: "blah blah blah blah",
-        categories_id: "Hefenweizen",
-        seasonal_id: "Summer",
-        ibu: 150,
-        abv: 0.05,
-        vote_count: 5,
-        image: 'url',
-        id: 3,
-      },
-    ]
 
-    const someMethod = () => {
+    const searchDatabase = () => {
       return;
+    }
+
+    const selectSearchCriteria = (category) => {
+      this.setState = {
+        searchCategory: category,
+      }
     }
 
     const beerSearch = () => {
       return (
-        <ScrollView style={styles.container}>
-          <View style={styles.searchContainer}>
-          <SearchBar
-            onChangeText={someMethod}
-            onClearText={someMethod}
-            placeholder='Type Here...' />
-
-            <FlatList
-            data={data}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => 
-              <View style={styles.listItemContainer} key={item.id}>
-                <View style={styles.searchResultContainer} key={item.id}>
-                  <Text>Type: {item.categories_id}</Text>
-                  <Text>{`${item.name} (${item.brewery})`}</Text>
-                  <Text>{item.description}</Text>
-                  <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
-                </View>
-              </View>
-            }
-            />
-            
+        <FlatList
+        data={this.state.searchResult}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => 
+          <View style={styles.listItemContainer} key={item.id}>
+            <View style={styles.searchResultContainer} key={item.id}>
+              <Text>Type: {item.categories_id}</Text>
+              <Text>{`${item.name} (${item.brewery})`}</Text>
+              <Text>{item.description}</Text>
+              <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
+            </View>
           </View>
-        </ScrollView>
+        }
+        />
       )
     }
     
     const storeSearch = () => {
       return (
-        <ScrollView style={styles.container}>
-          <View style={styles.searchContainer}>
-          <SearchBar
-            onChangeText={someMethod}
-            onClearText={someMethod}
-            placeholder='Type Here...' />
-
-            <FlatList
-            data={data}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => 
-              <View style={styles.listItemContainer} key={item.id}>
-                <View style={styles.searchResultContainer} key={item.id}>
-                  <Text>{item.name}</Text>
-                  <Text>{item.location}</Text>
-                </View>
-              </View>
-            }
-            />
-            
+        <FlatList
+        data={data}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => 
+          <View style={styles.listItemContainer} key={item.id}>
+            <View style={styles.searchResultContainer} key={item.id}>
+              <Text>{item.name}</Text>
+              <Text>{item.location}</Text>
+            </View>
           </View>
-        </ScrollView>
+        }
+        />
       )
     }
 
     const brewerySearch = () => {
       return (
-        <ScrollView style={styles.container}>
-          <View style={styles.searchContainer}>
-          <SearchBar
-            onChangeText={someMethod}
-            onClearText={someMethod}
-            placeholder='Type Here...' />
-
-            <FlatList
-            data={data}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => 
-              <View style={styles.listItemContainer} key={item.id}>
-                <View style={styles.searchResultContainer} key={item.id}>
-                  <Text>{item.name}</Text>
-                  <Text>{item.location}</Text>
-                </View>
-              </View>
-            }
-            />
-            
+        <FlatList
+        data={data}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => 
+          <View style={styles.listItemContainer} key={item.id}>
+            <View style={styles.searchResultContainer} key={item.id}>
+              <Text>{item.name}</Text>
+              <Text>{item.location}</Text>
+            </View>
           </View>
-        </ScrollView>
+        }
+        />
+      )
+    }
+
+    const eventSearch = () => {
+      return (
+        <FlatList
+        data={data}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => 
+          <View style={styles.listItemContainer} key={item.id}>
+            <View style={styles.searchResultContainer} key={item.id}>
+              <Text>{item.name}</Text>
+              <Text>{item.location}</Text>
+              <Text>{item.details}</Text>
+            </View>
+          </View>
+        }
+        />
       )
     }
 
     // if search category is beer... do... else if store... do... else if brewery... do...
-    return beerSearch();
+    return (
+      <ScrollView style={styles.container}>
+        <View>
+          <SearchBar
+            showLoading
+            lightTheme
+            ref={search => this.search = search}
+            onChangeText={(text) => { this.setState({input: text}) }}
+            value={this.state.input}
+            placeholder='Type Here...' />
+          <View style={styles.searchCategoryContainer}>
+            <Picker
+              selectedValue={{height: 50, width: '100%'}}
+              style={styles.searchCategoryContainer}
+              onValueChange={(itemValue, itemIndex) => this.setState({searchCategory: itemValue})}>
+              <Picker.Item label="Beers" value="Beer" />
+              <Picker.Item label="Breweries" value="Brewery" />
+              <Picker.Item label="Stores" value="Store" />
+              <Picker.Item label="Events" value="Event" />
+            </Picker>
+          </View>
+        </View>
+          
+        <Button 
+          title="Search"
+          onPress={() => searchDatabase()}
+          />
+        {this.state.loading &&
+          <View><Text>LoadingScreen goes here</Text></View>
+        }
+        {!this.state.loading &&
+          <View style={styles.searchContainer}>
+            {this.state.searchCategory === "Beer" &&
+              beerSearch()
+            }
+            {this.state.searchCategory === "Brewery" &&
+              brewerySearch()
+            }
+            {this.state.searchCategory === "Store" &&
+              storeSearch()
+            }
+            {this.state.searchCategory === "Event" &&
+              eventSearch()
+            }
+          </View>
+        }
+      </ScrollView>
+    )
   }
 }
 
@@ -164,7 +169,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   contentContainer: {
-    paddingTop: 15,
     paddingBottom: 15,
     borderWidth: 0.5,
     borderColor: "black",
@@ -196,5 +200,11 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'center', 
     alignItems: 'center',
-  }
+  },
+  searchCategoryContainer: {
+    flex: 0.5,
+    width: '100%',
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
 });
