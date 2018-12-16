@@ -76,7 +76,6 @@ export default class HomeScreen extends React.Component {
               <TouchableOpacity
                 style={[styles.eventContainer, styles.homeScreenFilename]}
                 onPress={() => {
-                  console.log(item);
                   navigate({
                     routeName: 'Find',
                     params: {
