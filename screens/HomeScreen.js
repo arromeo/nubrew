@@ -19,6 +19,7 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+<<<<<<< HEAD
       editThisLater: 'this should change if the fetch works',
       event: [
         {
@@ -43,6 +44,11 @@ export default class HomeScreen extends React.Component {
         description: "beer this beer that blah blah",
         keywords: "not sure how this one will work, not currently in use",
       },
+=======
+      event: "Loading",
+      recommendedBeer: "Loading",
+      loading: "false",
+>>>>>>> test
     }
   }
   static navigationOptions = {
