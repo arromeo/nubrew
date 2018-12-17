@@ -143,6 +143,17 @@ export default class FindScreen extends React.Component {
       )
     }
 
+    const noResult = () => {
+      return (
+        <View>
+          {this.state.loading &&
+            <View><Text>LoadingScreen goes here</Text></View>
+          }
+          <Text>No results could be found.</Text>
+        </View>
+      )
+    }
+
     // if search category is beer... do... else if store... do... else if brewery... do...
     return (
       <ScrollView style={styles.container}>
@@ -184,6 +195,9 @@ export default class FindScreen extends React.Component {
             }
             {this.state.searchResultCategory === "Event" &&
               eventSearch()
+            }
+            {this.state.searchResultCategory === "None" &&
+              noResult()
             }
           </View>
         }

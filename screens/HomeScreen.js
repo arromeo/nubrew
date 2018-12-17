@@ -50,6 +50,32 @@ export default class HomeScreen extends React.Component {
     const recommendedBeer = this.state.recommendedBeer;
     const { navigate } = this.props.navigation;
 
+    const searchDatabase = (value, category) => {
+      const data = {
+        category: category,
+        keywords: value,
+      }
+      return fetch(`${port.DEV_PORT}/api/find`, 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+      .then(res => res.json())
+      .then(data => {
+        if (data.searchResult.length) {
+          this.setState({
+            searchResult: data.searchResult,
+            searchResultCategory: data.searchResultCategory,
+            input: "",
+            loading: false,
+          })
+        }})
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+
     return (
       <View style={styles.container}>
         {this.state.loading && 
@@ -68,12 +94,9 @@ export default class HomeScreen extends React.Component {
                   onPress={() => {
                     navigate({
                       routeName: 'Find',
-                      params: {
-                        type: 'Event',
-                        item
-                      }
-                    });}}
-                  >
+                    });
+                    searchDatabase(item.id.toString(), "HighlightEvent");
+                  }}>
                   <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
                     <Text>{item.event_name} at {item.store_name}</Text>
                     <MonoText style={styles.codeHighlightText}>{item.details.split('').slice(0, 60).join("")}...</MonoText>
@@ -88,12 +111,9 @@ export default class HomeScreen extends React.Component {
                 onPress={() => {
                   navigate({
                     routeName: 'Find',
-                    params: {
-                      type: 'Beer',
-                      recommendedBeer
-                    }
-                  });}}
-                >
+                  });
+                  searchDatabase(recommendedBeer.id, "Recommendations");
+                }}>
                 <Image
                   source={
                     __DEV__
