@@ -231,7 +231,6 @@ app.post('/api/find', (request, response) => {
   // splits the keywords into regex format
   let keywords = request.body.keywords.split(" ").join("|");
   let regex = new RegExp(keywords, 'ig');
-  console.log(request.body.category);
   switch (request.body.category) {
     case "Beer":
       return knex
