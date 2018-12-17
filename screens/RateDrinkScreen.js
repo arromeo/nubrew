@@ -4,7 +4,7 @@ const port = require('../dev_port.json');
 
 import React from 'react';
 import { ScrollView, TouchableOpacity, StyleSheet, View, Text } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import { Camera, Permissions, ImageManipulator } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { SearchBar } from 'react-native-elements';
 
@@ -33,15 +33,16 @@ export default class CameraScreen extends React.Component {
   }
 
   onPictureSaved = async photo => {
-    // await Expo.ImageManipulator.manipulate(photo.uri, 
-    //   { resize: { width: 320, height: 200 } }, { format: 'png', base64: true });
-
-    console.log(photo.height + " " + photo.width);
+    const imageCopy = await ImageManipulator.manipulateAsync(
+      photo.uri, 
+      [{ resize: { width: 320, height: 200 }}], 
+      { compress: 0, format: 'png', base64: true });
+    console.log(imageCopy);
     return fetch(`${port.DEV_PORT}/api/visionML`, 
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(photo),
+          body: JSON.stringify(imageCopy),
         })
       .then(res => res.json())
       .then(data => {

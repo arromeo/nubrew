@@ -299,9 +299,8 @@ app.post('/api/find', (request, response) => {
 })
 
 app.post('/api/visionML', (request, response) => {
-  console.log(request.body);
-  response.json({ data: "success" })
-
+  console.log("test");
+  console.log(request.body.base64);
 })
 
 app.listen(PORT, () => {
