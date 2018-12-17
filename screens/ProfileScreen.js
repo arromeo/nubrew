@@ -3,7 +3,7 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, TouchableOpacity, StyleSheet, View, Text } from 'react-native';
+import { ScrollView, TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default class CameraScreen extends React.Component {
@@ -39,9 +39,11 @@ export default class CameraScreen extends React.Component {
           <View><Text>LoadingScreen goes here</Text></View>
         }
         {!this.state.loading &&
-          <View style={styles.profileContainer}>
-            <Text>Name: {user.first_name} {user.last_name}</Text>
-            <Text>Email: {user.email}</Text>
+          <View>
+            <View style={styles.profileContainer}>
+              <Image style={styles.avatar} source={require('../assets/images/default_profile_pic.png')} />
+              <Text style={styles.profileName}>{user.email}</Text>
+            </View>
           </View>
         }
       </ScrollView>
@@ -50,19 +52,24 @@ export default class CameraScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginTop: 20,
+    marginBottom: 10
+  },
+  profileName: {
+    color: '#FEF2B2',
+    fontWeight: 'bold',
+    marginBottom: 20
+  },
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
   },
   profileContainer: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderWidth: 0.5,
-    borderColor: "black",
-    borderWidth: 1,
-    borderStyle: "dotted",
-    justifyContent: 'center',
+    backgroundColor: '#693C12',
     alignItems: 'center',
     flex: 1,
   },
