@@ -12,6 +12,7 @@ export default class FindScreen extends React.Component {
       input: "",
       pickerValue: "Beer",
       searchResult: null,
+      searchResultCategory: null,
       loading: true,
     }
   }
@@ -34,9 +35,15 @@ export default class FindScreen extends React.Component {
           body: JSON.stringify(data),
         })
       .then(res => res.json())
-      .then(data => this.setState({
-        searchResult: data.result
-      }))
+      .then(data => {
+        if (data.searchResult.length) {
+          this.setState({
+            searchResult: data.searchResult,
+            searchResultCategory: data.searchResultCategory,
+            input: "",
+            loading: false,
+          })
+        }})
       .catch((error) => {
         console.error(error);
       })
@@ -54,9 +61,10 @@ export default class FindScreen extends React.Component {
           renderItem={({item}) => 
             <View style={styles.listItemContainer} key={item.id}>
               <View style={styles.searchResultContainer} key={item.id}>
-                <Text>Type: {item.categories_id}</Text>
-                <Text>{`${item.name} (${item.brewery})`}</Text>
-                <Text>{item.description}</Text>
+                <Text>Brewery: {item.brewery_name}'s</Text>
+                <Text>Beer Name: {item.beer_name}</Text>
+                <Text>Type: {item.category}</Text>
+                <Text>{item.beer_description}</Text>
                 <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
               </View>
             </View>
@@ -73,13 +81,14 @@ export default class FindScreen extends React.Component {
             <View><Text>LoadingScreen goes here</Text></View>
           }
           <FlatList
-          data={data}
+          data={this.state.searchResult}
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => 
             <View style={styles.listItemContainer} key={item.id}>
               <View style={styles.searchResultContainer} key={item.id}>
                 <Text>{item.name}</Text>
-                <Text>{item.location}</Text>
+                <Text>{item.description}</Text>
+                <Text>{item.street_address}, {item.city}, {item.province}, {item.postal_code}</Text>
               </View>
             </View>
           }
@@ -95,13 +104,14 @@ export default class FindScreen extends React.Component {
             <View><Text>LoadingScreen goes here</Text></View>
           }
           <FlatList
-          data={data}
+          data={this.state.searchResult}
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => 
             <View style={styles.listItemContainer} key={item.id}>
               <View style={styles.searchResultContainer} key={item.id}>
                 <Text>{item.name}</Text>
-                <Text>{item.location}</Text>
+                <Text>{item.description}</Text>
+                <Text>{item.street_address}, {item.city}, {item.province}, {item.postal_code}</Text>
               </View>
             </View>
           }
@@ -117,13 +127,13 @@ export default class FindScreen extends React.Component {
             <View><Text>LoadingScreen goes here</Text></View>
           }
           <FlatList
-          data={data}
+          data={this.state.searchResult}
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => 
             <View style={styles.listItemContainer} key={item.id}>
               <View style={styles.searchResultContainer} key={item.id}>
                 <Text>{item.name}</Text>
-                <Text>{item.location}</Text>
+                <Text>{item.time}</Text>
                 <Text>{item.details}</Text>
               </View>
             </View>
@@ -163,16 +173,16 @@ export default class FindScreen extends React.Component {
           />
         {!this.state.loading &&
           <View style={styles.searchContainer}>
-            {this.state.pickerValue === "Beer" &&
+            {this.state.searchResultCategory === "Beer" &&
               beerSearch()
             }
-            {this.state.pickerValue === "Brewery" &&
+            {this.state.searchResultCategory === "Brewery" &&
               brewerySearch()
             }
-            {this.state.pickerValue === "Store" &&
+            {this.state.searchResultCategory === "Store" &&
               storeSearch()
             }
-            {this.state.pickerValue === "Event" &&
+            {this.state.searchResultCategory === "Event" &&
               eventSearch()
             }
           </View>

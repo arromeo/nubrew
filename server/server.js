@@ -228,15 +228,70 @@ app.get('/api/events', (request, response) => {
 });
 
 app.post('/api/find', (request, response) => {
+  // splits the keywords into regex format
+  let keywords = request.body.keywords.split(" ").join("|");
+  let regex = new RegExp(keywords, 'ig');
+  console.log(request.body.category);
   switch (request.body.category) {
     case "Beer":
-      break;
-    case "Beer":
-    break;
-    case "Beer":
-    break;
-    case "Beer":
-    break;
+      return knex
+        .select(["*", 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
+        .from("beers")
+        .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
+        .innerJoin('categories', 'beers.category_id', 'categories.id')
+        .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
+        .then((result) => {
+          let searchResult = [];
+          result.forEach((list) => {
+            let words = `${list.name} ${list.description} ${list.category} ${list.brewery_name}`
+            if (regex.test(words)) {
+              searchResult.push(list);
+            }
+          })
+          response.json({searchResult: searchResult, searchResultCategory: "Beer"});
+        })
+    case "Brewery":
+      return knex
+        .select("*")
+        .from("breweries")
+        .then((result) => {
+          let searchResult = [];
+          result.forEach((list) => {
+            let words = `${list.name} ${list.description}`
+            if (regex.test(words)) {
+              searchResult.push(list);
+            }
+          })
+          response.json({searchResult: searchResult, searchResultCategory: "Brewery"});
+        })
+    case "Event":
+      return knex
+        .select("*")
+        .from("events")
+        .then((result) => {
+          let searchResult = [];
+          result.forEach((list) => {
+            let words = `${list.name} ${list.details} ${list.time}`
+            if (regex.test(words)) {
+              searchResult.push(list);
+            }
+          })
+          response.json({searchResult: searchResult, searchResultCategory: "Event"});
+        })
+    case "Store":
+      return knex
+        .select("*")
+        .from("stores")
+        .then((result) => {
+          let searchResult = [];
+          result.forEach((list) => {
+            let words = `${list.name} ${list.description} ${list.postal_code} ${list.city} ${list.street_address}`
+            if (regex.test(words)) {
+              searchResult.push(list);
+            }
+          })
+          response.json({searchResult: searchResult, searchResultCategory: "Store"});
+        })
   }
 })
 
