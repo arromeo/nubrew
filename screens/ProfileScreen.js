@@ -34,7 +34,7 @@ export default class CameraScreen extends React.Component {
     const user = this.state.user;
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         {this.state.loading && 
           <View><Text>LoadingScreen goes here</Text></View>
         }
@@ -46,7 +46,7 @@ export default class CameraScreen extends React.Component {
             </View>
           </View>
         }
-      </ScrollView>
+      </View>
     )
   }
 }
@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
   profileContainer: {
     backgroundColor: '#693C12',
     alignItems: 'center',
-    flex: 1,
+    flex: 1
   },
 })
