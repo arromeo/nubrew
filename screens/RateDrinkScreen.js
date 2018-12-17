@@ -32,14 +32,36 @@ export default class CameraScreen extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
-  render() {
-    const someMethod = () => {
-      return;
-    }
+  onPictureSaved = async photo => {
+    // await Expo.ImageManipulator.manipulate(photo.uri, 
+    //   { resize: { width: 320, height: 200 } }, { format: 'png', base64: true });
 
+    console.log(photo.height + " " + photo.width);
+    return fetch(`${port.DEV_PORT}/api/visionML`, 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(photo),
+        })
+      .then(res => res.json())
+      .then(data => {
+        console.log("data is getting returned: " + data)
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }
+
+  render() {
     const snap = async () => {
+      const options = {
+        quality: 0.1,
+        base64: true,
+        exif: true,
+        onPictureSaved: this.onPictureSaved,
+      }
       if (this.camera) {
-        this.camera.takePictureAsync();
+        await this.camera.takePictureAsync(options);
       }
     };
 
@@ -51,8 +73,8 @@ export default class CameraScreen extends React.Component {
         <ScrollView style={styles.container}>
           <View style={styles.searchContainer}>
             <SearchBar
-              onChangeText={someMethod}
-              onClearText={someMethod}
+              onChangeText={(text) => { this.setState({input: text}) }}
+              value={this.state.input}
               placeholder='Type Here...' />
           </View>
         </ScrollView>
@@ -60,7 +82,9 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
+          <Camera style={{ flex: 1 }} 
+            type={this.state.type} 
+            ref={ref => { this.camera = ref; }}>
             <View
               style={styles.cameraIconContainer}>
               <TouchableOpacity

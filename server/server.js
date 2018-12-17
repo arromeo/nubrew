@@ -231,7 +231,9 @@ app.post('/api/find', (request, response) => {
   // splits the keywords into regex format
   let keywords = request.body.keywords.split(" ").join("|");
   let regex = new RegExp(keywords, 'ig');
-  console.log(request.body);
+  if (request.body.keywords === "") {
+    return;
+  }
   switch (request.body.category) {
     case "Beer":
       return knex
@@ -294,6 +296,12 @@ app.post('/api/find', (request, response) => {
           response.json({searchResult: searchResult, searchResultCategory: "Store"});
         })
   }
+})
+
+app.post('/api/visionML', (request, response) => {
+  console.log(request.body);
+  response.json({ data: "success" })
+
 })
 
 app.listen(PORT, () => {
