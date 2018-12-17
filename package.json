@@ -5,6 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
+    "emulator": "sudo ~/Android/Sdk/emulator/emulator -avd doo1",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
   "jest": {
