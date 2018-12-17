@@ -57,10 +57,10 @@ export default class FindScreen extends React.Component {
           }
           <FlatList
           data={this.state.searchResult}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.beer_id.toString()}
           renderItem={({item}) => 
-            <View style={styles.listItemContainer} key={item.id}>
-              <View style={styles.searchResultContainer} key={item.id}>
+            <View style={styles.listItemContainer}>
+              <View style={styles.searchResultContainer}>
                 <Text>Brewery: {item.brewery_name}'s</Text>
                 <Text>Beer Name: {item.beer_name}</Text>
                 <Text>Type: {item.category}</Text>
@@ -84,8 +84,8 @@ export default class FindScreen extends React.Component {
           data={this.state.searchResult}
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => 
-            <View style={styles.listItemContainer} key={item.id}>
-              <View style={styles.searchResultContainer} key={item.id}>
+            <View style={styles.listItemContainer}>
+              <View style={styles.searchResultContainer}>
                 <Text>{item.name}</Text>
                 <Text>{item.description}</Text>
                 <Text>{item.street_address}, {item.city}, {item.province}, {item.postal_code}</Text>
