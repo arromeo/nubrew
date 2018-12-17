@@ -34,19 +34,29 @@ export default class CameraScreen extends React.Component {
     const user = this.state.user;
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         {this.state.loading && 
           <View><Text>LoadingScreen goes here</Text></View>
         }
         {!this.state.loading &&
-          <View>
-            <View style={styles.profileContainer}>
-              <Image style={styles.avatar} source={require('../assets/images/default_profile_pic.png')} />
-              <Text style={styles.profileName}>{user.email}</Text>
+            <View style={{flex: 1}}>
+              <View style={styles.profileContainer}>
+                <Image style={styles.avatar} source={require('../assets/images/default_profile_pic.png')} />
+                <Text style={styles.profileName}>{user.email}</Text>
+              </View>
+              <View style={styles.statsContainer}>
+                <View style={styles.statBox}>
+                  <Text style={styles.stat}>45</Text>
+                  <Text style={styles.statLabel}>Rated</Text>
+                </View>
+                <View style={styles.statBox}>
+                  <Text style={styles.stat}>10</Text>
+                  <Text style={styles.statLabel}>Favorited</Text>
+                </View>
+              </View>
             </View>
-          </View>
         }
-      </ScrollView>
+      </View>
     )
   }
 }
@@ -65,12 +75,29 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
+    flex: 0.6,
+    backgroundColor: '#FFFFFF', 
+  },
+  statsContainer: {
+    flex: 0.2,
+    flexDirection: 'row',
+    backgroundColor: 'tan'
+  },
+  statBox: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  stat: {
+    fontSize: 20
+  },
+  statLabel: {
+    fontSize: 15
   },
   profileContainer: {
     backgroundColor: '#693C12',
+    justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
+    flex: 1
   },
 })

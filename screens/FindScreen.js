@@ -65,7 +65,7 @@ export default class FindScreen extends React.Component {
                 <Text>Beer Name: {item.beer_name}</Text>
                 <Text>Type: {item.category}</Text>
                 <Text>{item.beer_description}</Text>
-                <Text>IBU: {item.ibu} - ABV: {item.abv * 100}%</Text>
+                <Text>IBU: {item.ibu} - ABV: {item.abv}</Text>
               </View>
             </View>
           }
