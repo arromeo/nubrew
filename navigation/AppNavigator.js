@@ -88,18 +88,6 @@ const tabNavigator = createMaterialTopTabNavigator({
         )
       }
     },
-    [Routes.Rate.key]: {
-      screen: RateDrinkScreen,
-      navigationOptions:
-      {
-        tabBarIcon: ({ focused }) => (
-          <TabBarIcon
-            focused={focused}
-            name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'}
-          />
-        )
-      }
-    },
  }, {
     initialRouteName: Routes.Home.key,
     tabBarOptions:
@@ -112,9 +100,11 @@ const tabNavigator = createMaterialTopTabNavigator({
     }
  })
 
+ // add routes to mainNavigator for those you don't want to appear on the top tab
 const mainNavigator = createStackNavigator(
   {
-    [Routes.TabStack.key]: tabNavigator
+    [Routes.TabStack.key]: tabNavigator,
+    [Routes.Rate.key]: RateDrinkScreen,
   }, {
     initialRouteName: Routes.TabStack.key,
     navigationOptions: ({ navigation }) => {
