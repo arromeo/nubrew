@@ -14,9 +14,6 @@ export default class CameraScreen extends React.Component {
       user: null,
     }
   }
-  static navigationOptions = {
-    title: 'Profile',
-  };
 
   componentDidMount() {
     // TODO find out a way to pass userID dynamically between stacks

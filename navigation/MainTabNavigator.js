@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -14,6 +14,7 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
+  title: 'Home',
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -32,6 +33,7 @@ const FindStack = createStackNavigator({
 });
 
 FindStack.navigationOptions = {
+  title: 'Find',
   tabBarLabel: 'Find',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -46,6 +48,7 @@ const FavoriteStack = createStackNavigator({
 });
 
 FavoriteStack.navigationOptions = {
+  title: 'Favorites',
   tabBarLabel: 'Favorites',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -60,6 +63,7 @@ const RateDrinkStack = createStackNavigator({
 });
 
 RateDrinkStack.navigationOptions = {
+  title: 'Rate',
   tabBarLabel: 'Rate',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -83,10 +87,19 @@ ProfileStack.navigationOptions = {
   ),
 };
 
-export default createBottomTabNavigator({
+const tabOptions = {
+  tabBarOptions: {
+    showIcon: true,
+    showLabel: false,
+    style: {
+      backgroundColor: '#61170E'
+    },
+  }
+}
+
+export default createMaterialTopTabNavigator({
   HomeStack,
   FindStack,
-  RateDrinkStack,
   FavoriteStack,
   ProfileStack,
-});
+}, tabOptions);

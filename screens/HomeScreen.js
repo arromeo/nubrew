@@ -26,9 +26,6 @@ export default class HomeScreen extends React.Component {
       loading: true,
     }
   }
-  static navigationOptions = {
-    title: 'NuBrew',
-  };
 
   randomGen = (data) => {
     return Math.floor(Math.random() * data.length);

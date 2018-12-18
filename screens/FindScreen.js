@@ -20,10 +20,6 @@ export default class FindScreen extends React.Component {
       loading: true,
     }
   }
-  
-  static navigationOptions = {
-    title: 'Find',
-  };
 
   render() {
 

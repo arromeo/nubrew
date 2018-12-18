@@ -14,10 +14,6 @@ export default class FindScreen extends React.Component {
     }
   }
 
-  static navigationOptions = {
-    title: 'Favorites',
-  };
-
   componentDidMount() {
 
     // need to figure out how to pass userid through different stacks
