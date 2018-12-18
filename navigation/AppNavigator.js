@@ -25,13 +25,13 @@ const getCurrentRoute = (navigationState) => {
 }
 
 const Routes = {
- TabStack: { key: "TabStack" },
+  TabStack: { key: "TabStack" },
 
- Home: { key: "Home", title: "Home" }, 
- Find: { key: "Find", title: "Find" },
- Rate: { key: "Rate", title: "Rate"},
- Favorites: { key: "Favorites", title: "Favorites" },
- Profile: { key: "Profile", title: "Title" }
+  Home: { key: "Home", title: "Home" }, 
+  Find: { key: "Find", title: "Find" },
+  Rate: { key: "Rate", title: "Rate" },
+  Favorites: { key: "Favorites", title: "Favorites" },
+  Profile: { key: "Profile", title: "Title" }
 }
 
 const tabNavigator = createMaterialTopTabNavigator({
@@ -43,7 +43,8 @@ const tabNavigator = createMaterialTopTabNavigator({
     ) }},
     [Routes.Find.key]: { screen: FindScreen },
     [Routes.Favorites.key]: { screen: FavoriteScreen },
-    [Routes.Profile.key]: { screen: ProfileScreen }
+    [Routes.Profile.key]: { screen: ProfileScreen },
+    // [Routes.Rate.key]: {screen: RateDrinkScreen}
  }, {
     initialRouteName: Routes.Home.key,
     tabBarOptions:
