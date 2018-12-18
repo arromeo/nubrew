@@ -5,9 +5,6 @@ import React from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 
 export default class DetailScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Details',
-  };
 
   render() {
     return (

@@ -14,6 +14,7 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
+  title: 'Home',
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -32,6 +33,7 @@ const FindStack = createStackNavigator({
 });
 
 FindStack.navigationOptions = {
+  title: 'Find',
   tabBarLabel: 'Find',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -46,6 +48,7 @@ const FavoriteStack = createStackNavigator({
 });
 
 FavoriteStack.navigationOptions = {
+  title: 'Favorites',
   tabBarLabel: 'Favorites',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -60,6 +63,7 @@ const RateDrinkStack = createStackNavigator({
 });
 
 RateDrinkStack.navigationOptions = {
+  title: 'Rate',
   tabBarLabel: 'Rate',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -87,23 +91,15 @@ const tabOptions = {
   tabBarOptions: {
     showIcon: true,
     showLabel: false,
-    indicatorStyle: {
-      backgroundColor: '#842B00'
-    },
     style: {
-      backgroundColor: '#61170E',
-      marginTop: 25
+      backgroundColor: '#61170E'
     },
-    activeTintColor: {
-      color: '#FFFFFF'
-    }
   }
 }
 
 export default createMaterialTopTabNavigator({
   HomeStack,
   FindStack,
-  RateDrinkStack,
   FavoriteStack,
   ProfileStack,
 }, tabOptions);
