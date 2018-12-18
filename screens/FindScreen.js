@@ -2,13 +2,12 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, FlatList, Picker, Button } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { ScrollView, StyleSheet, View, Text, Button } from 'react-native';
 import BeerSearch from './search/BeerSearch.js';
 import StoreSearch from './search/StoreSearch.js';
 import BrewerySearch from './search/BrewerySearch.js';
 import EventSearch from './search/EventSearch.js';
-
+import SearchComponent from './search/SearchComponent.js';
 
 export default class FindScreen extends React.Component {
   constructor(props) {
@@ -27,6 +26,18 @@ export default class FindScreen extends React.Component {
   };
 
   render() {
+
+    const changeInput = (event) => {
+      this.setState({
+        input: event,
+      })
+    }
+
+    const pickCategory = (event) => {
+      this.setState({
+        pickerValue: event,
+      })
+    }
 
     const searchDatabase = (value, category) => {
       const data = {
@@ -61,26 +72,7 @@ export default class FindScreen extends React.Component {
     // if search category is beer... do... else if store... do... else if brewery... do...
     return (
       <ScrollView style={styles.container}>
-        <View>
-          <SearchBar
-            showLoading
-            lightTheme
-            ref={search => this.search = search}
-            onChangeText={(text) => { this.setState({input: text}) }}
-            value={this.state.input}
-            placeholder='Type Here...' />
-          <View style={styles.pickerValueContainer}>
-            <Picker
-              selectedValue={this.state.pickerValue}
-              style={styles.pickerValueContainer}
-              onValueChange={(itemValue) => this.setState({pickerValue: itemValue})}>
-              <Picker.Item label="Beers" value="Beer" />
-              <Picker.Item label="Breweries" value="Brewery" />
-              <Picker.Item label="Stores" value="Store" />
-              <Picker.Item label="Events" value="Event" />
-            </Picker>
-          </View>
-        </View>
+        <SearchComponent input={this.state.input} changeInput={changeInput} pickerValue={this.state.pickerValue} pickCategory={pickCategory}/>
           
         <Button 
           title="Search"
@@ -117,50 +109,12 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#fff',
   },
-  listItemContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  contentContainer: {
-    paddingBottom: 15,
-    borderWidth: 0.5,
-    borderColor: "black",
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flexDirection: "row",
-    justifyContent: 'center', 
-    alignItems: 'center',
-  },
-  recommendationContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flexDirection: "column",
-    width: '45%',
-    margin: 10,
-  },
-  bottomOptionsContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flexDirection: "column",
-    width: '28.33%',
-    margin: 10,
-  },
   searchResultContainer: {
     borderWidth: 1,
     borderStyle: "dotted",
     flexDirection: "column",
     width: '90%',
     margin: 10,
-    justifyContent: 'center', 
-    alignItems: 'center',
-  },
-  pickerValueContainer: {
-    flex: 0.5,
-    width: '100%',
     justifyContent: 'center', 
     alignItems: 'center',
   },
