@@ -3,9 +3,11 @@ const port = require('../dev_port.json');
 
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, FlatList, Picker, Button } from 'react-native';
-import { SearchBar } from 'react-native-elements'
-import BeerSearch from './search/BeerSearch.js'
-import StoreSearch from './search/StoreSearch.js'
+import { SearchBar } from 'react-native-elements';
+import BeerSearch from './search/BeerSearch.js';
+import StoreSearch from './search/StoreSearch.js';
+import BrewerySearch from './search/BrewerySearch.js';
+
 
 export default class FindScreen extends React.Component {
   constructor(props) {
@@ -49,29 +51,6 @@ export default class FindScreen extends React.Component {
       .catch((error) => {
         console.error(error);
       })
-    }
-
-    const brewerySearch = (data) => {
-      return (
-        <View>
-          {this.state.loading &&
-            <View><Text>LoadingScreen goes here</Text></View>
-          }
-          <FlatList
-          data={this.state.searchResult}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => 
-            <View style={styles.listItemContainer}>
-              <View style={styles.searchResultContainer}>
-                <Text>{item.name}</Text>
-                <Text>{item.description}</Text>
-                <Text>{item.street_address}, {item.city}, {item.province}, {item.postal_code}</Text>
-              </View>
-            </View>
-          }
-          />
-        </View>
-      )
     }
 
     const eventSearch = (data) => {
@@ -142,7 +121,7 @@ export default class FindScreen extends React.Component {
               <BeerSearch data={this.state.searchResult}/>
             }
             {this.state.searchResultCategory === "Brewery" &&
-              brewerySearch()
+              <BrewerySearch data={this.state.searchResult}/>
             }
             {this.state.searchResultCategory === "Store" &&
               <StoreSearch data={this.state.searchResult}/>
