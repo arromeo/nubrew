@@ -64,7 +64,7 @@ const tabNavigator = createMaterialTopTabNavigator({
         )
       }
     },
-    [Routes.Favorites.key]: { screen: FavoriteScreen,
+    [Routes.Favorites.key]: {
       screen: FavoriteScreen,
       navigationOptions:
       {
@@ -76,7 +76,7 @@ const tabNavigator = createMaterialTopTabNavigator({
         )
       }
     },
-    [Routes.Profile.key]: { screen: ProfileScreen, 
+    [Routes.Profile.key]: {
       screen: ProfileScreen,
       navigationOptions:
       {
@@ -84,6 +84,18 @@ const tabNavigator = createMaterialTopTabNavigator({
           <TabBarIcon
             focused={focused}
             name={Platform.OS === 'ios' ? 'ios-options' : 'md-person'}
+          />
+        )
+      }
+    },
+    [Routes.Rate.key]: {
+      screen: RateDrinkScreen,
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'}
           />
         )
       }
