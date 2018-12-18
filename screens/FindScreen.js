@@ -7,6 +7,7 @@ import { SearchBar } from 'react-native-elements';
 import BeerSearch from './search/BeerSearch.js';
 import StoreSearch from './search/StoreSearch.js';
 import BrewerySearch from './search/BrewerySearch.js';
+import EventSearch from './search/EventSearch.js';
 
 
 export default class FindScreen extends React.Component {
@@ -53,29 +54,6 @@ export default class FindScreen extends React.Component {
       })
     }
 
-    const eventSearch = (data) => {
-      return (
-        <View>
-          {this.state.loading &&
-            <View><Text>LoadingScreen goes here</Text></View>
-          }
-          <FlatList
-          data={this.state.searchResult}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => 
-            <View style={styles.listItemContainer} key={item.id}>
-              <View style={styles.searchResultContainer} key={item.id}>
-                <Text>{item.name}</Text>
-                <Text>{item.time}</Text>
-                <Text>{item.details}</Text>
-              </View>
-            </View>
-          }
-          />
-        </View>
-      )
-    }
-
     const noResult = () => {
       return (
         <View>
@@ -115,6 +93,7 @@ export default class FindScreen extends React.Component {
           title="Search"
           onPress={() => searchDatabase(this.state.input, this.state.pickerValue)}
           />
+
         {!this.state.loading &&
           <View style={styles.searchContainer}>
             {this.state.searchResultCategory === "Beer" &&
@@ -127,7 +106,7 @@ export default class FindScreen extends React.Component {
               <StoreSearch data={this.state.searchResult}/>
             }
             {this.state.searchResultCategory === "Event" &&
-              eventSearch()
+              <EventSearch data={this.state.searchResult}/>
             }
             {this.state.searchResultCategory === "None" &&
               noResult()
