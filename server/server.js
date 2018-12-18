@@ -301,7 +301,6 @@ app.post('/api/find', (request, response) => {
 })
 
 app.post('/api/visionML', (request, response) => {
-  console.log("test");
   automlapi(request.body, cred)
 })
 
