@@ -203,5 +203,29 @@ From Index
     - Data Required:
       1. users
 
+# Google API Set-up
 
+Dependency: "@google-cloud/automl": "^0.1.3" (REQUIRED)
 
+AutoML Vision API code is located in folder ~/server/automlvision.js .
+
+AutoML account is required (unless developers set it up with a service key to the current auto ML vision module that is currently trained).
+
+Credentials need to be passed through the './server/server.js' file through a hidden ENV folder. Specific information required are:
+  - "PROJECT_ID": "xxxxxx",
+  - "COMPUTE_REGION": "xxxxxx",
+  - "MODEL_ID": "xxxxxx",
+
+To gain access to the API, you also need to do the following in your terminal (Linux):
+  - "export GOOGLE_APPLICATION_CRENDENTIALS="[path to the service key]"
+    - To verify that it has been entered correctly:
+      - echo $GOOGLE_APPLICATION_CREDENTIALS
+  - "export PROJECT_ID="[google project id goes here]"
+    - To verify that it has been entered correctly:
+        - echo $PROJECT_ID
+
+Information on Creating Service Account Keys
+<https://cloud.google.com/iam/docs/creating-managing-service-account-keys#prerequisites_for_this_guide>
+
+Quick start information on vision AutoML API
+<https://cloud.google.com/vision/automl/docs/quickstart>

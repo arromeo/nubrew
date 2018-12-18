@@ -11,15 +11,11 @@ module.exports = function (image, cred) {
   const computeRegion = cred.COMPUTE_REGION;
   const modelId = cred.MODEL_ID;
   const formatting = image.base64.split("\n").join("");
-  console.log(formatting);
     
   // const scoreThreshold = '0.5';
 
   // Get the full path of the model.
   const modelFullId = client.modelPath(projectId, computeRegion, modelId);
-
-  // Read the file content for prediction.
-  // const content = fs.readFileSync(filePath, 'base64');
 
   const params = {};
 
