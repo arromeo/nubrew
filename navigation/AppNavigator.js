@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, View, Text } from 'react-native';
 import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -35,7 +35,8 @@ const Routes = {
 }
 
 const tabNavigator = createMaterialTopTabNavigator({
-    [Routes.Home.key]: {
+    [Routes.Home.key]:
+    {
       screen: HomeScreen,
       navigationOptions: { tabBarLabel: 'Home2',
       tabBarIcon: ({ focused }) => (
@@ -50,7 +51,7 @@ const tabNavigator = createMaterialTopTabNavigator({
     tabBarOptions:
     {
       showIcon: true,
-      showLabel: true,
+      showLabel: false,
       activeTintColor: 'red',
       style: { backgroundColor: '#61170E' },
       iconStyle: { color: 'white'}
@@ -63,13 +64,24 @@ const mainNavigator = createStackNavigator(
   }, {
     initialRouteName: Routes.TabStack.key,
     navigationOptions: ({ navigation }) => {
-       // triggered each time you're changing a tab
+  
+      // Triggers on each screen change. Sets the title.
+      const navRoute = getCurrentRoute(navigation.state)
+      const route = navRoute && navRoute.routeName && Routes[navRoute.routeName]
+      const title = route ? route.title : ""
 
-       const navRoute = getCurrentRoute(navigation.state)
-          , route = navRoute && navRoute.routeName && Routes[navRoute.routeName]
-          , title = route ? route.title : ""
+      // Sets the background color of the header.
+      const headerStyle = {
+        backgroundColor: 'orange'
+      }
 
-       return { title }
-    }
+      // This sets the icon that shows up in the header. Can be replaced with
+      // logo if we make one.
+      const headerTitle = <View style={{flexDirection: 'row'}}><Ionicons
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'} size={28} style={{ marginLeft: 10, color: "brown"}}
+    /><Text style={{marginLeft: 10, fontSize: 20}}>{ title }</Text></View>
+       return { title, headerStyle, headerTitle }
+    },
+    
   });
 export default mainNavigator
