@@ -141,6 +141,24 @@ exports.seed = function(knex, Promise) {
         province: 'BC',
         postal_code: 'V0N 1B1'
       },
+      {
+        id: 11,
+        name: 'Russell Brewing Company',
+        description: '',
+        street_address: '13018 80 Ave',
+        city: 'Surrey',
+        province: 'BC',
+        postal_code: 'V3W 2B2'
+      },
+      {
+        id: 12,
+        name: 'Red Racer Brewery',
+        description: '',
+        street_address: '11411 Bridgeview Drive',
+        city: 'Surrey',
+        province: 'BC',
+        postal_code: 'V3R 0C2'
+      },
     ]);
   }
 
@@ -325,6 +343,26 @@ exports.seed = function(knex, Promise) {
         category_id: 11,
         img_url: 'https://www.liquormarts.ca/sites/mlcc_public_website/files/styles/product/public/product/15301_7e53d75100512c9cfe3561c388e738c3.png'
       },
+      {
+        id: 12,
+        name: 'Angry Scotch Ale',
+        description: 'A Wee Angry Scotch Ale is crafted in the style of a 19th century 90 Schilling Scotch Ale is a strong, dark ale with dominant malt accent that originated in Edinburgh.',
+        ibu: 30,
+        abv: '6.5%',
+        vote_count: 0,
+        category_id: 7,
+        img_url: 'https://res.cloudinary.com/ratebeer/image/upload/w_152,h_309,c_pad,d_beer_img_default.png,f_auto/beer_119636',
+      },
+      {
+        id: 13,
+        name: 'Smore Stout',
+        description: 'Seasonal release offers a lightly sweet creaminess and roasted flavour evoking marshmallows toasted over the winter campfire with notes of chocolate and a hint of spice.',
+        ibu: 40,
+        abv: '6.0%',
+        vote_count: 0,
+        category_id: 18,
+        img_url: 'https://products3.imgix.drizly.com/ci-left-hand-milk-stout-nitro-1cc9bd255865b63b.png?auto=format%2Ccompress&fm=jpeg&q=20',
+      },
     ]);
   }
 
@@ -384,6 +422,16 @@ exports.seed = function(knex, Promise) {
         id: 11,
         beer_id: 11,
         brewery_id: 10
+      },
+      {
+        id: 12,
+        beer_id: 12,
+        brewery_id: 11
+      },
+      {
+        id: 13,
+        beer_id: 13,
+        brewery_id: 12
       },
     ])
   }
