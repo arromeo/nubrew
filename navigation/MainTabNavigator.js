@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -83,10 +83,27 @@ ProfileStack.navigationOptions = {
   ),
 };
 
-export default createBottomTabNavigator({
+const tabOptions = {
+  tabBarOptions: {
+    showIcon: true,
+    showLabel: false,
+    indicatorStyle: {
+      backgroundColor: '#842B00'
+    },
+    style: {
+      backgroundColor: '#61170E',
+      marginTop: 25
+    },
+    activeTintColor: {
+      color: '#FFFFFF'
+    }
+  }
+}
+
+export default createMaterialTopTabNavigator({
   HomeStack,
   FindStack,
   RateDrinkStack,
   FavoriteStack,
   ProfileStack,
-});
+}, tabOptions);
