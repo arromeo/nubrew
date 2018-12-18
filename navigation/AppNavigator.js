@@ -38,14 +38,68 @@ const tabNavigator = createMaterialTopTabNavigator({
     [Routes.Home.key]:
     {
       screen: HomeScreen,
-      navigationOptions: { tabBarLabel: 'Home2',
-      tabBarIcon: ({ focused }) => (
-        <Ionicons name="md-camera" size={20} color="white" />
-    ) }},
-    [Routes.Find.key]: { screen: FindScreen },
-    [Routes.Favorites.key]: { screen: FavoriteScreen },
-    [Routes.Profile.key]: { screen: ProfileScreen },
-    // [Routes.Rate.key]: {screen: RateDrinkScreen}
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+          focused={focused}
+          name={
+            Platform.OS === 'ios'
+              ? `ios-home${focused ? '' : '-outline'}`
+              : 'md-home'
+          }
+          />
+        )
+      }
+    },
+    [Routes.Find.key]: {
+      screen: FindScreen,
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-link' : 'md-search'}
+          />
+        )
+      }
+    },
+    [Routes.Favorites.key]: {
+      screen: FavoriteScreen,
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-link' : 'md-star'}
+          />
+        )
+      }
+    },
+    [Routes.Profile.key]: {
+      screen: ProfileScreen,
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-person'}
+          />
+        )
+      }
+    },
+    [Routes.Rate.key]: {
+      screen: RateDrinkScreen,
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'}
+          />
+        )
+      }
+    },
  }, {
     initialRouteName: Routes.Home.key,
     tabBarOptions:
