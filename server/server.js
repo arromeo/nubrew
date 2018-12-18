@@ -233,6 +233,26 @@ app.post('/api/find', (request, response) => {
   // splits the keywords into regex format
   let keywords = request.body.keywords.split(" ").join("|");
   let regex = new RegExp(keywords, 'ig');
+
+  const filterSearch = (criteria, category, queryResult, requiredData) => {
+    let searchResult = [];
+    queryResult.forEach((list) => {
+      let words = ""
+      requiredData.forEach((data) => {
+        words += `${list[data]} `;
+      })
+      if (criteria.test(words)) {
+        searchResult.push(list);
+      }
+    })
+    if (!searchResult.length) {
+      response.json({searchResultCategory: "None"})
+    } else {
+      response.json({searchResult: searchResult, searchResultCategory: category});
+    }
+  }
+
+
   if (request.body.keywords === "") {
     return;
   }
@@ -245,61 +265,28 @@ app.post('/api/find', (request, response) => {
         .innerJoin('categories', 'beers.category_id', 'categories.id')
         .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
         .then((result) => {
-          let searchResult = [];
-          result.forEach((list) => {
-            let words = `${list.name} ${list.description} ${list.category} ${list.brewery_name}`
-            if (regex.test(words)) {
-              searchResult.push(list);
-            }
-          })
-          if (!searchResult.length) {
-            response.json({searchResultCategory: "None"})
-          } else {
-            response.json({searchResult: searchResult, searchResultCategory: "Beer"});
-          }
+          filterSearch(regex, "Beer", result, ['name', 'description', 'brewery_name', 'category']);
         })
     case "Brewery":
       return knex
         .select("*")
         .from("breweries")
         .then((result) => {
-          let searchResult = [];
-          result.forEach((list) => {
-            let words = `${list.name} ${list.description} ${list.address} ${list.city} ${list.province}`
-            console.log(words);
-            if (regex.test(words)) {
-              searchResult.push(list);
-            }
-          })
-          response.json({searchResult: searchResult, searchResultCategory: "Brewery"});
+          filterSearch(regex, "Brewery", result, ['name', 'description', 'address', 'city', 'province']);
         })
     case "Event":
       return knex
         .select("*")
         .from("events")
         .then((result) => {
-          let searchResult = [];
-          result.forEach((list) => {
-            let words = `${list.name} ${list.details} ${list.time}`
-            if (regex.test(words)) {
-              searchResult.push(list);
-            }
-          })
-          response.json({searchResult: searchResult, searchResultCategory: "Event"});
+          filterSearch(regex, "Event", result, ['name', 'details', 'time']);
         })
     case "Store":
       return knex
         .select("*")
         .from("stores")
         .then((result) => {
-          let searchResult = [];
-          result.forEach((list) => {
-            let words = `${list.name} ${list.description} ${list.postal_code} ${list.city} ${list.street_address}`
-            if (regex.test(words)) {
-              searchResult.push(list);
-            }
-          })
-          response.json({searchResult: searchResult, searchResultCategory: "Store"});
+          filterSearch(regex, "Store", result, ['name', 'description', 'street_address', 'city', 'postal_code']);
         })
   }
 })
