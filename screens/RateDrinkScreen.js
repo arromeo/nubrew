@@ -27,17 +27,18 @@ export default class CameraScreen extends React.Component {
     showGallery: false,
   };
 
+  // if camera permission granted in phone
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
+  // when picture saves, resize it to appropriate size, and send to server. Key information is "base64"
   onPictureSaved = async photo => {
     const imageCopy = await ImageManipulator.manipulateAsync(
       photo.uri, 
       [{ resize: { width: 320, height: 200 }}], 
       { compress: 0, format: 'png', base64: true });
-    console.log(imageCopy);
     return fetch(`${port.DEV_PORT}/api/visionML`, 
         {
           method: "POST",

@@ -1,6 +1,8 @@
 const express = require('express');
 const knexConfig  = require("../knexfile");
 const knex        = require("knex")(knexConfig['development']);
+const automlapi = require('./automlvision.js');
+const cred = require('../dev_port.json');
 
 const app = express();
 const PORT = 5000;
@@ -300,7 +302,7 @@ app.post('/api/find', (request, response) => {
 
 app.post('/api/visionML', (request, response) => {
   console.log("test");
-  console.log(request.body.base64);
+  automlapi(request.body, cred)
 })
 
 app.listen(PORT, () => {
