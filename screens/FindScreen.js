@@ -41,7 +41,11 @@ export default class FindScreen extends React.Component {
         })
       .then(res => res.json())
       .then(data => {
-        if (data.searchResult.length) {
+        if (data.searchCategory === "None") {
+          this.setState({
+            searchResultCategory: "None",
+          })
+        } else {
           this.setState({
             searchResult: data.searchResult,
             searchResultCategory: data.searchResultCategory,
@@ -52,17 +56,6 @@ export default class FindScreen extends React.Component {
       .catch((error) => {
         console.error(error);
       })
-    }
-
-    const noResult = () => {
-      return (
-        <View>
-          {this.state.loading &&
-            <View><Text>LoadingScreen goes here</Text></View>
-          }
-          <Text>No results could be found.</Text>
-        </View>
-      )
     }
 
     // if search category is beer... do... else if store... do... else if brewery... do...
@@ -109,7 +102,7 @@ export default class FindScreen extends React.Component {
               <EventSearch data={this.state.searchResult}/>
             }
             {this.state.searchResultCategory === "None" &&
-              noResult()
+              <Text>No results could be found.</Text>
             }
           </View>
         }

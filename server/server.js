@@ -252,7 +252,11 @@ app.post('/api/find', (request, response) => {
               searchResult.push(list);
             }
           })
-          response.json({searchResult: searchResult, searchResultCategory: "Beer"});
+          if (!searchResult.length) {
+            response.json({searchResultCategory: "None"})
+          } else {
+            response.json({searchResult: searchResult, searchResultCategory: "Beer"});
+          }
         })
     case "Brewery":
       return knex
