@@ -85,11 +85,10 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} 
+          <Camera style={styles.cameraContainer} 
             type={this.state.type} 
             ref={ref => { this.camera = ref; }}>
-            <View
-              style={styles.cameraIconContainer}>
+            <View style={styles.cameraIconContainer}>
               <TouchableOpacity
                 style={{
                   flex: 0.1,
@@ -111,6 +110,7 @@ export default class CameraScreen extends React.Component {
                 <Ionicons name="md-camera" size={32} color="white" style={styles.cameraIcon}/>
               </TouchableOpacity>
             </View>
+            <View style={styles.pictureGuide}/>
           </Camera>
         </View>
       );
@@ -124,6 +124,19 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#fff',
   },
+  cameraContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  pictureGuide: {
+    alignSelf: 'center',
+    margin: 'auto',
+    height: '90%',
+    width: '90%',
+    borderRadius: 10,
+    position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  }, 
   cameraIconContainer: {
     flex: 1,
     backgroundColor: 'transparent',

@@ -14,7 +14,6 @@ export default class GoToCamera extends React.Component {
           flex: 0.1,
         }}
         onPress={() => {
-          console.log("camera button works")
           this.props.navigate({
             routeName: 'Rate',
           });
