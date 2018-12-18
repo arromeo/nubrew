@@ -3,14 +3,18 @@ const port = require('../dev_port.json');
 
 import React from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   View,
+  TouchableOpacity
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
 import EventList from './home/EventList.js';
 import RecommendedBeer from './home/RecommendedBeer.js';
 import CrowdRecommendations from './home/CrowdRecommendations.js';
+import GoToCamera from './goto/GoToCamera.js';
+
 import { WebBrowser } from 'expo';
 
 export default class HomeScreen extends React.Component {
@@ -77,14 +81,15 @@ export default class HomeScreen extends React.Component {
           <View><Text>LoadingScreen goes here</Text></View>
         }
         {!this.state.loading && 
-          <ScrollView style={styles.container}>
+          <View style={styles.container}>
             <EventList data={this.state.event} searchDatabase={searchDatabase} navigate={navigate}/>
             <View style={styles.contentContainer}>
               <RecommendedBeer data={this.state.recommendedBeer} searchDatabase={searchDatabase} navigate={navigate}/>
               <CrowdRecommendations searchDatabase={searchDatabase} navigate={navigate}/>
             </View>
-          </ScrollView>
+          </View>
         }
+        <GoToCamera navigate={navigate}/>
       </View>
     );
   }

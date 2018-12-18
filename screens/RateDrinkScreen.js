@@ -55,6 +55,7 @@ export default class CameraScreen extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     const snap = async () => {
       const options = {
         quality: 0.1,
@@ -92,8 +93,17 @@ export default class CameraScreen extends React.Component {
               <TouchableOpacity
                 style={{
                   flex: 0.1,
-                  alignSelf: 'flex-end',
-                  alignItems: 'center',
+                }}
+                onPress={() => {
+                  navigate({
+                    routeName: 'Home',
+                  });
+                }}>
+                <Ionicons name="md-arrow-round-back" size={32} color="white" style={styles.cameraIcon}/>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flex: 0.1,
                 }}
                 onPress={() => {
                   snap()
@@ -118,10 +128,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
   },
   cameraIcon: {
-    paddingBottom: 20,
+    paddingBottom: 30,
   }
 })

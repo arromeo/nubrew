@@ -42,7 +42,7 @@ FindStack.navigationOptions = {
 };
 
 const FavoriteStack = createStackNavigator({
-  tabBarLabel: FavoriteScreen,
+  Favorite: FavoriteScreen,
 });
 
 FavoriteStack.navigationOptions = {
@@ -56,7 +56,7 @@ FavoriteStack.navigationOptions = {
 };
 
 const RateDrinkStack = createStackNavigator({
-  tabBarLabel: RateDrinkScreen,
+  Rate: RateDrinkScreen,
 });
 
 RateDrinkStack.navigationOptions = {
@@ -70,7 +70,7 @@ RateDrinkStack.navigationOptions = {
 };
 
 const ProfileStack = createStackNavigator({
-  tabBarLabel: ProfileScreen,
+  Profile: ProfileScreen,
 });
 
 ProfileStack.navigationOptions = {
