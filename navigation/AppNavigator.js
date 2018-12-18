@@ -35,21 +35,65 @@ const Routes = {
 }
 
 const tabNavigator = createMaterialTopTabNavigator({
-    [Routes.Home.key]: {
+    [Routes.Home.key]:
+    {
       screen: HomeScreen,
-      navigationOptions: { tabBarLabel: 'Home2',
-      tabBarIcon: ({ focused }) => (
-        <Ionicons name="md-camera" size={20} color="white" />
-    ) }},
-    [Routes.Find.key]: { screen: FindScreen },
-    [Routes.Favorites.key]: { screen: FavoriteScreen },
-    [Routes.Profile.key]: { screen: ProfileScreen }
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+          focused={focused}
+          name={
+            Platform.OS === 'ios'
+              ? `ios-home${focused ? '' : '-outline'}`
+              : 'md-home'
+          }
+          />
+        )
+      }
+    },
+    [Routes.Find.key]: {
+      screen: FindScreen,
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-link' : 'md-search'}
+          />
+        )
+      }
+    },
+    [Routes.Favorites.key]: { screen: FavoriteScreen,
+      screen: FavoriteScreen,
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-link' : 'md-star'}
+          />
+        )
+      }
+    },
+    [Routes.Profile.key]: { screen: ProfileScreen, 
+      screen: ProfileScreen,
+      navigationOptions:
+      {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-person'}
+          />
+        )
+      }
+    },
  }, {
     initialRouteName: Routes.Home.key,
     tabBarOptions:
     {
       showIcon: true,
-      showLabel: true,
+      showLabel: false,
       activeTintColor: 'red',
       style: { backgroundColor: '#61170E' },
       iconStyle: { color: 'white'}
@@ -65,10 +109,14 @@ const mainNavigator = createStackNavigator(
        // triggered each time you're changing a tab
 
        const navRoute = getCurrentRoute(navigation.state)
-          , route = navRoute && navRoute.routeName && Routes[navRoute.routeName]
-          , title = route ? route.title : ""
+      const route = navRoute && navRoute.routeName && Routes[navRoute.routeName]
+      const title = route ? route.title : ""
+      const headerStyle = {
+        backgroundColor: 'orange'
+      }
 
-       return { title }
-    }
+       return { title, headerStyle }
+    },
+    
   });
 export default mainNavigator
