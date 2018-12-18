@@ -88,29 +88,25 @@ export default class CameraScreen extends React.Component {
           <Camera style={styles.cameraContainer} 
             type={this.state.type} 
             ref={ref => { this.camera = ref; }}>
-            <View style={styles.cameraIconContainer}>
-              <TouchableOpacity
-                style={{
-                  flex: 0.1,
-                }}
+
+            <TouchableOpacity
+              style={styles.cameraIcon}
+              onPress={() => {
+                navigate({
+                  routeName: 'Home',
+                });
+              }}>
+              <Ionicons name="md-arrow-round-back" size={32} color="white"/>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.pictureGuide}
                 onPress={() => {
-                  navigate({
-                    routeName: 'Home',
-                  });
+                  snap();
                 }}>
-                <Ionicons name="md-arrow-round-back" size={32} color="white" style={styles.cameraIcon}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  flex: 0.1,
-                }}
-                onPress={() => {
-                  snap()
-                }}>
-                <Ionicons name="md-camera" size={32} color="white" style={styles.cameraIcon}/>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.pictureGuide}/>
+              <Text style={styles.photoGuideFont}>Center the label.</Text>
+              <Text style={styles.photoGuideFont}>Tap the Screen!</Text>
+            </TouchableOpacity>
           </Camera>
         </View>
       );
@@ -136,15 +132,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     position: 'absolute',
     backgroundColor: 'rgba(0,0,0,0.3)',
-  }, 
-  cameraIconContainer: {
     flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end',
-  },
+    alignItems: 'center',
+    justifyContent: 'center',
+  }, 
   cameraIcon: {
-    paddingBottom: 30,
-  }
+    position: 'absolute',
+    left: 40,
+    bottom: 40,
+    
+  },
 })
