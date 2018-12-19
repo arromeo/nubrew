@@ -52,8 +52,56 @@ app.get('/api/index', (request, response) => {
 });
 
 // specific page details
-app.get('/api/details', (request, response) => {
-  console.log(request.body);
+app.post('/api/details', (request, response) => {
+  switch (request.body.category) {
+    case "Beer":
+      return knex
+        .select(["*",'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
+        .from("beers")
+        .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
+        .innerJoin('categories', 'beers.category_id', 'categories.id')
+        .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
+        .where('beer_id', request.body.id)
+        .then((result) => {
+          response.json({searchResult: result, searchResultCategory: "Beer"});
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    case "Brewery":
+      return knex
+        .select("*")
+        .from("breweries")
+        .where('id', request.body.id)
+        .then((result) => {
+          response.json({searchResult: result, searchResultCategory: "Brewery"});
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    case "Event":
+      return knex
+        .select("*")
+        .from("events")
+        .where('id', request.body.id)
+        .then((result) => {
+          response.json({searchResult: result, searchResultCategory: "Event"})
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    case "Store":
+      return knex
+        .select("*")
+        .from("stores")
+        .where('id', request.body.id)
+        .then((result) => {
+          response.json({searchResult: result, searchResultCategory: "Store"})
+        })
+        .catch(err => {
+          console.log(err);
+        })
+  }
 })
 
 // Returns an array of beers currently in favorites.

@@ -102,7 +102,7 @@ export default class CameraScreen extends React.Component {
             <TouchableOpacity 
               style={styles.pictureGuide}
                 onPress={() => {
-                  // snap();
+                  snap();
                 }}>
               <Text style={styles.photoGuideFont}>Center the label.</Text>
               <Text style={styles.photoGuideFont}>Tap the Screen!</Text>

@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default class FavoriteList extends React.Component {
   render() {
+    const crowdRecommendation = this.props.crowdFavorite;
     return (
       <FlatList
         data={this.props.data}
@@ -40,14 +41,16 @@ export default class FavoriteList extends React.Component {
             }}>
               <Ionicons name="md-search" size={32} color="black"/>
             </TouchableOpacity>
-            <TouchableOpacity 
+            { !crowdRecommendation &&
+              <TouchableOpacity 
               onPress={() => {
                 this.props.navigate({
                   routeName: 'Find',
-              });
-            }}>
-              <Ionicons name="md-trash" size={32} color="red"/>
-            </TouchableOpacity>
+                });
+              }}>
+                <Ionicons name="md-trash" size={32} color="red"/>
+              </TouchableOpacity>
+            }
           </View>
         </View>
       }

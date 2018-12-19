@@ -7,7 +7,6 @@ import BeerSearch from './search/BeerSearch.js';
 import StoreSearch from './search/StoreSearch.js';
 import BrewerySearch from './search/BrewerySearch.js';
 import EventSearch from './search/EventSearch.js';
-import SearchComponent from './search/SearchComponent.js';
 
 export default class DetailScreen extends React.Component {
   constructor(props) {
@@ -19,50 +18,37 @@ export default class DetailScreen extends React.Component {
     }
   }
 
-  render() {
-    const searchDatabase = (value, category) => {
-      const data = {
-        category: category,
-        id: value,
-      }
-      return fetch(`${port.DEV_PORT}/api/details`, 
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-        .then(res => res.json())
-        .then(data => {
-          if (data.searchCategory === "None") {
-            this.setState({
-              searchResultCategory: "None",
-            })
-          } else {
-            this.setState({
-              searchResult: data.searchResult,
-              searchResultCategory: data.searchResultCategory,
-              loading: false,
-            })
-          }})
-        .catch((error) => {
-          console.error(error);
-        })
-    }
+  componentDidMount() {
+    // category and value are hard coded, TODO Find out how to pass data between navigation stacks
+    const value = 1;
+    const category = "Beer";
 
-    // this needs to be passed between stacks, value hard coded for now
-    const hardCodedId = 1;
-    const hardCodedCategory = "Beer";
-    // fix this later
-  
+    const data = {
+      category: category,
+      id: value,
+    }
+    fetch(`${port.DEV_PORT}/api/details`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      this.setState({
+        searchResult: data.searchResult,
+        searchResultCategory: data.searchResultCategory,
+        loading: false,
+      })
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  }
+
+  render() {
     return (
       <ScrollView style={styles.container}>
-        <SearchComponent input={this.state.input} changeInput={changeInput} pickerValue={this.state.pickerValue} pickCategory={pickCategory}/>
-          
-        <Button 
-          title="Search"
-          onPress={() => searchDatabase(hardCodedIdt, hardCodedCategory)}
-          />
-
         {!this.state.loading &&
           <View style={styles.searchContainer}>
             {this.state.searchResultCategory === "Beer" &&
