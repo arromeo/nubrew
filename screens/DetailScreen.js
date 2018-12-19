@@ -10,36 +10,49 @@ import EventSearch from './search/EventSearch.js';
 import SearchComponent from './search/SearchComponent.js';
 
 export default class DetailScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchResult: null,
+      searchResultCategory: null,
+      loading: true,
+    }
+  }
 
   render() {
     const searchDatabase = (value, category) => {
-    const data = {
-      category: category,
-      keywords: value,
+      const data = {
+        category: category,
+        id: value,
+      }
+      return fetch(`${port.DEV_PORT}/api/details`, 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.searchCategory === "None") {
+            this.setState({
+              searchResultCategory: "None",
+            })
+          } else {
+            this.setState({
+              searchResult: data.searchResult,
+              searchResultCategory: data.searchResultCategory,
+              loading: false,
+            })
+          }})
+        .catch((error) => {
+          console.error(error);
+        })
     }
-    return fetch(`${port.DEV_PORT}/api/details`, 
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.searchCategory === "None") {
-          this.setState({
-            searchResultCategory: "None",
-          })
-        } else {
-          this.setState({
-            searchResult: data.searchResult,
-            searchResultCategory: data.searchResultCategory,
-            loading: false,
-          })
-        }})
-      .catch((error) => {
-        console.error(error);
-      })
-    }
+
+    // this needs to be passed between stacks, value hard coded for now
+    const hardCodedId = 1;
+    const hardCodedCategory = "Beer";
+    // fix this later
   
     return (
       <ScrollView style={styles.container}>
@@ -47,7 +60,7 @@ export default class DetailScreen extends React.Component {
           
         <Button 
           title="Search"
-          onPress={() => searchDatabase(this.state.input, this.state.pickerValue)}
+          onPress={() => searchDatabase(hardCodedIdt, hardCodedCategory)}
           />
 
         {!this.state.loading &&
@@ -79,5 +92,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-
+  searchResultContainer: {
+    borderWidth: 1,
+    borderStyle: "dotted",
+    flexDirection: "column",
+    width: '90%',
+    margin: 10,
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  listItemContainer: {
+    borderWidth: 1,
+    borderStyle: "dotted",
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
 })

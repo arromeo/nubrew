@@ -51,6 +51,11 @@ app.get('/api/index', (request, response) => {
     });
 });
 
+// specific page details
+app.get('/api/details', (request, response) => {
+  console.log(request.body);
+})
+
 // Returns an array of beers currently in favorites.
 app.get('/api/recommended', (request, response) => {
   knex
