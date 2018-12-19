@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  View
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -18,7 +19,8 @@ export default class GoToCamera extends React.Component {
             routeName: 'Rate',
           });
         }}>
-        <Ionicons name="md-camera" size={32} color="brown" style={styles.cameraIcon}/>
+        <View style={styles.iconCircle}></View>
+          <Ionicons name="md-camera" size={32} color="orange" style={styles.cameraIcon}/>
       </TouchableOpacity>
     )
   }
@@ -26,6 +28,17 @@ export default class GoToCamera extends React.Component {
 
 const styles = StyleSheet.create({
   cameraIcon: {
-    paddingBottom: 30,
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+  },
+  iconCircle: {
+    position: 'absolute',
+    bottom: 20,
+    right: 19,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: 'brown'
   }
 })
