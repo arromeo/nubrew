@@ -20,7 +20,7 @@ export default class GoToCamera extends React.Component {
           });
         }}>
         <View style={styles.iconCircle}></View>
-          <Ionicons name="md-camera" size={32} color="orange" style={styles.cameraIcon}/>
+          <Ionicons name="md-camera" size={32} color="#FFBC02" style={styles.cameraIcon}/>
       </TouchableOpacity>
     )
   }
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: 'brown'
+    backgroundColor: '#61170E'
   }
 })
