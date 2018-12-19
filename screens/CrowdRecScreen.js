@@ -6,8 +6,7 @@ import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import FavoriteList from './favorites/FavoriteList.js';
 import GoToCamera from './goto/GoToCamera.js';
 
-
-export default class FindScreen extends React.Component {
+export default class CrowdRecommendation extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

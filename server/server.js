@@ -101,7 +101,7 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
 // TODO: This currently contains a list of all untried beers. A recommendation
 // algorithm should be implemented here.
 app.get('/api/user/:user_id/recommended', (request, response) => {
-
+  console.log(request.body);
   knex
     .select('beer_id')
     .from('beers_users_tried')
