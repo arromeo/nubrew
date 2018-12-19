@@ -40,7 +40,10 @@ export default class CrowdRecommendation extends React.Component {
             <View><Text>LoadingScreen goes here</Text></View>
           }
           {!this.state.loading && 
-            <FavoriteList data={this.state.favorites} navigate={navigate}/>
+            <View>
+              <Text style={styles.headerFont}>Crowd Favorites</Text>
+              <FavoriteList data={this.state.favorites} navigate={navigate}/>
+            </View>
           }
           <GoToCamera navigate={navigate}/>
         </ScrollView>

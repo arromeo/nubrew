@@ -35,31 +35,20 @@ export default class FindScreen extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-<<<<<<< HEAD
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
           {this.state.loading &&  
             <View><Text>LoadingScreen goes here</Text></View>
           }
           {!this.state.loading && 
-            <FavoriteList data={this.state.favorites} navigate={navigate}/>
+            <View>
+              <Text style={styles.headerFont}>My Favorites</Text>
+              <FavoriteList data={this.state.favorites} navigate={navigate}/>
+            </View>
           }
           <GoToCamera navigate={navigate}/>
         </ScrollView>
       </View>
-=======
-      <ScrollView style={styles.container}>
-        {this.state.loading &&  
-          <View><Text>LoadingScreen goes here</Text></View>
-        }
-        {!this.state.loading && 
-        <View>
-          <Text style={styles.headerFont}>My Favorites</Text>
-          <FavoriteList data={this.state.favorites} navigate={navigate}/>
-        </View>
-        }
-      </ScrollView>
->>>>>>> crowd favorite screen and personal favorite screen separated
     );
   }
 }
