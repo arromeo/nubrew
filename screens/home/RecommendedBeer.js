@@ -17,7 +17,6 @@ export default class RecommendedBeer extends React.Component {
           this.props.navigate({
             routeName: 'Find',
           });
-          this.props.searchDatabase(recommendedBeer.id, "Recommendations");
         }}>
         <Image
           source={
