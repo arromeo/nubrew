@@ -50,7 +50,7 @@ export default class Events extends React.Component {
                 <TouchableOpacity
                   style={[styles.eventContainer, styles.homeScreenFilename]}
                   onPress={() => {
-                    this.props.navigate('Detail', {
+                    navigate('Detail', {
                     id: item.id,
                     category: "Event"
                   });

@@ -3,10 +3,10 @@ const port = require('../dev_port.json');
 
 import React from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import BeerSearch from './search/BeerSearch.js';
-import StoreSearch from './search/StoreSearch.js';
-import BrewerySearch from './search/BrewerySearch.js';
-import EventSearch from './search/EventSearch.js';
+import BeerSearch from './details/BeerSearch.js';
+import StoreSearch from './details/StoreSearch.js';
+import BrewerySearch from './details/BrewerySearch.js';
+import EventSearch from './details/EventSearch.js';
 
 export default class DetailScreen extends React.Component {
   constructor(props) {
