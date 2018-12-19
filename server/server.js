@@ -126,7 +126,6 @@ app.get('/api/recommended', (request, response) => {
   .orderBy('vote_count', 'desc')
   .limit('5')
   .then((result) => {
-    console.log(result);
     response.json({
       result
     });
@@ -377,7 +376,18 @@ app.post('/api/find', (request, response) => {
 })
 
 app.post('/api/visionML', (request, response) => {
-  automlapi(request.body, cred)
+  automlapi(request.body, cred, (data) => {
+    return knex
+      .select(["*",'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
+      .from("beers")
+      .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
+      .innerJoin('categories', 'beers.category_id', 'categories.id')
+      .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
+      .where('beer_id', data.displayName)
+      .then((result) => {
+        console.log(result);
+      })
+  });
 })
 
 app.listen(PORT, () => {

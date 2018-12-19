@@ -9,22 +9,25 @@ import { Ionicons } from '@expo/vector-icons';
 import { SearchBar } from 'react-native-elements';
 
 export default class CameraScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasCameraPermission: false,
+      zoom: 0,
+      flash: 'off',
+      autoFocus: 'on',
+      type: 'back',
+      whiteBalance: 'auto',
+      ratio: '16:9',
+      barcodeScanning: false,
+      faceDetecting: false,
+      showGallery: false,
+      foundDrinks: false,
+      confirmDrink: false,
+    };
+  }
   static navigationOptions = {
     title: 'Scan',
-  };
-
-  // initial state
-  state = {
-    hasCameraPermission: false,
-    zoom: 0,
-    flash: 'off',
-    autoFocus: 'on',
-    type: 'back',
-    whiteBalance: 'auto',
-    ratio: '16:9',
-    barcodeScanning: false,
-    faceDetecting: false,
-    showGallery: false,
   };
 
   // if camera permission granted in phone
@@ -85,29 +88,31 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Camera style={styles.cameraContainer} 
-            type={this.state.type} 
-            ref={ref => { this.camera = ref; }}>
+          {!this.state.foundDrinks &&
+            <Camera style={styles.cameraContainer} 
+              type={this.state.type} 
+              ref={ref => { this.camera = ref; }}>
 
-            <TouchableOpacity
-              style={styles.cameraIcon}
-              onPress={() => {
-                navigate({
-                  routeName: 'Home',
-                });
-              }}>
-              <Ionicons name="md-arrow-round-back" size={32} color="white"/>
-            </TouchableOpacity>
-
-            <TouchableOpacity 
-              style={styles.pictureGuide}
+              <TouchableOpacity
+                style={styles.cameraIcon}
                 onPress={() => {
-                  snap();
+                  navigate({
+                    routeName: 'Home',
+                  });
                 }}>
-              <Text style={styles.photoGuideFont}>Center the label.</Text>
-              <Text style={styles.photoGuideFont}>Tap the Screen!</Text>
-            </TouchableOpacity>
-          </Camera>
+                <Ionicons name="md-arrow-round-back" size={32} color="white"/>
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+                style={styles.pictureGuide}
+                  onPress={() => {
+                    snap();
+                  }}>
+                <Text style={styles.photoGuideFont}>Center the label.</Text>
+                <Text style={styles.photoGuideFont}>Tap the Screen!</Text>
+              </TouchableOpacity>
+            </Camera>
+          }
         </View>
       );
     }

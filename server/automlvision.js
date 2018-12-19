@@ -1,6 +1,6 @@
 // make sure this gets deleted at the end and figure out how to set-up proxy
 
-module.exports = function (image, cred) {
+module.exports = function (image, cred, cb) {
   const automl = require('@google-cloud/automl').v1beta1;
   const fs = require('fs');
   
@@ -32,10 +32,8 @@ module.exports = function (image, cred) {
   client
     .predict({name: modelFullId, payload: payload, params: params})
     .then(responses => {
-      console.log(`Prediction results:`);
       responses[0].payload.forEach(result => {
-        console.log(`Predicted class name: ${result.displayName}`);
-        console.log(`Predicted class score: ${result.classification.score}`);
+        cb(result);
       });
     })
     .catch(err => {
