@@ -286,7 +286,7 @@ exports.seed = function(knex, Promise) {
         abv: '5.0$',
         vote_count: 14,
         category_id: 18,
-        img_url: 'https://cdn.justwineapp.com/assets/beer/bottle/33-acres-brewing-company-33-acres-darkness_1475535649.png',
+        img_url: 'https://gullliquorstore.com/wp-content/uploads/2017/11/838797.jpg',
       },
       {
         id: 6,
@@ -366,7 +366,7 @@ exports.seed = function(knex, Promise) {
         abv: '6.0%',
         vote_count: 20,
         category_id: 18,
-        img_url: 'https://products3.imgix.drizly.com/ci-left-hand-milk-stout-nitro-1cc9bd255865b63b.png?auto=format%2Ccompress&fm=jpeg&q=20',
+        img_url: 'https://www.highpointbws.com/wp-content/uploads/2017/11/167682.jpg',
       },
     ]);
   }

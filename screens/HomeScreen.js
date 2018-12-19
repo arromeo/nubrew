@@ -103,15 +103,15 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     flexDirection: "row",
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flex: 1,
   },
   contentHeader: {
     textDecorationLine: "underline",
     fontWeight: "bold",
     color: "#61170E",
-    marginTop: 5,
     marginLeft: 10,
+    marginTop: 8,
     marginBottom: 5
   }
 });
