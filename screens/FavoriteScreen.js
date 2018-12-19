@@ -4,6 +4,7 @@ const port = require('../dev_port.json');
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import GoToCamera from './goto/GoToCamera.js';
 
 export default class FindScreen extends React.Component {
   constructor(props) {
@@ -91,6 +92,7 @@ export default class FindScreen extends React.Component {
           }
           />
         }
+        <GoToCamera navigate={navigate}/>
       </ScrollView>
     );
   }

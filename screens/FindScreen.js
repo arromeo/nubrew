@@ -8,6 +8,7 @@ import StoreSearch from './search/StoreSearch.js';
 import BrewerySearch from './search/BrewerySearch.js';
 import EventSearch from './search/EventSearch.js';
 import SearchComponent from './search/SearchComponent.js';
+import GoToCamera from './goto/GoToCamera.js';
 
 export default class FindScreen extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class FindScreen extends React.Component {
   }
 
   render() {
-
+    const { navigate } = this.props.navigation;
     const changeInput = (event) => {
       this.setState({
         input: event,
@@ -94,6 +95,7 @@ export default class FindScreen extends React.Component {
             }
           </View>
         }
+        <GoToCamera navigate={navigate}/>
       </ScrollView>
     )
   }
