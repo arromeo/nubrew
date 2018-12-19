@@ -17,29 +17,29 @@ export default class DetailScreen extends React.Component {
       category: category,
       keywords: value,
     }
-    return fetch(`${port.DEV_PORT}/api/find`, 
+    return fetch(`${port.DEV_PORT}/api/details`, 
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       })
-    .then(res => res.json())
-    .then(data => {
-      if (data.searchCategory === "None") {
-        this.setState({
-          searchResultCategory: "None",
-        })
-      } else {
-        this.setState({
-          searchResult: data.searchResult,
-          searchResultCategory: data.searchResultCategory,
-          input: "",
-          loading: false,
-        })
-      }})
-    .catch((error) => {
-      console.error(error);
-    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.searchCategory === "None") {
+          this.setState({
+            searchResultCategory: "None",
+          })
+        } else {
+          this.setState({
+            searchResult: data.searchResult,
+            searchResultCategory: data.searchResultCategory,
+            loading: false,
+          })
+        }})
+      .catch((error) => {
+        console.error(error);
+      })
+    }
   
     return (
       <ScrollView style={styles.container}>
@@ -53,16 +53,16 @@ export default class DetailScreen extends React.Component {
         {!this.state.loading &&
           <View style={styles.searchContainer}>
             {this.state.searchResultCategory === "Beer" &&
-              <BeerSearch data={this.state.searchResult}/>
+              <BeerSearch data={this.state.searchResult} styles={styles}/>
             }
             {this.state.searchResultCategory === "Brewery" &&
-              <BrewerySearch data={this.state.searchResult}/>
+              <BrewerySearch data={this.state.searchResult} styles={styles}/>
             }
             {this.state.searchResultCategory === "Store" &&
-              <StoreSearch data={this.state.searchResult}/>
+              <StoreSearch data={this.state.searchResult} styles={styles}/>
             }
             {this.state.searchResultCategory === "Event" &&
-              <EventSearch data={this.state.searchResult}/>
+              <EventSearch data={this.state.searchResult} styles={styles}/>
             }
             {this.state.searchResultCategory === "None" &&
               <Text>No results could be found.</Text>
@@ -78,5 +78,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  }
+  },
+
 })

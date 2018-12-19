@@ -69,34 +69,34 @@ export default class FindScreen extends React.Component {
     // if search category is beer... do... else if store... do... else if brewery... do...
     return (
       <View style={{flex: 1}}>
-      <ScrollView style={styles.container}>
-        <SearchComponent input={this.state.input} changeInput={changeInput} pickerValue={this.state.pickerValue} pickCategory={pickCategory}/>
-          
-        <Button 
-          title="Search"
-          onPress={() => searchDatabase(this.state.input, this.state.pickerValue)}
-          />
+        <ScrollView style={styles.container}>
+          <SearchComponent input={this.state.input} changeInput={changeInput} pickerValue={this.state.pickerValue} pickCategory={pickCategory}/>
+            
+          <Button 
+            title="Search"
+            onPress={() => searchDatabase(this.state.input, this.state.pickerValue)}
+            />
 
-        {!this.state.loading &&
-          <View style={styles.searchContainer}>
-            {this.state.searchResultCategory === "Beer" &&
-              <BeerSearch data={this.state.searchResult}/>
-            }
-            {this.state.searchResultCategory === "Brewery" &&
-              <BrewerySearch data={this.state.searchResult}/>
-            }
-            {this.state.searchResultCategory === "Store" &&
-              <StoreSearch data={this.state.searchResult}/>
-            }
-            {this.state.searchResultCategory === "Event" &&
-              <EventSearch data={this.state.searchResult}/>
-            }
-            {this.state.searchResultCategory === "None" &&
-              <Text>No results could be found.</Text>
-            }
-          </View>
-        }
-      </ScrollView>
+          {!this.state.loading &&
+            <View style={styles.searchContainer}>
+              {this.state.searchResultCategory === "Beer" &&
+                <BeerSearch data={this.state.searchResult} styles={styles}/>
+              }
+              {this.state.searchResultCategory === "Brewery" &&
+                <BrewerySearch data={this.state.searchResult} styles={styles}/>
+              }
+              {this.state.searchResultCategory === "Store" &&
+                <StoreSearch data={this.state.searchResult} styles={styles}/>
+              }
+              {this.state.searchResultCategory === "Event" &&
+                <EventSearch data={this.state.searchResult} styles={styles}/>
+              }
+              {this.state.searchResultCategory === "None" &&
+                <Text>No results could be found.</Text>
+              }
+            </View>
+          }
+        </ScrollView>
         <GoToCamera navigate={navigate}/>
       </View>
     )
@@ -117,5 +117,13 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'center', 
     alignItems: 'center',
+  },
+  listItemContainer: {
+    borderWidth: 1,
+    borderStyle: "dotted",
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });

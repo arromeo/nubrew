@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, FlatList } from 'react-native';
 
 export default class StoreSearch extends React.Component {
   render() {
+    const styles = this.props.styles;
     return (
       <View>
         <FlatList
@@ -22,23 +23,3 @@ export default class StoreSearch extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  listItemContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  searchResultContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flexDirection: "column",
-    width: '90%',
-    margin: 10,
-    justifyContent: 'center', 
-    alignItems: 'center',
-  },
-});
