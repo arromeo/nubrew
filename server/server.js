@@ -51,6 +51,34 @@ app.get('/api/index', (request, response) => {
     });
 });
 
+// Returns an array of beers currently in favorites.
+app.get('/api/recommended', (request, response) => {
+  knex
+  .select([
+    'category',
+    'beers.id AS id',
+    'beers.name AS beer_name',
+    'breweries.name AS brewery_name',
+    'ibu',
+    'abv',
+    'img_url'])
+  .from('beers')
+  .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
+  .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+  .innerJoin('categories', 'beers.category_id', 'categories.id')
+  .orderBy('vote_count', 'desc')
+  .limit('5')
+  .then((result) => {
+    console.log(result);
+    response.json({
+      result
+    });
+  })
+  .catch((err) => {
+    console.error("This is the error " + err);
+  });
+});
+
 // Returns information needed for user profile page
 app.get('/api/user/:user_id', (request, response) => {
   knex

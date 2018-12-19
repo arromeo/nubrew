@@ -17,7 +17,6 @@ export default class FindScreen extends React.Component {
   }
 
   componentDidMount() {
-
     // need to figure out how to pass userid through different stacks
     let userId = 1;
     let url = `${port.DEV_PORT}/api/user/${userId}/favorites`;
@@ -36,6 +35,7 @@ export default class FindScreen extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
+<<<<<<< HEAD
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
           {this.state.loading &&  
@@ -47,6 +47,19 @@ export default class FindScreen extends React.Component {
           <GoToCamera navigate={navigate}/>
         </ScrollView>
       </View>
+=======
+      <ScrollView style={styles.container}>
+        {this.state.loading &&  
+          <View><Text>LoadingScreen goes here</Text></View>
+        }
+        {!this.state.loading && 
+        <View>
+          <Text style={styles.headerFont}>My Favorites</Text>
+          <FavoriteList data={this.state.favorites} navigate={navigate}/>
+        </View>
+        }
+      </ScrollView>
+>>>>>>> crowd favorite screen and personal favorite screen separated
     );
   }
 }
@@ -56,5 +69,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  headerFont: {
+    color: 'black',
+    fontWeight: 'bold',
+    marginBottom: 20,
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
   }
 });

@@ -18,8 +18,7 @@ export default class CrowdRecommendation extends React.Component {
   componentDidMount() {
 
     // need to figure out how to pass userid through different stacks
-    let userId = 1;
-    let url = `${port.DEV_PORT}/api/user/${userId}/favorites`;
+    let url = `${port.DEV_PORT}/api/recommended`;
     fetch(url)
       .then(res => res.json())
       .then(data => this.setState ({
@@ -55,5 +54,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  headerFont: {
+    color: 'black',
+    fontWeight: 'bold',
+    marginBottom: 20,
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
   }
 });

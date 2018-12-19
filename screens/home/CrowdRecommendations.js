@@ -13,12 +13,8 @@ export default class CrowdRecommendations extends React.Component {
         style={[styles.recommendationContainer, styles.homeScreenFilename]}
         onPress={() => {
           this.props.navigate({
-            routeName: 'Find',
-            params: {
-              type: 'CrowdRecommendations',
-            }
+            routeName: 'CrowdFav',
           });
-          this.props.searchDatabase("", "CrowdRecommendations");
         }}
       >
         <Ionicons name="md-medal" size={100} color="black"/>
