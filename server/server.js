@@ -21,6 +21,9 @@ app.get('/api/index', (request, response) => {
       'events.id',
       'events.name AS event_name',
       'stores.name AS store_name',
+      'stores.city',
+      'stores.province',
+      'stores.img_url AS store_img_url',
       'time')
     .from("events")
     .innerJoin('stores', 'events.store_id', 'stores.id')

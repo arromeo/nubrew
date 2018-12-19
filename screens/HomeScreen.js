@@ -79,6 +79,7 @@ export default class HomeScreen extends React.Component {
         }
         {!this.state.loading && 
           <View style={styles.container}>
+            <Text style={styles.contentHeader}>Upcoming Events</Text>
             <EventList data={this.state.event} searchDatabase={searchDatabase} navigate={navigate}/>
             <View style={styles.contentContainer}>
               <RecommendedBeer data={this.state.recommendedBeer} searchDatabase={searchDatabase} navigate={navigate}/>
@@ -100,13 +101,17 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 15,
     paddingBottom: 15,
-    borderWidth: 0.5,
-    borderColor: "black",
-    borderWidth: 1,
-    borderStyle: "dotted",
     flexDirection: "row",
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },
+  contentHeader: {
+    textDecorationLine: "underline",
+    fontWeight: "bold",
+    color: "#61170E",
+    marginTop: 5,
+    marginLeft: 10,
+    marginBottom: 5
+  }
 });

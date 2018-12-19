@@ -5,6 +5,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  Image
 } from 'react-native';
 import { MonoText } from '../../components/StyledText';
 
@@ -27,8 +28,17 @@ export default class EventList extends React.Component {
               this.props.searchDatabase(item.id.toString(), "HighlightEvent");
             }}>
             <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
-              <Text>{item.event_name} at {item.store_name}</Text>
-              <MonoText style={styles.codeHighlightText}>{item.details.split('').slice(0, 60).join("")}...</MonoText>
+              <View>
+                <Image
+                  style={{width: 75, height: 75}}
+                  source={{uri: item.store_img_url }}
+                />
+              </View>
+              <View style={styles.eventDetails}>
+                <Text style={styles.eventTitle}>{item.event_name}</Text>
+                <Text>{item.store_name} @ {item.time}</Text>
+                <Text>{item.city}, {item.province}</Text>
+              </View>
             </View>
           </TouchableOpacity>
         }/>
@@ -39,27 +49,22 @@ export default class EventList extends React.Component {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderWidth: 0.5,
-    borderColor: "black",
-    borderWidth: 1,
-    borderStyle: "dotted",
+    paddingBottom: 5,
     flexDirection: "row",
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: 'flex-start',
     flex: 1,
   },
   eventDetailsContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flexDirection: "column",
+    flexDirection: "row",
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
+    margin: 5,
   },
-  homeScreenFilename: {
-    marginVertical: 7,
+  eventDetails: {
+    marginLeft: 15,
+    justifyContent: "center"
   },
+  eventTitle: {
+    fontWeight: "bold"
+  }
 });
