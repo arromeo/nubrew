@@ -171,7 +171,8 @@ exports.seed = function(knex, Promise) {
         street_address: '375 Water St',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V6B 1B8'
+        postal_code: 'V6B 1B8',
+        img_url: 'https://forgetsomeday.com/wp-content/uploads/Vancouver-52.jpg'
       },
       {
         id: 2,
@@ -180,7 +181,8 @@ exports.seed = function(knex, Promise) {
         street_address: '300 W Georgia',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V6B 6B4'
+        postal_code: 'V6B 6B4',
+        img_url: 'http://donnellygroup.ca/library-square/wp-content/uploads/sites/16/2015/09/LSVenueSlides_Venue4.jpg'
       },
       {
         id: 3,
@@ -189,7 +191,8 @@ exports.seed = function(knex, Promise) {
         street_address: '579 Dunsmuir St',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V6B 1Y4'
+        postal_code: 'V6B 1Y4',
+        img_url: 'https://d2ciprw05cjhos.cloudfront.net/files/v3/styles/gs_large/public/images/17/04/the_railway.png?itok=f-VR0gFV'
       },
       {
         id: 4,
@@ -198,7 +201,8 @@ exports.seed = function(knex, Promise) {
         street_address: '30-678 Dunsmuir St',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V6B 1N3'
+        postal_code: 'V6B 1N3',
+        img_url: 'https://i.pinimg.com/originals/ee/b2/f4/eeb2f476b5844212cf7644fff6dc8a80.jpg'
       },
       {
         id: 5,
@@ -207,7 +211,8 @@ exports.seed = function(knex, Promise) {
         street_address: '555 W Hastings St',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V6B 4N6'
+        postal_code: 'V6B 4N6',
+        img_url: 'https://ssmscdn.yp.ca/image/resize/fe4ccdea-4741-4627-b87b-8df31a08bead/ypui-d-mp-pic-gal-lg/bc-liquor-store-storefront-1.jpg'
       }
     ])
   }
@@ -239,7 +244,7 @@ exports.seed = function(knex, Promise) {
         description: 'Dark & delicious.',
         ibu: 25,
         abv: '6.0%',
-        vote_count: 0,
+        vote_count: 12,
         category_id: 19,
         img_url: 'https://products3.imgix.drizly.com/ci-left-hand-milk-stout-nitro-1cc9bd255865b63b.png?auto=format%2Ccompress&fm=jpeg&q=20',
       },
@@ -249,7 +254,7 @@ exports.seed = function(knex, Promise) {
         description: 'The hopping is pure starglow energy, with Chinook to bitter and late and dry additions of Citra and Amarillo.',
         ibu: 73,
         abv: '8.2%',
-        vote_count: 0,
+        vote_count: 22,
         category_id: 4,
         img_url: 'http://brewpublic.com/wp-content/uploads/2014/07/Elysian-Space-Dust-IPA-Bottle-325x1024.png',
       },
@@ -259,7 +264,7 @@ exports.seed = function(knex, Promise) {
         description: 'The Premium Weissbier at the top of its class.',
         ibu: 0,
         abv: '5.3%',
-        vote_count: 0,
+        vote_count: 2,
         category_id: 9,
         img_url: 'https://www.totalwine.com/media/sys_master/twmmedia/h7c/he3/8820602306590.png',
       },
@@ -269,7 +274,7 @@ exports.seed = function(knex, Promise) {
         description: 'Plenty of British Crystal malt in the grist lends this ale its rich color, its caramel maltiness, and adds the occasional whiff of toffee to the nose.',
         ibu: 35,
         abv: '5.2%',
-        vote_count: 0,
+        vote_count: 4,
         category_id: 6,
         img_url: 'http://www.beerwulf.com/globalassets/catalog/beerwulf/beers/pale-ale/steamworks---pale-ale.png',
       },
@@ -279,7 +284,7 @@ exports.seed = function(knex, Promise) {
         description: 'No description available.',
         ibu: 30,
         abv: '5.0$',
-        vote_count: 0,
+        vote_count: 14,
         category_id: 18,
         img_url: 'https://cdn.justwineapp.com/assets/beer/bottle/33-acres-brewing-company-33-acres-darkness_1475535649.png',
       },
@@ -289,7 +294,7 @@ exports.seed = function(knex, Promise) {
         description: '',
         ibu: 0,
         abv: '5.0%',
-        vote_count: 0,
+        vote_count: 45,
         category_id: 10,
         img_url: 'https://bigpetesliquorstore.com/wp-content/uploads/2018/04/186718.jpg'
       },
@@ -299,7 +304,7 @@ exports.seed = function(knex, Promise) {
         description: '',
         ibu: 0,
         abv: '5.0%',
-        vote_count: 0,
+        vote_count: 12,
         category_id: 12,
         img_url: 'http://hiredgunscreative.com/wp-content/uploads/2017/06/arcus-01.jpg'
       },
@@ -309,7 +314,7 @@ exports.seed = function(knex, Promise) {
         description: '',
         ibu: 100,
         abv: '14.00%',
-        vote_count: 0,
+        vote_count: 8,
         category_id: 23,
         img_url: 'https://driftwoodbeer.com/app/uploads/2016/02/OldCellarDweller.png'
       },
@@ -319,7 +324,7 @@ exports.seed = function(knex, Promise) {
         description: '',
         ibu: 33,
         abv: '5.0%',
-        vote_count: 0,
+        vote_count: 12,
         category_id: 12,
         img_url: 'http://www.persephonebrewing.com/wp-content/uploads/2015/10/KELLER-PILSNER-BOTTLE-MOCK-copy-1.jpg'
       },
@@ -329,7 +334,7 @@ exports.seed = function(knex, Promise) {
         description: '',
         ibu: 0,
         abv: '5.0%',
-        vote_count: 0,
+        vote_count: 3,
         category_id: 11,
         img_url: 'https://cdn.justwineapp.com/assets/beer/bottle/red-truck-beer-company-red-truck-lager_1476827149.png'
       },
@@ -339,7 +344,7 @@ exports.seed = function(knex, Promise) {
         description: 'Light hopped and aged for 8 weeks for a smooth mellow and slightly sweet finish.',
         ibu: 0,
         abv: '5.0%',
-        vote_count: 0,
+        vote_count: 1,
         category_id: 11,
         img_url: 'https://www.liquormarts.ca/sites/mlcc_public_website/files/styles/product/public/product/15301_7e53d75100512c9cfe3561c388e738c3.png'
       },
@@ -349,7 +354,7 @@ exports.seed = function(knex, Promise) {
         description: 'A Wee Angry Scotch Ale is crafted in the style of a 19th century 90 Schilling Scotch Ale is a strong, dark ale with dominant malt accent that originated in Edinburgh.',
         ibu: 30,
         abv: '6.5%',
-        vote_count: 0,
+        vote_count: 41,
         category_id: 7,
         img_url: 'https://res.cloudinary.com/ratebeer/image/upload/w_152,h_309,c_pad,d_beer_img_default.png,f_auto/beer_119636',
       },
@@ -359,7 +364,7 @@ exports.seed = function(knex, Promise) {
         description: 'Seasonal release offers a lightly sweet creaminess and roasted flavour evoking marshmallows toasted over the winter campfire with notes of chocolate and a hint of spice.',
         ibu: 40,
         abv: '6.0%',
-        vote_count: 0,
+        vote_count: 20,
         category_id: 18,
         img_url: 'https://products3.imgix.drizly.com/ci-left-hand-milk-stout-nitro-1cc9bd255865b63b.png?auto=format%2Ccompress&fm=jpeg&q=20',
       },

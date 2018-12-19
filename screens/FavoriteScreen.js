@@ -36,64 +36,66 @@ export default class FindScreen extends React.Component {
     const data = this.state.favorites;
     
     return (
-      <ScrollView style={styles.container}>
-        {this.state.loading &&  
-          <View><Text>LoadingScreen goes here</Text></View>
-        }
-        {!this.state.loading && 
-          <FlatList
-            data={data}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => 
-            <View style={styles.listItemContainer}>
-
-              <View>
-                <Image
-                    source={
-                      __DEV__
-                      ? require('../assets/images/robot-dev.png')
-                      : require('../assets/images/robot-prod.png')
-                    }
-                    style={styles.recommendationImage}
-                    size={50}
-                    />
-              </View>
-
-              <View style={styles.searchResultContainer}>
-                <Text>{item.brewery_name}'s</Text>
-                <Text>{item.beer_name}</Text>
-                <Text>Type: {item.category}</Text>
-                <Text>IBU: {item.ibu}</Text>
-                <Text>ABV: {item.abv}</Text>
-              </View>
-
-              <View style={styles.optionsContainer}>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigate({
-                      routeName: 'Find',
-                      params: {
-                        type: 'FavoriteBeerDetail',
-                        item
-                      }
-                  });}}
-                >
-                  <Ionicons name="md-search" size={32} color="black"/>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                  onPress={() => {
-                    console.log("This is the find route")
-                  }
-                }>
-                  <Ionicons name="md-trash" size={32} color="red"/>
-                </TouchableOpacity>
-              </View>
-            </View>
+      <View style={{flex: 1}}>
+        <ScrollView style={styles.container}>
+          {this.state.loading &&  
+            <View><Text>LoadingScreen goes here</Text></View>
           }
-          />
-        }
+          {!this.state.loading && 
+            <FlatList
+              data={data}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({item}) => 
+              <View style={styles.listItemContainer}>
+
+                <View>
+                  <Image
+                      source={
+                        __DEV__
+                        ? require('../assets/images/robot-dev.png')
+                        : require('../assets/images/robot-prod.png')
+                      }
+                      style={styles.recommendationImage}
+                      size={50}
+                      />
+                </View>
+
+                <View style={styles.searchResultContainer}>
+                  <Text>{item.brewery_name}'s</Text>
+                  <Text>{item.beer_name}</Text>
+                  <Text>Type: {item.category}</Text>
+                  <Text>IBU: {item.ibu}</Text>
+                  <Text>ABV: {item.abv}</Text>
+                </View>
+
+                <View style={styles.optionsContainer}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigate({
+                        routeName: 'Find',
+                        params: {
+                          type: 'FavoriteBeerDetail',
+                          item
+                        }
+                    });}}
+                  >
+                    <Ionicons name="md-search" size={32} color="black"/>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    onPress={() => {
+                      console.log("This is the find route")
+                    }
+                  }>
+                    <Ionicons name="md-trash" size={32} color="red"/>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            }
+            />
+          }
+        </ScrollView>
         <GoToCamera navigate={navigate}/>
-      </ScrollView>
+      </View>
     );
   }
 }

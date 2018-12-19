@@ -68,6 +68,7 @@ export default class FindScreen extends React.Component {
 
     // if search category is beer... do... else if store... do... else if brewery... do...
     return (
+      <View style={{flex: 1}}>
       <ScrollView style={styles.container}>
         <SearchComponent input={this.state.input} changeInput={changeInput} pickerValue={this.state.pickerValue} pickCategory={pickCategory}/>
           
@@ -95,8 +96,9 @@ export default class FindScreen extends React.Component {
             }
           </View>
         }
-        <GoToCamera navigate={navigate}/>
       </ScrollView>
+        <GoToCamera navigate={navigate}/>
+      </View>
     )
   }
 }

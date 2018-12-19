@@ -122,7 +122,7 @@ const mainNavigator = createStackNavigator(
       // This sets the icon that shows up in the header. Can be replaced with
       // logo if we make one.
       const headerTitle = <View style={{flexDirection: 'row'}}><Ionicons
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'} size={28} style={{ marginLeft: 10, color: "brown"}}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'} size={28} style={{ marginLeft: 10, color: "#61170E"}}
     /><Text style={{marginLeft: 10, fontSize: 20}}>{ title }</Text></View>
        return { title, headerStyle, headerTitle }
     },
