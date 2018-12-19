@@ -110,7 +110,7 @@ app.get('/api/recommended', (request, response) => {
   knex
   .select([
     'category',
-    'beers.id AS id',
+    'beers.id AS beer_id',
     'beers.name AS beer_name',
     'breweries.name AS brewery_name',
     'ibu',
@@ -156,7 +156,7 @@ app.get('/api/user/:user_id', (request, response) => {
 app.get('/api/user/:user_id/favorites', (request, response) => {
   knex
     .select([
-      'beers_users_tried.beer_id AS id',
+      'beers_users_tried.beer_id AS beer_id',
       'category',
       'beers.name AS beer_name',
       'breweries.name AS brewery_name',

@@ -17,7 +17,6 @@ export default class CrowdRecommendation extends React.Component {
 
   componentDidMount() {
 
-    // need to figure out how to pass userid through different stacks
     let url = `${port.DEV_PORT}/api/recommended`;
     fetch(url)
       .then(res => res.json())

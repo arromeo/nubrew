@@ -8,7 +8,7 @@ export default class FavoriteList extends React.Component {
     return (
       <FlatList
         data={this.props.data}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item.beer_id.toString()}
         renderItem={({item}) => 
         <View style={styles.listItemContainer}>
 
@@ -35,17 +35,19 @@ export default class FavoriteList extends React.Component {
           <View style={styles.optionsContainer}>
             <TouchableOpacity
               onPress={() => {
-                this.props.navigate({
-                  routeName: 'Detail',
-              });
+                this.props.navigate('Detail', {
+                  category: "Beer",
+                  id: item.beer_id,
+                });
             }}>
               <Ionicons name="md-search" size={32} color="black"/>
             </TouchableOpacity>
             { !crowdRecommendation &&
               <TouchableOpacity 
               onPress={() => {
-                this.props.navigate({
-                  routeName: 'Find',
+                this.props.navigate('Detail', {
+                  category: "Beer",
+                  id: item.beer_id,
                 });
               }}>
                 <Ionicons name="md-trash" size={32} color="red"/>

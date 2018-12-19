@@ -20,7 +20,6 @@ export default class DetailScreen extends React.Component {
 
   componentDidMount() {
     const navigationParams = this.props.navigation.state.params;
-
     const data = {
       category: navigationParams.category,
       id: navigationParams.id,

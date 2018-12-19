@@ -80,16 +80,16 @@ export default class FindScreen extends React.Component {
           {!this.state.loading &&
             <View style={styles.searchContainer}>
               {this.state.searchResultCategory === "Beer" &&
-                <BeerSearch data={this.state.searchResult} styles={styles}/>
+                <BeerSearch data={this.state.searchResult} styles={styles} navigate={navigate}/>
               }
               {this.state.searchResultCategory === "Brewery" &&
-                <BrewerySearch data={this.state.searchResult} styles={styles}/>
+                <BrewerySearch data={this.state.searchResult} styles={styles} navigate={navigate}/>
               }
               {this.state.searchResultCategory === "Store" &&
-                <StoreSearch data={this.state.searchResult} styles={styles}/>
+                <StoreSearch data={this.state.searchResult} styles={styles} navigate={navigate}/>
               }
               {this.state.searchResultCategory === "Event" &&
-                <EventSearch data={this.state.searchResult} styles={styles}/>
+                <EventSearch data={this.state.searchResult} styles={styles} navigate={navigate}/>
               }
               {this.state.searchResultCategory === "None" &&
                 <Text>No results could be found.</Text>
