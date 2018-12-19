@@ -35,7 +35,7 @@ export default class FavoriteList extends React.Component {
             <TouchableOpacity
               onPress={() => {
                 this.props.navigate({
-                  routeName: 'Find',
+                  routeName: 'Detail',
               });
             }}>
               <Ionicons name="md-search" size={32} color="black"/>

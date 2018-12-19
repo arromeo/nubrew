@@ -15,7 +15,7 @@ export default class RecommendedBeer extends React.Component {
         style={[styles.recommendationContainer, styles.homeScreenFilename]}
         onPress={() => {
           this.props.navigate({
-            routeName: 'Find',
+            routeName: 'Detail',
           });
         }}>
         <Image

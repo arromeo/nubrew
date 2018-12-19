@@ -21,7 +21,7 @@ export default class EventList extends React.Component {
             style={[styles.eventContainer, styles.homeScreenFilename]}
             onPress={() => {
               this.props.navigate({
-                routeName: 'Find',
+                routeName: 'Detail',
               });
               this.props.searchDatabase(item.id.toString(), "HighlightEvent");
             }}>
