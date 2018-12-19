@@ -27,6 +27,7 @@ app.get('/api/index', (request, response) => {
     .then((eventsResults) => {
       knex('beers')
       .select([
+        'beers.id AS beer_id',
         'beers.name AS beer_name',
         'breweries.name AS brewery_name',
         'img_url',

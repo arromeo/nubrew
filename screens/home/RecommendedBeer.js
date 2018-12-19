@@ -14,8 +14,9 @@ export default class RecommendedBeer extends React.Component {
       <TouchableOpacity 
         style={[styles.recommendationContainer, styles.homeScreenFilename]}
         onPress={() => {
-          this.props.navigate({
-            routeName: 'Detail',
+          this.props.navigate('Detail', {
+            id: recommendedBeer.beer_id,
+            category: "Beer"
           });
         }}>
         <Image

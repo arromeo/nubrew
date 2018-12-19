@@ -19,13 +19,11 @@ export default class DetailScreen extends React.Component {
   }
 
   componentDidMount() {
-    // category and value are hard coded, TODO Find out how to pass data between navigation stacks
-    const value = 1;
-    const category = "Beer";
+    const navigationParams = this.props.navigation.state.params;
 
     const data = {
-      category: category,
-      id: value,
+      category: navigationParams.category,
+      id: navigationParams.id,
     }
     fetch(`${port.DEV_PORT}/api/details`, {
       method: "POST",
@@ -34,7 +32,6 @@ export default class DetailScreen extends React.Component {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       this.setState({
         searchResult: data.searchResult,
         searchResultCategory: data.searchResultCategory,

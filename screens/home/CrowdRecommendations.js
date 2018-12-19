@@ -12,11 +12,8 @@ export default class CrowdRecommendations extends React.Component {
       <TouchableOpacity 
         style={[styles.recommendationContainer, styles.homeScreenFilename]}
         onPress={() => {
-          this.props.navigate({
-            routeName: 'CrowdFav',
-          });
-        }}
-      >
+          this.props.navigate('CrowdFav');          
+        }}>
         <Ionicons name="md-medal" size={100} color="black"/>
         <Text>Crowd</Text>
         <Text>Recommendations</Text>

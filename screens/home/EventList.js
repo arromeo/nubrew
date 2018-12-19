@@ -20,8 +20,9 @@ export default class EventList extends React.Component {
           <TouchableOpacity
             style={[styles.eventContainer, styles.homeScreenFilename]}
             onPress={() => {
-              this.props.navigate({
-                routeName: 'Detail',
+              this.props.navigate('Detail', {
+                id: item.id,
+                category: "Event"
               });
               this.props.searchDatabase(item.id.toString(), "HighlightEvent");
             }}>
