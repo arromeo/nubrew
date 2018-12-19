@@ -13,6 +13,8 @@ import { Ionicons } from '@expo/vector-icons';
 import EventList from './home/EventList.js';
 import RecommendedBeer from './home/RecommendedBeer.js';
 import CrowdRecommendations from './home/CrowdRecommendations.js';
+import RecommendedButton from './home/RecommendedButton.js';
+import EventsButton from './home/EventsButton.js';
 import GoToCamera from './goto/GoToCamera.js';
 
 import { WebBrowser } from 'expo';
@@ -83,11 +85,16 @@ export default class HomeScreen extends React.Component {
             <EventList data={this.state.event} searchDatabase={searchDatabase} navigate={navigate}/>
             <View style={styles.contentContainer}>
               <RecommendedBeer data={this.state.recommendedBeer} searchDatabase={searchDatabase} navigate={navigate}/>
-              <CrowdRecommendations searchDatabase={searchDatabase} navigate={navigate}/>
+              <View style={styles.buttonContainer}>
+                <CrowdRecommendations style={styles.button} searchDatabase={searchDatabase} navigate={navigate}/>
+                <RecommendedButton style={styles.button} searchDatabase={searchDatabase} navigate={navigate}/>
+                <EventsButton style={styles.button} searchDatabase={searchDatabase} navigate={navigate}/>
+              </View>
             </View>
           </View>
         }
         <GoToCamera navigate={navigate}/>
+        <Text style={styles.drinkResponsibly}>Please drink responsibly.</Text>
       </View>
     );
   }
@@ -99,19 +106,34 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   contentContainer: {
-    paddingTop: 15,
     paddingBottom: 15,
     flexDirection: "row",
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     flex: 1,
   },
   contentHeader: {
     textDecorationLine: "underline",
     fontWeight: "bold",
     color: "#61170E",
+    alignItems: 'flex-start',
     marginLeft: 10,
     marginTop: 8,
     marginBottom: 5
+  },
+  buttonContainer: {
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 5,
+    justifyContent: "flex-start",
+    alignSelf: 'flex-start',
+    alignItems: "flex-start",
+  },
+  drinkResponsibly: {
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    fontWeight: "bold",
+    fontSize: 15
   }
 });

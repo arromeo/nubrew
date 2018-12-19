@@ -10,28 +10,20 @@ export default class GoToCamera extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
-        style={{
-          flex: 0.1,
-        }}
-        onPress={() => {
-          this.props.navigate({
-            routeName: 'Rate',
-          });
-        }}>
-        <View style={styles.iconCircle}></View>
-          <Ionicons name="md-camera" size={32} color="#FFBC02" style={styles.cameraIcon}/>
-      </TouchableOpacity>
+
+        <TouchableOpacity style={styles.iconCircle}
+          onPress={() => {
+            this.props.navigate({
+              routeName: 'Rate',
+            });
+          }}>
+          <Ionicons name="md-camera" size={32} color="#FFBC02"/>
+        </TouchableOpacity>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  cameraIcon: {
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
-  },
   iconCircle: {
     position: 'absolute',
     bottom: 20,
@@ -39,6 +31,9 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: '#61170E'
+    backgroundColor: '#61170E',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })

@@ -10,7 +10,10 @@ import {
 import { MonoText } from '../../components/StyledText';
 
 export default class EventList extends React.Component {
+
+  
   render() {
+    console.log(this.props.data.result);
     
     return (
       <View style={styles.contentContainer}>
