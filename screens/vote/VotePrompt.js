@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class CrowdRecommendation extends React.Component {
+export default class VotePrompt extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -15,12 +15,27 @@ export default class CrowdRecommendation extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.contentContainer}>
-          <View style={styles.horizontalContainer}>
-            <Image source={{uri: beer.img_url}} style={{height: 200, width: 150}}/>
-            <View style={styles.verticalContainer}>
-              <Text>Search by Text</Text>
-              <Text>Add to favorites</Text>
-            </View>
+          <Image source={{uri: beer.img_url}} style={{height: 200, width: 150}}/>
+          <View style={styles.verticalContainer}>
+            <Text>Incorrect beer? Try by name!</Text>
+            <TouchableOpacity 
+              style={styles.buttonStyle}
+              onPress={() => {
+                this.props.navigate({
+                  routeName: 'Find',
+                });
+              }}>
+              <Ionicons style={styles.buttonIcon} name="md-search" size={25} color="#FFBC02"/>
+              <Text style={styles.buttonLabel}>Search</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle}
+              onPress={() => {
+                console.log("favorite function goes in here");
+              }}>
+              <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
+              <Text style={styles.buttonLabel}>Favorites</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.verticalContainer}>
@@ -73,4 +88,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: 'center',
   },
+  buttonStyle: {
+    flexDirection: "row",
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5,
+    flex: 0.2,
+    width: '100%',
+    borderRadius: 25,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#61170E',
+  },
+  buttonLabel: {
+    color: '#FFBC02'
+  },
+  buttonIcon: {
+    paddingLeft: 8
+  }
 });
