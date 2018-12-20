@@ -1,3 +1,6 @@
+// make sure this gets deleted at the end and figure out how to set-up proxy
+const port = require('../../dev_port.json');
+
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Slider } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,7 +15,39 @@ export default class BeerDetails extends React.Component {
     }
   }
   render() {
+    const inputVote = (vote) => {
+      const data = {
+        user_id: "CHANGE THIS VALUE",
+        beer_id: "CHANGE THIS VALUE",
+        voteIndicator: vote,
+      }
+      return fetch(`${port.DEV_PORT}/api/user/:user_id/favorites`, 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        console.log('Test if vote input is successful')
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
     const beer = this.props.data[0];
+    const voteIndicator = () => {
+      if (this.state.value > 0.7) {
+        return inputVote(1);
+      } else if (this.state.value < -0.7) {
+        return inputVote(-1);
+      } else {
+        this.setState({
+          value: 0,
+        })
+      }
+    }
     return (
 
       <View style={styles.container}>
@@ -59,7 +94,14 @@ export default class BeerDetails extends React.Component {
             minimumTrackTintColor={'white'}
             maximumTrackTintColor={'white'}
             thumbImage={"test"}
-            onValueChange={value => this.setState({ value })}
+            onValueChange={(event) => {
+              this.setState({
+                value: event
+              })
+            }}
+            onSlidingComplete={() => {
+              voteIndicator()
+            }}
           />
           <Ionicons style={styles.buttonIcon} name="md-thumbs-up" size={50} color="green"/>
         </View>
@@ -92,7 +134,7 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: 'baseline',
+    alignItems: 'center',
   },
   verticalContainer: {
     flex: 0.5,
