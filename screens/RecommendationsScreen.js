@@ -40,7 +40,6 @@ export default class Recommendations extends React.Component {
           }
           {!this.state.loading && 
             <View>
-              <Text style={styles.headerFont}>Personal Recommendations</Text>
               <FavoriteList data={this.state.favorites} navigate={navigate} crowdFavorite={true}/>
               <View style={{height: 100}}/>
             </View>
