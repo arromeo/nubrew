@@ -1,6 +1,10 @@
+// make sure this gets deleted at the end and figure out how to set-up proxy
+const port = require('../../dev_port.json');
+
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Slider } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import VoteComponent from './VoteComponent.js';
 
 export default class VotePrompt extends React.Component {
   constructor(props) {
@@ -9,16 +13,57 @@ export default class VotePrompt extends React.Component {
       favorites: null,
       loading: true,
       value: 0,
+      voteCast: 'None',
     }
   }
   render() {
+    console.log(this.props);
+    const updateVote = (vote, beer_id, user_id) => {
+      return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/vote`, 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id, beer_id, vote
+        }),
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+
+    const voteIndicator = (event, user_id, beer_id) => {
+      let vote = 0;
+      if (event > 0.8) {
+        vote = 1;
+        this.setState({
+          voteCast: 'Liked',
+        })
+        updateVote(vote, beer_id, user_id);
+      } else if (event < -0.8) {
+        vote = -1;
+        this.setState({
+          voteCast: 'Disliked',
+        })
+        updateVote(vote, beer_id, user_id);
+      }
+    }
+
+    const sliderController = (event) => {
+      if (event < 0.8 || event > -0.8) {
+        this.setState({
+          value: 0,
+        })
+      }
+    }
+
     const beer = this.props.data;
     return (
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <Image source={{uri: beer.img_url}} style={{height: 200, width: 150}}/>
           <View style={styles.verticalContainer}>
-            <Text>Incorrect beer? Try by name!</Text>
+            <Text>Incorrect beer?</Text>
             <TouchableOpacity 
               style={styles.buttonStyle}
               onPress={() => {
@@ -48,12 +93,7 @@ export default class VotePrompt extends React.Component {
           </View>
           <Text>{beer.beer_description}</Text>
         </View>
-        <View style={styles.verticalContainer}>
-          <Slider
-            value={this.state.value}
-            onValueChange={value => this.setState({ value })}
-          />
-        </View>
+        <VoteComponent onValueChange={sliderController} onSlidingComplete={voteIndicator} navigationParams={{user_id: this.props.user, id: beer.beer_id}} value={this.state.value} voteCast={this.state.voteCast}/>
       </View>
     );
   }
@@ -86,7 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   contentContainer: {
-    flex: 1,
+    flex: 0.5,
     paddingBottom: 5,
     flexDirection: "row",
     justifyContent: "space-around",

@@ -121,7 +121,7 @@ export default class CameraScreen extends React.Component {
             </Camera>
           }
           {this.state.confirmDrink &&
-            <VotePrompt data={this.state.data} navigate={navigate}/>
+            <VotePrompt data={this.state.data} navigate={navigate} user={this.props.navigation.state.params.user_id}/>
           }
         </View>
       );

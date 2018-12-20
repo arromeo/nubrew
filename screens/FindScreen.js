@@ -15,6 +15,7 @@ export default class FindScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_id: 1,
       input: "",
       pickerValue: "Beer",
       searchResult: null,
@@ -100,7 +101,7 @@ export default class FindScreen extends React.Component {
             </View>
           }
         </ScrollView>
-        <GoToCamera navigate={navigate}/>
+        <GoToCamera navigate={navigate} user={this.state.user_id}/>
       </View>
     )
   }

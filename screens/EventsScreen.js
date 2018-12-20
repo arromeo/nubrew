@@ -74,7 +74,6 @@ export default class Events extends React.Component {
             </View>
           }
         </ScrollView>
-          <GoToCamera navigate={navigate}/>
       </View>
     );
   }

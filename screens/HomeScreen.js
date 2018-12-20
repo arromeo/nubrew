@@ -92,7 +92,7 @@ export default class HomeScreen extends React.Component {
             </View>
           </View>
         }
-        <GoToCamera navigate={navigate}/>
+        <GoToCamera navigate={navigate} user={this.state.user_id}/>
         <Text style={styles.drinkResponsibly}>Please drink responsibly.</Text>
       </View>
     );

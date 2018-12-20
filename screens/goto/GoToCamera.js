@@ -2,7 +2,6 @@ import React from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
-  View
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -15,6 +14,9 @@ export default class GoToCamera extends React.Component {
           onPress={() => {
             this.props.navigate({
               routeName: 'Rate',
+              params: {
+                user_id: this.props.user,
+              }
             });
           }}>
           <Ionicons name="md-camera" size={32} color="#FFBC02"/>

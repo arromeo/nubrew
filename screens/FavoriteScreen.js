@@ -11,6 +11,7 @@ export default class FindScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      user_id: 1,
       favorites: null,
       loading: true,
     }
