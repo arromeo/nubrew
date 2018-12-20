@@ -17,7 +17,6 @@ export default class VotePrompt extends React.Component {
     }
   }
   render() {
-    console.log(this.props);
     const updateVote = (vote, beer_id, user_id) => {
       return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/vote`, 
         {
@@ -94,6 +93,7 @@ export default class VotePrompt extends React.Component {
           <Text>{beer.beer_description}</Text>
         </View>
         <VoteComponent onValueChange={sliderController} onSlidingComplete={voteIndicator} navigationParams={{user_id: this.props.user, id: beer.beer_id}} value={this.state.value} voteCast={this.state.voteCast}/>
+        <View style={{height: 100}}></View>
       </View>
     );
   }

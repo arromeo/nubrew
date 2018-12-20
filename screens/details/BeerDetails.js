@@ -4,7 +4,7 @@ const port = require('../../dev_port.json');
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Slider } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import VoteComponent from '../voting/VoteComponent.js';
+import VoteComponent from '../vote/VoteComponent.js';
 
 
 export default class BeerDetails extends React.Component {
