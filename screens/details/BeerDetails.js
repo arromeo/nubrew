@@ -12,42 +12,51 @@ export default class BeerDetails extends React.Component {
     this.state = {
       value: 0,
       thumbImage: 'https://image.flaticon.com/icons/svg/168/168557.svg',
+      voteCast: 'None',
     }
   }
+
   render() {
-    const inputVote = (vote) => {
-      const data = {
-        user_id: "CHANGE THIS VALUE",
-        beer_id: "CHANGE THIS VALUE",
-        voteIndicator: vote,
-      }
-      return fetch(`${port.DEV_PORT}/api/user/:user_id/favorites`, 
+    // console.log(this.props.navigation.state)
+    // const navigationParams = this.props.navigation.state.params;
+    const updateVote = (vote, beer_id, user_id) => {
+      return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/vote`, 
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        console.log('Test if vote input is successful')
+          body: JSON.stringify({
+            user_id, beer_id, vote
+        }),
       })
       .catch((error) => {
         console.error(error);
       })
     }
-    const beer = this.props.data[0];
-    const voteIndicator = () => {
-      if (this.state.value > 0.7) {
-        return inputVote(1);
-      } else if (this.state.value < -0.7) {
-        return inputVote(-1);
-      } else {
+
+    const voteIndicator = (event, user_id, beer_id) => {
+      let vote = 0;
+      if (event > 0.8) {
+        vote = 1;
         this.setState({
-          value: 0,
+          voteCast: 'Liked',
         })
+        updateVote(vote, beer_id, user_id);
+      } else if (event < -0.8) {
+        vote = -1;
+        this.setState({
+          voteCast: 'Disliked',
+        })
+        updateVote(vote, beer_id, user_id);
+      } 
+    }
+
+    const sliderController = (event) => {
+      if (event < 0.8 || event > -0.8) {
+        this.state.value = 0;
       }
     }
+
+    const beer = this.props.data[0];
     return (
 
       <View style={styles.container}>
@@ -83,28 +92,34 @@ export default class BeerDetails extends React.Component {
           </View>
           <Text>{beer.beer_description}</Text>
         </View>
-        <View style={styles.sliderContainer}>
-          <Ionicons style={styles.buttonIcon} name="md-thumbs-down" size={50} color="red"/>
-          <Slider
-            style={styles.sliderStyle}
-            value={this.state.value}
-            thumbTintColor={'green'}
-            minimumValue={-1}
-            maximumValue={1}
-            minimumTrackTintColor={'white'}
-            maximumTrackTintColor={'white'}
-            thumbImage={"test"}
-            onValueChange={(event) => {
-              this.setState({
-                value: event
-              })
-            }}
-            onSlidingComplete={() => {
-              voteIndicator()
-            }}
-          />
-          <Ionicons style={styles.buttonIcon} name="md-thumbs-up" size={50} color="green"/>
-        </View>
+        {this.state.voteCast === 'None' &&
+          <View style={styles.sliderContainer}>
+            <Ionicons style={styles.buttonIcon} name="md-thumbs-down" size={50} color="red"/>
+            <Slider
+              style={styles.sliderStyle}
+              value={this.state.value}
+              thumbTintColor={'green'}
+              minimumValue={-1}
+              maximumValue={1}
+              minimumTrackTintColor={'white'}
+              maximumTrackTintColor={'white'}
+              thumbImage={"test"}
+              onValueChange={(event) => {
+                sliderController(event);
+              }}
+              onSlidingComplete={(event) => {
+                voteIndicator(event, 1, 11);
+              }}
+              />
+            <Ionicons style={styles.buttonIcon} name="md-thumbs-up" size={50} color="green"/>
+          </View>
+        }
+        {this.state.voteCast === 'Liked' &&
+          <View><Text>LIKED</Text></View>
+        }
+        {this.state.voteCast === 'Disliked' &&
+          <View><Text>Disliked</Text></View>
+        }
       </View>
     );
   }

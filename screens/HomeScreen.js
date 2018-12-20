@@ -21,6 +21,7 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      user_id: 1,
       event: null,
       recommendedBeer: null,
       loading: true,
@@ -82,7 +83,7 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.contentHeader}>Upcoming Events</Text>
             <EventList data={this.state.event} searchDatabase={searchDatabase} navigate={navigate}/>
             <View style={styles.contentContainer}>
-              <RecommendedBeer data={this.state.recommendedBeer} searchDatabase={searchDatabase} navigate={navigate}/>
+              <RecommendedBeer data={this.state.recommendedBeer} user={this.state.user_id} searchDatabase={searchDatabase} navigate={navigate}/>
               <View style={styles.buttonContainer}>
                 <CrowdRecommendations style={styles.button} searchDatabase={searchDatabase} navigate={navigate}/>
                 <RecommendedButton style={styles.button} searchDatabase={searchDatabase} navigate={navigate}/>

@@ -218,55 +218,56 @@ app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
 
 // Checks if a user has tried a beer and either creates the entry in the table
 // or updates the vote value on the record.
-app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
-  const newVote;
+app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
+  // let newVote;
+  console.log(request.body);
 
   // This normalizes the input coming in through the path since it would be too
   // easy to put in a large number.
-  if (request.params.vote < 0) {
-    newVote = -1;
-  } else if (request.params.vote === 0) {
-    newVote = 0;
-  } else {
-    newVote = 1;
-  }
+  // if (request.params.vote < 0) {
+  //   newVote = -1;
+  // } else if (request.params.vote === 0) {
+  //   newVote = 0;
+  // } else {
+  //   newVote = 1;
+  // }
 
-  knex('beers_users_tried')
-    .select('*')
-    .where('user_id', request.params.user_id)
-    .andWhere('beer_id', request.params.beer_id)
-    .then((existsResult) => {
-      if (existsResult.length > 0) {
-        knex('beers_users_tried')
-          .select('*')
-          .where('user_id', request.params.user_id)
-          .andWhere('beer_id', request.params.beer_id)
-          .update('vote', request.params.vote)
-          .returning('*')
-          .then((voteResult) => {
-            response.json(voteResult);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } else {
-        knex('beers_users_tried')
-          .select('*')
-          .insert({
-            user_id: request.params.user_id,
-            beer_id: request.params.beer_id,
-            favorite: false,
-            vote: request.params.votes
-          })
-          .returning('*')
-          .then((voteResult) => {
-            response.json(voteResult);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    })
+  // knex('beers_users_tried')
+  //   .select('*')
+  //   .where('user_id', request.params.user_id)
+  //   .andWhere('beer_id', request.params.beer_id)
+  //   .then((existsResult) => {
+  //     if (existsResult.length > 0) {
+  //       knex('beers_users_tried')
+  //         .select('*')
+  //         .where('user_id', request.params.user_id)
+  //         .andWhere('beer_id', request.params.beer_id)
+  //         .update('vote', request.params.vote)
+  //         .returning('*')
+  //         .then((voteResult) => {
+  //           response.json(voteResult);
+  //         })
+  //         .catch((err) => {
+  //           console.error(err);
+  //         });
+  //     } else {
+  //       knex('beers_users_tried')
+  //         .select('*')
+  //         .insert({
+  //           user_id: request.params.user_id,
+  //           beer_id: request.params.beer_id,
+  //           favorite: false,
+  //           vote: request.params.votes
+  //         })
+  //         .returning('*')
+  //         .then((voteResult) => {
+  //           response.json(voteResult);
+  //         })
+  //         .catch((err) => {
+  //           console.error(err);
+  //         });
+  //     }
+  //   })
 })
 
 // Returns list of recommended beers.

@@ -18,6 +18,7 @@ export default class RecommendedBeer extends React.Component {
           onPress={() => {
             this.props.navigate('Detail', {
               id: recommendedBeer.beer_id,
+              user_id: this.props.user,
               category: "Beer",
             });
           }}>
