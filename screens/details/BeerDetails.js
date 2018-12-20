@@ -19,6 +19,8 @@ export default class BeerDetails extends React.Component {
   render() {
     // console.log(this.props.navigation.state)
     // const navigationParams = this.props.navigation.state.params;
+
+    // TODO BEER AND USER ID IS CURRENTLY HARD CODED
     const updateVote = (vote, beer_id, user_id) => {
       return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/vote`, 
         {

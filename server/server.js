@@ -220,6 +220,7 @@ app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
 // or updates the vote value on the record.
 <<<<<<< HEAD
 app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
+<<<<<<< HEAD
   // let newVote;
   console.log(request.body);
 =======
@@ -290,6 +291,35 @@ app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
           .then((voteResult) => {
             response.json(voteResult);
           })
+=======
+  let data = request.body;
+  let newVote;
+  // This normalizes the input coming in through the path since it would be too
+  // easy to put in a large number.
+  if (data.vote > 0) {
+    newVote = 1;
+  } else {
+    newVote = -1;
+  }
+  // console.log("is this coming through?", data, " + ", newVote)
+  knex('beers_users_tried')
+    .select('*')
+    .where('user_id', data.user_id)
+    .andWhere('beer_id', data.beer_id)
+    .then((existsResult) => {
+      console.log(existsResult);
+      if (existsResult.length > 0) {
+        knex('beers_users_tried')
+          .select('*')
+          .where('user_id', data.user_id)
+          .andWhere('beer_id', data.beer_id)
+          .update('vote', newVote)
+          // .returning('*')
+          // .then((voteResult) => {
+          //   response.json(voteResult);
+          // })
+          .then()
+>>>>>>> update on server correctly setting for beer likes/dislikes... TODO: pass user_id and beer_id
           .catch((err) => {
             console.error(err);
           });
@@ -297,6 +327,7 @@ app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
         knex('beers_users_tried')
           .select('*')
           .insert({
+<<<<<<< HEAD
             user_id: request.params.user_id,
             beer_id: request.params.beer_id,
             favorite: false,
@@ -306,12 +337,27 @@ app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
           .then((voteResult) => {
             response.json(voteResult);
           })
+=======
+            user_id: data.user_id,
+            beer_id: data.beer_id,
+            favorite: false,
+            vote: newVote
+          })
+          .then()
+          // .returning('*')
+          // .then((voteResult) => {
+          //   response.json(voteResult);
+          // })
+>>>>>>> update on server correctly setting for beer likes/dislikes... TODO: pass user_id and beer_id
           .catch((err) => {
             console.error(err);
           });
       }
     })
+<<<<<<< HEAD
 >>>>>>> c54472d9c236b399ca336199304602258b6edcf3
+=======
+>>>>>>> update on server correctly setting for beer likes/dislikes... TODO: pass user_id and beer_id
 })
 
 // Returns list of recommended beers.
