@@ -218,9 +218,14 @@ app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
 
 // Checks if a user has tried a beer and either creates the entry in the table
 // or updates the vote value on the record.
+<<<<<<< HEAD
 app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
   // let newVote;
   console.log(request.body);
+=======
+app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
+  let newVote;
+>>>>>>> c54472d9c236b399ca336199304602258b6edcf3
 
   // This normalizes the input coming in through the path since it would be too
   // easy to put in a large number.
@@ -232,6 +237,7 @@ app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
   //   newVote = 1;
   // }
 
+<<<<<<< HEAD
   // knex('beers_users_tried')
   //   .select('*')
   //   .where('user_id', request.params.user_id)
@@ -268,6 +274,44 @@ app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
   //         });
   //     }
   //   })
+=======
+  knex('beers_users_tried')
+    .select('*')
+    .where('user_id', request.params.user_id)
+    .andWhere('beer_id', request.params.beer_id)
+    .then((existsResult) => {
+      if (existsResult.length > 0) {
+        knex('beers_users_tried')
+          .select('*')
+          .where('user_id', request.params.user_id)
+          .andWhere('beer_id', request.params.beer_id)
+          .update('vote', newVote)
+          .returning('*')
+          .then((voteResult) => {
+            response.json(voteResult);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else {
+        knex('beers_users_tried')
+          .select('*')
+          .insert({
+            user_id: request.params.user_id,
+            beer_id: request.params.beer_id,
+            favorite: false,
+            vote: newVote
+          })
+          .returning('*')
+          .then((voteResult) => {
+            response.json(voteResult);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    })
+>>>>>>> c54472d9c236b399ca336199304602258b6edcf3
 })
 
 // Returns list of recommended beers.
@@ -452,8 +496,9 @@ app.post('/api/find', (request, response) => {
         })
     case "Event":
       return knex
-        .select("*")
+        .select(["*", 'stores.name AS store_name', 'stores.img_url AS img_url'])
         .from("events")
+        .innerJoin('stores', 'events.store_id', 'stores.id')
         .then((result) => {
           filterSearch(regex, "Event", result, ['name', 'details', 'time']);
         })

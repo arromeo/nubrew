@@ -14,26 +14,20 @@ export default class FavoriteList extends React.Component {
 
           <View>
             <Image
-                source={
-                  __DEV__
-                  ? require('../../assets/images/robot-dev.png')
-                  : require('../../assets/images/robot-prod.png')
-                }
-                style={styles.recommendationImage}
-                size={50}
+                source={{ uri: item.img_url }}
+                style={{ height: 100, width: 100 }}
                 />
           </View>
 
           <View style={styles.searchResultContainer}>
-            <Text>{item.brewery_name}'s</Text>
-            <Text>{item.beer_name}</Text>
-            <Text>Type: {item.category}</Text>
-            <Text>IBU: {item.ibu}</Text>
-            <Text>ABV: {item.abv}</Text>
+            <Text style={styles.beerTitle}>{item.beer_name}</Text>
+            <Text style={styles.beerDetails}>{item.brewery_name}</Text>
+            <Text style={styles.beerDetails}>Type: {item.category}</Text>
           </View>
 
           <View style={styles.optionsContainer}>
             <TouchableOpacity
+              style={styles.optionButton}
               onPress={() => {
                 this.props.navigate('Detail', {
                   category: "Beer",
@@ -43,7 +37,8 @@ export default class FavoriteList extends React.Component {
               <Ionicons name="md-search" size={32} color="black"/>
             </TouchableOpacity>
             { !crowdRecommendation &&
-              <TouchableOpacity 
+              <TouchableOpacity
+              style={styles.optionButton}
               onPress={() => {
                 this.props.navigate('Detail', {
                   category: "Beer",
@@ -55,7 +50,7 @@ export default class FavoriteList extends React.Component {
             }
           </View>
         </View>
-      }
+        }
       />
     )
   }
@@ -63,33 +58,40 @@ export default class FavoriteList extends React.Component {
 
 const styles = StyleSheet.create({
   recommendationContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
     flexDirection: "column",
     width: '45%',
     margin: 10,
   },
   listItemContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
     flex: 1,
-    justifyContent: 'space-around',
+    marginTop: 7,
+    marginBottom: 7,
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
   },
   searchResultContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
     flexDirection: "column",
     margin: 10,
     justifyContent: 'center', 
-    alignItems: 'center',
+    alignItems: 'flex-start',
     textAlign: 'center',
-    width: '40%',
+    width: '50%',
   },
   optionsContainer: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  optionButton: {
+    marginTop: 5,
+    marginBottom: 5
+  },
+  beerTitle: {
+    fontWeight: 'bold',
+    fontSize: 15
+  }, 
+  beerDetails: {
+    fontSize: 12
   }
 });

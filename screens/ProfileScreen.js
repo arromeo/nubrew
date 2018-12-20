@@ -62,12 +62,14 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
+    flex: 0.4,
+    alignItems: 'center',
+    backgroundColor: '#61170E'
   },
   profileContainer: {
-    backgroundColor: '#693C12',
+    backgroundColor: '#61170E',
     alignItems: 'center',
+    justifyContent: 'center',
     flex: 1
   },
 })

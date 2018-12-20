@@ -42,12 +42,12 @@ export default class FindScreen extends React.Component {
           }
           {!this.state.loading && 
             <View>
-              <Text style={styles.headerFont}>My Favorites</Text>
               <FavoriteList data={this.state.favorites} navigate={navigate} crowdFavorite={false} />
             </View>
           }
-          <GoToCamera navigate={navigate}/>
+          <View style={{height: 100}}/>
         </ScrollView>
+        <GoToCamera navigate={navigate}/>
       </View>
     );
   }
