@@ -1,30 +1,75 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, FlatList } from 'react-native';
+import { ScrollView, StyleSheet, Image, TouchableOpacity, View, Text, FlatList } from 'react-native';
 
 export default class EventSearch extends React.Component {
   render() {
-    const styles = this.props.styles;
     return (
-        <FlatList
-        data={this.props.data}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => 
-          <TouchableOpacity style={styles.listItemContainer}
-            onPress={() => {
-              this.props.navigate('Detail', {
-                category: "Event",
-                id: item.id,
-              })}
-            }
-          >
-            <View style={styles.searchResultContainer}>
-              <Text>{item.name}</Text>
-              <Text>{item.time}</Text>
-              <Text>{item.details}</Text>
+        <ScrollView style={styles.container}>
+            <View>
+                <FlatList
+                  data={this.props.data}
+                  keyExtractor={item => item.id.toString()}
+                  renderItem={({item}) => 
+                <TouchableOpacity
+                  style={[styles.eventContainer, styles.homeScreenFilename]}
+                  onPress={() => {
+                    navigate('Detail', {
+                      id: item.id,
+                      category: "Event"
+                    });
+                  this.props.searchDatabase(item.id.toString(), "HighlightEvent");
+                }}>
+                <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
+                <View>
+                  <Image
+                    style={{width: 75, height: 75}}
+                    source={{uri: item.img_url }}
+                  />
+                </View>
+                <View style={styles.eventDetails}>
+                  <Text style={styles.eventTitle}>{item.name}</Text>
+                  <Text>{item.name} @ {item.time}</Text>
+                  <Text>{item.city}, {item.province}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          }/>
             </View>
-          </TouchableOpacity>
-        }
-        />
+        </ScrollView>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 15,
+    backgroundColor: '#fff',
+  },
+  headerFont: {
+    color: 'black',
+    fontWeight: 'bold',
+    marginBottom: 20,
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
+  contentContainer: {
+    paddingBottom: 5,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: 'flex-start',
+  },
+  eventDetailsContainer: {
+    flexDirection: "row",
+    flex: 1,
+    margin: 5,
+  },
+  eventDetails: {
+    marginLeft: 15,
+    justifyContent: "center"
+  },
+  eventTitle: {
+    fontWeight: "bold"
+  }
+});

@@ -451,8 +451,9 @@ app.post('/api/find', (request, response) => {
         })
     case "Event":
       return knex
-        .select("*")
+        .select(["*", 'stores.name AS store_name', 'stores.img_url AS img_url'])
         .from("events")
+        .innerJoin('stores', 'events.store_id', 'stores.id')
         .then((result) => {
           filterSearch(regex, "Event", result, ['name', 'details', 'time']);
         })
