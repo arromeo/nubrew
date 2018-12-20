@@ -181,6 +181,8 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
     });
 });
 
+// Checks if a user has tried a beer and either creates the entry in the table
+// or updates the favorite value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
   knex('beers_users_tried')
     .select('*')
@@ -214,7 +216,21 @@ app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
     });
 });
 
+// Checks if a user has tried a beer and either creates the entry in the table
+// or updates the vote value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
+  const newVote;
+
+  // This normalizes the input coming in through the path since it would be too
+  // easy to put in a large number.
+  if (request.params.vote < 0) {
+    newVote = -1;
+  } else if (request.params.vote === 0) {
+    newVote = 0;
+  } else {
+    newVote = 1;
+  }
+
   knex('beers_users_tried')
     .select('*')
     .where('user_id', request.params.user_id)
