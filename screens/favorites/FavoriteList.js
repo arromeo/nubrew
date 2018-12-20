@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
   },
   listItemContainer: {
     flex: 1,
+    marginTop: 5,
+    marginBottom: 5,
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
