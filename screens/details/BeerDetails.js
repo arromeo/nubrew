@@ -4,6 +4,7 @@ const port = require('../../dev_port.json');
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Slider } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import VoteComponent from '../voting/VoteComponent.js';
 
 
 export default class BeerDetails extends React.Component {
@@ -17,7 +18,6 @@ export default class BeerDetails extends React.Component {
   }
 
   render() {
-    const navigationParams = this.props.navigationParams;
     const updateVote = (vote, beer_id, user_id) => {
       return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/vote`, 
         {
@@ -46,12 +46,14 @@ export default class BeerDetails extends React.Component {
           voteCast: 'Disliked',
         })
         updateVote(vote, beer_id, user_id);
-      } 
+      }
     }
 
     const sliderController = (event) => {
       if (event < 0.8 || event > -0.8) {
-        this.state.value = 0;
+        this.setState({
+          value: 0,
+        })
       }
     }
 
@@ -91,34 +93,7 @@ export default class BeerDetails extends React.Component {
           </View>
           <Text>{beer.beer_description}</Text>
         </View>
-        {this.state.voteCast === 'None' &&
-          <View style={styles.sliderContainer}>
-            <Ionicons style={styles.buttonIcon} name="md-thumbs-down" size={50} color="red"/>
-            <Slider
-              style={styles.sliderStyle}
-              value={this.state.value}
-              thumbTintColor={'green'}
-              minimumValue={-1}
-              maximumValue={1}
-              minimumTrackTintColor={'white'}
-              maximumTrackTintColor={'white'}
-              thumbImage={"test"}
-              onValueChange={(event) => {
-                sliderController(event);
-              }}
-              onSlidingComplete={(event) => {
-                voteIndicator(event, navigationParams.user_id, navigationParams.id);
-              }}
-              />
-            <Ionicons style={styles.buttonIcon} name="md-thumbs-up" size={50} color="green"/>
-          </View>
-        }
-        {this.state.voteCast === 'Liked' &&
-          <View><Text>LIKED</Text></View>
-        }
-        {this.state.voteCast === 'Disliked' &&
-          <View><Text>Disliked</Text></View>
-        }
+        <VoteComponent onValueChange={sliderController} onSlidingComplete={voteIndicator} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast}/>
       </View>
     );
   }
@@ -130,25 +105,12 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#fff',
   },
-  sliderStyle: {
-    flex: 1,
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   headerFont: {
     color: 'black',
     fontWeight: 'bold',
     flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
-  },
-  sliderContainer: {
-    flex: 0.5,
-    margin: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: 'center',
   },
   verticalContainer: {
     flex: 0.5,
