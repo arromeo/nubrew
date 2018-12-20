@@ -181,6 +181,78 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
     });
 });
 
+app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
+  knex('beers_users_tried')
+    .select('*')
+    .where('user_id', request.params.user_id)
+    .andWhere('beer_id', request.params.beer_id)
+    .then((existsResult) => {
+      if (existsResult.length > 0) {
+        knex('beers_users_tried')
+          .select('*')
+          .where('user_id', request.params.user_id)
+          .andWhere('beer_id', request.params.beer_id)
+          .update('favorite', !existsResult[0].favorite)
+          .returning('*')
+          .then((favoriteResult) => {
+            response.json(favoriteResult);
+          });
+      } else {
+        knex('beers_users_tried')
+          .select('*')
+          .insert({
+            user_id: request.params.user_id,
+            beer_id: request.params.beer_id,
+            favorites: true,
+            vote: 0
+          })
+          .returning('*')
+          .then((favoriteResult) => {
+            response.json(favoriteResult);
+          });
+      }
+    });
+});
+
+app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
+  knex('beers_users_tried')
+    .select('*')
+    .where('user_id', request.params.user_id)
+    .andWhere('beer_id', request.params.beer_id)
+    .then((existsResult) => {
+      if (existsResult.length > 0) {
+        knex('beers_users_tried')
+          .select('*')
+          .where('user_id', request.params.user_id)
+          .andWhere('beer_id', request.params.beer_id)
+          .update('vote', request.params.vote)
+          .returning('*')
+          .then((voteResult) => {
+            response.json(voteResult);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else {
+        knex('beers_users_tried')
+          .select('*')
+          .insert({
+            user_id: request.params.user_id,
+            beer_id: request.params.beer_id,
+            favorite: false,
+            vote: request.params.votes
+          })
+          .returning('*')
+          .then((voteResult) => {
+            response.json(voteResult);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    })
+})
+
 // Returns list of recommended beers.
 // TODO: This currently contains a list of all untried beers. A recommendation
 // algorithm should be implemented here.
