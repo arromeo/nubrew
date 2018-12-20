@@ -22,8 +22,9 @@ export default class CameraScreen extends React.Component {
       barcodeScanning: false,
       faceDetecting: false,
       showGallery: false,
-      foundDrinks: false,
+      couldNotFind: false,
       confirmDrink: false,
+      data: null,
     };
   }
   static navigationOptions = {
@@ -50,7 +51,12 @@ export default class CameraScreen extends React.Component {
         })
       .then(res => res.json())
       .then(data => {
-        console.log("data is getting returned: " + data)
+        this.setState({
+          data: data[0],
+          confirmDrink: data.confirmDrink,
+          couldNotFind: data.couldNotFind,
+        })
+        console.log(JSON.stringify(data))
       })
       .catch((error) => {
         console.error(error);
@@ -88,7 +94,7 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          {!this.state.foundDrinks &&
+          {!this.state.confirmDrink &&
             <Camera style={styles.cameraContainer} 
               type={this.state.type} 
               ref={ref => { this.camera = ref; }}>
@@ -112,6 +118,11 @@ export default class CameraScreen extends React.Component {
                 <Text style={styles.photoGuideFont}>Tap the Screen!</Text>
               </TouchableOpacity>
             </Camera>
+          }
+          {this.state.confirmDrink &&
+            <View>
+              <Text>FOUND THE DRINK {this.state.data.beer_name}</Text>
+            </View>
           }
         </View>
       );

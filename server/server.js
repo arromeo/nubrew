@@ -376,17 +376,21 @@ app.post('/api/find', (request, response) => {
 })
 
 app.post('/api/visionML', (request, response) => {
-  automlapi(request.body, cred, (data) => {
-    return knex
-      .select(["*",'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
-      .from("beers")
-      .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
-      .innerJoin('categories', 'beers.category_id', 'categories.id')
-      .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
-      .where('beer_id', data.displayName)
-      .then((result) => {
-        console.log(result);
-      })
+  automlapi(request.body, cred, (APIresult) => {
+    if (APIresult.displayName === "none_of_the_above") {
+      response.json({ data: null, couldNotFind: true })
+    } else {
+      return knex
+        .select(['abv', 'ibu', 'category', 'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
+        .from("beers")
+        .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
+        .innerJoin('categories', 'beers.category_id', 'categories.id')
+        .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
+        .where('beer_id', APIresult.displayName)
+        .then((result) => {
+          response.json({ data: result, confirmDrink: true})
+        })
+    }
   });
 })
 
