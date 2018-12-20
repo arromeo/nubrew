@@ -9,6 +9,8 @@ import FavoriteScreen from '../screens/FavoriteScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CrowdRecScreen from '../screens/CrowdRecScreen';
 import DetailScreen from '../screens/DetailScreen';
+import RecommendationsScreen from '../screens/RecommendationsScreen';
+import EventsScreen from '../screens/EventsScreen';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -34,6 +36,8 @@ const Routes = {
   Find: { key: "Find", title: "Find" },
   Rate: { key: "Rate", title: "Rate" },
   Detail: { key: "Detail", title: "Detail" },
+  Recommendations: { key: "Recommendations", title: "Recommendations"},
+  Events: { key: "Events", title: "Events" },
   CrowdFav: { key: "CrowdFav", title: "Crowd Recommendations" },
   Favorites: { key: "Favorites", title: "Favorites" },
   Profile: { key: "Profile", title: "Title" }
@@ -112,6 +116,8 @@ const mainNavigator = createStackNavigator(
     [Routes.Rate.key]: RateDrinkScreen,
     [Routes.CrowdFav.key]: CrowdRecScreen,
     [Routes.Detail.key]: DetailScreen,
+    [Routes.Recommendations.key]: RecommendationsScreen,
+    [Routes.Events.key]: EventsScreen,
   }, {
     initialRouteName: Routes.TabStack.key,
     navigationOptions: ({ navigation }) => {

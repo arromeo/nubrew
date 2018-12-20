@@ -296,9 +296,13 @@ app.get('/api/brewery/:brewery_id/beers', (request, response) => {
 app.get('/api/events', (request, response) => {
   knex
     .select([
+      'events.id AS id',
       'events.details AS event_details',
       'stores.name AS store_name',
       'events.name AS event_name',
+      'stores.city',
+      'stores.province',
+      'stores.img_url AS store_img_url',
       'time'
       ])
     .from('events')

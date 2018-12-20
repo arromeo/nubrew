@@ -12,8 +12,8 @@ export default class RecommendedBeer extends React.Component {
   render() {
     const recommendedBeer = this.props.data;
     return (
-      <View style={{flex: 1}}>
-        <Text style={styles.contentHeader}>Crowd Favorites</Text>
+      <View style={{flex: 1, justifyContent: 'flex-start'}}>
+        <Text style={styles.contentHeader}>Featured Beer</Text>
         <TouchableOpacity 
           style={[styles.recommendationContainer, styles.homeScreenFilename]}
           onPress={() => {
@@ -26,10 +26,10 @@ export default class RecommendedBeer extends React.Component {
                     style={{width: 100, height: 100}}
                     source={{uri: recommendedBeer.img_url }}
                     />
-          <Text>{recommendedBeer.brewery_name}'s</Text>
-          <Text>{recommendedBeer.beer_name}</Text>
-          <MonoText style={styles.codeHighlightText}>IBU: {recommendedBeer.ibu}</MonoText>
-          <MonoText style={styles.codeHighlightText}>ABV: {recommendedBeer.abv}</MonoText>
+          <Text style={{fontWeight: "bold"}}>{recommendedBeer.beer_name}</Text>
+          <Text style={styles.beerDetails}>{recommendedBeer.brewery_name}</Text>
+          <Text style={styles.beerDetails}>IBU: {recommendedBeer.ibu}</Text>
+          <Text style={styles.beerDetails}>ABV: {recommendedBeer.abv}</Text>
         </TouchableOpacity>
       </View>
     )
@@ -39,8 +39,7 @@ export default class RecommendedBeer extends React.Component {
 const styles = StyleSheet.create({
   recommendationContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   contentHeader: {
     textDecorationLine: "underline",
@@ -48,7 +47,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#61170E",
     marginLeft: 10,
-    marginTop: 8,
-    marginBottom: 5
+    marginTop: 12,
+    marginBottom: 10
+  },
+  beerDetails: {
+    fontSize: 12,
+    textAlign: "center"
   }
 });
