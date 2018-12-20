@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   listItemContainer: {
     flex: 1,
-    marginTop: 3,
-    marginBottom: 3,
+    marginTop: 7,
+    marginBottom: 7,
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
