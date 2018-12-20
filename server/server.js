@@ -294,30 +294,22 @@ app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
 =======
   let data = request.body;
   let newVote;
-  // This normalizes the input coming in through the path since it would be too
-  // easy to put in a large number.
   if (data.vote > 0) {
     newVote = 1;
   } else {
     newVote = -1;
   }
-  // console.log("is this coming through?", data, " + ", newVote)
   knex('beers_users_tried')
     .select('*')
     .where('user_id', data.user_id)
     .andWhere('beer_id', data.beer_id)
     .then((existsResult) => {
-      console.log(existsResult);
       if (existsResult.length > 0) {
         knex('beers_users_tried')
           .select('*')
           .where('user_id', data.user_id)
           .andWhere('beer_id', data.beer_id)
           .update('vote', newVote)
-          // .returning('*')
-          // .then((voteResult) => {
-          //   response.json(voteResult);
-          // })
           .then()
 >>>>>>> update on server correctly setting for beer likes/dislikes... TODO: pass user_id and beer_id
           .catch((err) => {
@@ -344,11 +336,14 @@ app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
             vote: newVote
           })
           .then()
+<<<<<<< HEAD
           // .returning('*')
           // .then((voteResult) => {
           //   response.json(voteResult);
           // })
 >>>>>>> update on server correctly setting for beer likes/dislikes... TODO: pass user_id and beer_id
+=======
+>>>>>>> user id and beer id correctly passed to beers details page from home page
           .catch((err) => {
             console.error(err);
           });
