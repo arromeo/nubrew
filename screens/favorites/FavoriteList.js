@@ -27,6 +27,7 @@ export default class FavoriteList extends React.Component {
 
           <View style={styles.optionsContainer}>
             <TouchableOpacity
+              style={styles.optionButton}
               onPress={() => {
                 this.props.navigate('Detail', {
                   category: "Beer",
@@ -36,7 +37,8 @@ export default class FavoriteList extends React.Component {
               <Ionicons name="md-search" size={32} color="black"/>
             </TouchableOpacity>
             { !crowdRecommendation &&
-              <TouchableOpacity 
+              <TouchableOpacity
+              style={styles.optionButton}
               onPress={() => {
                 this.props.navigate('Detail', {
                   category: "Beer",
@@ -62,8 +64,8 @@ const styles = StyleSheet.create({
   },
   listItemContainer: {
     flex: 1,
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 3,
+    marginBottom: 3,
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
@@ -80,6 +82,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  optionButton: {
+    marginTop: 5,
+    marginBottom: 5
   },
   beerTitle: {
     fontWeight: 'bold',
