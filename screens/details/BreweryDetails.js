@@ -7,11 +7,12 @@ export default class BreweryDetails extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.detailsTitle}>{brewery.name}</Text>
-        <Text>Name: {brewery.description}</Text>
-        <Text>Name: {brewery.street_address}</Text>
-        <Text>Name: {brewery.city}</Text>
-        <Text>Name: {brewery.province}</Text>
-        <Text>Name: {brewery.postal_code}</Text>
+        <View style={styles.addressCard}>
+          <Text>{brewery.street_address}</Text>
+          <Text>{brewery.city}, {brewery.province}</Text>
+          <Text>{brewery.postal_code}</Text>
+        </View>
+        <Text style={styles.description}>{brewery.description}</Text>
       </View>
     )
   }
@@ -27,5 +28,12 @@ const styles = StyleSheet.create({
   detailsTitle: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  addressCard: {
+    marginLeft: 15,
+    marginTop: 15
+  },
+  description: {
+    marginTop: 15
   }
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
 
-export default class EventSearch extends React.Component {
+export default class EventDetails extends React.Component {
   render() {
     const styles = this.props.styles;
     return (
