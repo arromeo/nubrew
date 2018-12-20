@@ -58,7 +58,8 @@ exports.seed = function(knex, Promise) {
         street_address: '1441 Cartwright St',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V6H 3R7'
+        postal_code: 'V6H 3R7',
+        img_url: 'http://www.gib.ca/app/themes/gib/dist/images/header-logo.png'
       },
       {
         id: 2,
@@ -67,7 +68,8 @@ exports.seed = function(knex, Promise) {
         street_address: 'Franz-Brombach-Straße 1',
         city: 'Erding',
         province: 'Germany',
-        postal_code: '85435'
+        postal_code: '85435',
+        img_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpw2VoX1ZZfsm13DuhYStVrA-TFASmEl0aJy7ihITDHx5xI8rdg'
       },
       {
         id: 3,
@@ -76,7 +78,8 @@ exports.seed = function(knex, Promise) {
         street_address: '15 W 8th Ave',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V5Y 1M8'
+        postal_code: 'V5Y 1M8',
+        img_url: 'http://33acresbrewing.com/app/themes/33acres/assets/images/logo.svg'
       },
       {
         id: 4,
@@ -85,7 +88,8 @@ exports.seed = function(knex, Promise) {
         street_address: '1221 E Pike St',
         city: 'Seattle',
         province: 'WA',
-        postal_code: '98122'
+        postal_code: '98122',
+        img_url: 'https://www.elysianbrewing.com/assets/images/temp-logo.png'
       },
       {
         id: 5,
@@ -94,7 +98,8 @@ exports.seed = function(knex, Promise) {
         street_address: '1265 Boston Ave',
         city: 'Longmont',
         province: 'CO',
-        postal_code: '80501'
+        postal_code: '80501',
+        img_url: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Left_Hand_Logo.jpg'
       },
       {
         id: 6,
@@ -103,7 +108,8 @@ exports.seed = function(knex, Promise) {
         street_address: '375 Water St',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V6B 1B8'
+        postal_code: 'V6B 1B8',
+        img_url: 'https://pbs.twimg.com/profile_images/844693056888553472/9Ug5p3Ha.jpg'
       },
       {
         id: 7,
@@ -112,7 +118,8 @@ exports.seed = function(knex, Promise) {
         street_address: '476-336 Hillside Ave',
         city: 'Victoria',
         province: 'BC',
-        postal_code: 'V8T 1Y7'
+        postal_code: 'V8T 1Y7',
+        img_url: 'https://driftwoodbeer.com/app/themes/driftwood/dist/images/driftwood-full-logo.png'
       },
       {
         id: 8,
@@ -121,7 +128,8 @@ exports.seed = function(knex, Promise) {
         street_address: '1053 Stewart Rd',
         city: 'Gibsons',
         province: 'BC',
-        postal_code: 'V0N 1V7'
+        postal_code: 'V0N 1V7',
+        img_url: 'http://www.persephonebrewing.com/wp-content/uploads/2015/05/Persephone_Logo.png'
       },
       {
         id: 9,
@@ -130,7 +138,8 @@ exports.seed = function(knex, Promise) {
         street_address: '295 E 1st Ave',
         city: 'Vancouver',
         province: 'BC',
-        postal_code: 'V5T 1A7'
+        postal_code: 'V5T 1A7',
+        img_url: 'https://pbs.twimg.com/profile_images/820024782376706049/4YmBSKDG_400x400.jpg'
       },
       {
         id: 10,
@@ -139,7 +148,9 @@ exports.seed = function(knex, Promise) {
         street_address: '1045 Millar Creek Rd',
         city: 'Whistler',
         province: 'BC',
-        postal_code: 'V0N 1B1'
+        postal_code: 'V0N 1B1',
+        img_url: 'http://www.whistlerbeer.com/wp-content/themes/whislter_brewery/_assets/img/whistler_brewery.jpg'
+
       },
       {
         id: 11,
@@ -148,7 +159,8 @@ exports.seed = function(knex, Promise) {
         street_address: '13018 80 Ave',
         city: 'Surrey',
         province: 'BC',
-        postal_code: 'V3W 2B2'
+        postal_code: 'V3W 2B2',
+        img_url: 'https://www.brewersjournal.ca/wp-content/uploads/2016/10/Breweries-300x300.jpg'
       },
       {
         id: 12,
@@ -157,7 +169,8 @@ exports.seed = function(knex, Promise) {
         street_address: '11411 Bridgeview Drive',
         city: 'Surrey',
         province: 'BC',
-        postal_code: 'V3R 0C2'
+        postal_code: 'V3R 0C2',
+        img_url: 'http://transatlanticbrews.com/wp-content/uploads/2015/07/redracer.rev_1000.png'
       },
     ]);
   }

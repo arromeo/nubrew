@@ -33,7 +33,7 @@ app.get('/api/index', (request, response) => {
         'beers.id AS beer_id',
         'beers.name AS beer_name',
         'breweries.name AS brewery_name',
-        'img_url',
+        'beers.img_url AS img_url',
         'category',
         'ibu',
         'abv'  
@@ -60,7 +60,7 @@ app.post('/api/details', (request, response) => {
   switch (request.body.category) {
     case "Beer":
       return knex
-        .select(["*",'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
+        .select(["beers.img_url AS img_url",'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
         .from("beers")
         .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
         .innerJoin('categories', 'beers.category_id', 'categories.id')
@@ -118,7 +118,7 @@ app.get('/api/recommended', (request, response) => {
     'breweries.name AS brewery_name',
     'ibu',
     'abv',
-    'img_url'])
+    'beers.img_url AS img_url'])
   .from('beers')
   .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
   .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
@@ -164,7 +164,7 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
       'breweries.name AS brewery_name',
       'ibu',
       'abv',
-      'img_url'])
+      'beers.img_url AS img_url'])
     .from('beers_users_tried')
     .innerJoin('beers', 'beers_users_tried.beer_id', 'beers.id')
     .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
@@ -275,7 +275,7 @@ app.get('/api/user/:user_id/recommended', (request, response) => {
           'breweries.name AS brewery_name',
           'ibu',
           'abv',
-          'img_url'])
+          'beers.img_url AS img_url'])
         .from('beers')
         .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
         .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
@@ -303,7 +303,7 @@ app.get('/api/beers', (request, response) => {
     'breweries.name AS brewery_name',
     'ibu',
     'abv',
-    'img_url'])
+    'beers.img_url AS img_url'])
   .from('beers')
   .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
   .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
@@ -325,7 +325,7 @@ app.get('/api/store/:store_id/inventory', (request, response) => {
       'breweries.name AS brewery_name',
       'ibu',
       'abv',
-      'img_url'])
+      'beers.img_url as beer_img_url'])
     .from('beers_stores')
     .innerJoin('beers', 'beers_stores.beer_id', 'beers.id')
     .innerJoin('stores', 'beers_stores.store_id', 'stores.id')
@@ -352,7 +352,7 @@ app.get('/api/brewery/:brewery_id/beers', (request, response) => {
       'breweries.name AS brewery_name',
       'ibu',
       'abv',
-      'img_url'])
+      'beers.img_url AS img_url'])
     .from('beers_breweries')
     .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
     .innerJoin('beers', 'beers_breweries.beer_id', 'beers.id')
@@ -423,7 +423,7 @@ app.post('/api/find', (request, response) => {
   switch (request.body.category) {
     case "Beer":
       return knex
-        .select(["*",'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
+        .select(["beers.img_url AS img_url", 'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
         .from("beers")
         .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
         .innerJoin('categories', 'beers.category_id', 'categories.id')
@@ -436,7 +436,7 @@ app.post('/api/find', (request, response) => {
         .select("*")
         .from("breweries")
         .then((result) => {
-          filterSearch(regex, "Brewery", result, ['name', 'description', 'address', 'city', 'province']);
+          filterSearch(regex, "Brewery", result, ['name', 'description', 'address', 'city', 'province', 'img_url']);
         })
     case "Event":
       return knex
@@ -462,7 +462,7 @@ app.post('/api/visionML', (request, response) => {
       response.json({ data: null, couldNotFind: true })
     } else {
       return knex
-        .select(['img_url', 'abv', 'ibu', 'category', 'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
+        .select(['beers.img_url AS img_url', 'abv', 'ibu', 'category', 'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
         .from("beers")
         .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
         .innerJoin('categories', 'beers.category_id', 'categories.id')
