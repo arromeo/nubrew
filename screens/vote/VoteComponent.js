@@ -25,14 +25,18 @@ export default class VoteComponent extends React.Component {
                 this.props.onSlidingComplete(event, this.props.navigationParams.user_id, this.props.navigationParams.id);
               }}
               />
-            <Ionicons style={styles.buttonIcon} name="md-thumbs-up" size={50} color="green"/>
+            <Ionicons name="md-thumbs-up" size={50} color="green"/>
           </View>
         }
         {this.props.voteCast === 'Liked' &&
-          <View><Text>LIKED</Text></View>
+          <View style={styles.confirmationContainer}>
+            <Ionicons name="md-thumbs-up" size={80} color="green"/>
+          </View>
         }
         {this.props.voteCast === 'Disliked' &&
-          <View><Text>Disliked</Text></View>
+          <View style={styles.confirmationContainer}>
+            <Ionicons name="md-thumbs-down" size={80} color="red"/>
+          </View>
         }
       </View>
     )
@@ -52,4 +56,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: 'center',
   },
+  confirmationContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
