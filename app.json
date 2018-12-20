@@ -3,6 +3,7 @@
     "name": "nubrew",
     "slug": "nubrew",
     "privacy": "public",
+    "primaryColor": "#61170E",
     "sdkVersion": "31.0.0",
     "platforms": [
       "ios",

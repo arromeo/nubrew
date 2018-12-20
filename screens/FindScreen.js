@@ -74,6 +74,7 @@ export default class FindScreen extends React.Component {
             
           <Button 
             title="Search"
+            color="#61170E"
             onPress={() => searchDatabase(this.state.input, this.state.pickerValue)}
             />
 
