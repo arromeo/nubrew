@@ -14,19 +14,22 @@ export default class CrowdRecommendation extends React.Component {
   render() {
     const beer = this.props.data;
     return (
-      <View>
-        <View>
-          <Image source={beer.img_url} size={100}/>
-          <Ionicons name="md-star" size={32} color="yellow"/>
+      <View style={styles.container}>
+        <View style={styles.contentContainer}>
+          <Image source={{uri: beer.img_url}} style={{height: 200, width: 150}}/>
+          <Ionicons name="md-star" size={75} color="goldenrod"/>
         </View>
-        <View>
-          <Text>{beer.brewery_name}'s {beer.beer_name}</Text>
+        <View style={styles.bottomContainer}>
+          <Text style={styles.headerFont}>{beer.brewery_name}'s {beer.beer_name}</Text>
           <Text>{beer.category}</Text>
-          <View>
+          <View style={styles.contentContainer}>
             <Text>ABV: {beer.abv}</Text>
             <Text>IBU: {beer.ibu}</Text>
           </View>
           <Text>{beer.description}</Text>
+        </View>
+        <View>
+          <Text>Slidebar goes here</Text>
         </View>
         <GoToCamera navigate={this.props.navigate}/>
       </View>
@@ -47,5 +50,18 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
-  }
+  },
+  bottomContainer: {
+    flex: 1,
+    paddingBottom: 5,
+    justifyContent: "center",
+    alignItems: 'center',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingBottom: 5,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: 'center',
+  },
 });

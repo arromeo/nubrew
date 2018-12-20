@@ -58,7 +58,6 @@ export default class CameraScreen extends React.Component {
           confirmDrink: data.confirmDrink,
           couldNotFind: data.couldNotFind,
         })
-        console.log(JSON.stringify(data.data[0]))
       })
       .catch((error) => {
         console.error(error);
