@@ -21,9 +21,8 @@ export default class FavoriteList extends React.Component {
 
           <View style={styles.searchResultContainer}>
             <Text style={styles.beerTitle}>{item.beer_name}</Text>
-            <Text>{item.brewery_name}</Text>
-            <Text>Type: {item.category}</Text>
-            <Text>IBU: {item.ibu} ABV: {item.abv}</Text>
+            <Text style={styles.beerDetails}>{item.brewery_name}</Text>
+            <Text style={styles.beerDetails}>Type: {item.category}</Text>
           </View>
 
           <View style={styles.optionsContainer}>
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 5,
     marginBottom: 5,
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'flex-start',
     textAlign: 'center',
-    width: '40%',
+    width: '50%',
   },
   optionsContainer: {
     flex: 1,
@@ -83,6 +82,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   beerTitle: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 15
+  }, 
+  beerDetails: {
+    fontSize: 12
   }
 });
