@@ -7,6 +7,8 @@ import { ScrollView, TouchableOpacity, StyleSheet, View, Text } from 'react-nati
 import { Camera, Permissions, ImageManipulator } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { SearchBar } from 'react-native-elements';
+import VotePrompt from './vote/VotePrompt.js';
+
 
 export default class CameraScreen extends React.Component {
   constructor(props) {
@@ -52,11 +54,11 @@ export default class CameraScreen extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          data: data[0],
+          data: data.data[0],
           confirmDrink: data.confirmDrink,
           couldNotFind: data.couldNotFind,
         })
-        console.log(JSON.stringify(data))
+        console.log(JSON.stringify(data.data[0]))
       })
       .catch((error) => {
         console.error(error);
@@ -120,9 +122,7 @@ export default class CameraScreen extends React.Component {
             </Camera>
           }
           {this.state.confirmDrink &&
-            <View>
-              <Text>FOUND THE DRINK {this.state.data.beer_name}</Text>
-            </View>
+            <VotePrompt data={this.state.data} navigate={navigate}/>
           }
         </View>
       );

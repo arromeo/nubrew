@@ -1,10 +1,7 @@
-// make sure this gets deleted at the end and figure out how to set-up proxy
-const port = require('../dev_port.json');
-
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
-import FavoriteList from './favorites/FavoriteList.js';
-import GoToCamera from './goto/GoToCamera.js';
+import { StyleSheet, View, Text, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import GoToCamera from '../goto/GoToCamera.js';
 
 export default class CrowdRecommendation extends React.Component {
   constructor(props) {
@@ -15,10 +12,24 @@ export default class CrowdRecommendation extends React.Component {
     }
   }
   render() {
-    const { navigate } = this.props.navigation;
-
+    const beer = this.props.data;
     return (
-      
+      <View>
+        <View>
+          <Image source={beer.img_url} size={100}/>
+          <Ionicons name="md-star" size={32} color="yellow"/>
+        </View>
+        <View>
+          <Text>{beer.brewery_name}'s {beer.beer_name}</Text>
+          <Text>{beer.category}</Text>
+          <View>
+            <Text>ABV: {beer.abv}</Text>
+            <Text>IBU: {beer.ibu}</Text>
+          </View>
+          <Text>{beer.description}</Text>
+        </View>
+        <GoToCamera navigate={this.props.navigate}/>
+      </View>
     );
   }
 }

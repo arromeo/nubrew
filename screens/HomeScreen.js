@@ -6,9 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 import EventList from './home/EventList.js';
 import RecommendedBeer from './home/RecommendedBeer.js';
