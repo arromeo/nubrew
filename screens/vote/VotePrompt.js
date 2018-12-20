@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import GoToCamera from '../goto/GoToCamera.js';
 
 export default class CrowdRecommendation extends React.Component {
   constructor(props) {
@@ -16,10 +15,15 @@ export default class CrowdRecommendation extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.contentContainer}>
-          <Image source={{uri: beer.img_url}} style={{height: 200, width: 150}}/>
-          <Ionicons name="md-star" size={75} color="goldenrod"/>
+          <View style={styles.horizontalContainer}>
+            <Image source={{uri: beer.img_url}} style={{height: 200, width: 150}}/>
+            <View style={styles.verticalContainer}>
+              <Text>Search by Text</Text>
+              <Text>Add to favorites</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.bottomContainer}>
+        <View style={styles.verticalContainer}>
           <Text style={styles.headerFont}>{beer.brewery_name}'s {beer.beer_name}</Text>
           <Text>{beer.category}</Text>
           <View style={styles.contentContainer}>
@@ -28,10 +32,9 @@ export default class CrowdRecommendation extends React.Component {
           </View>
           <Text>{beer.description}</Text>
         </View>
-        <View>
+        <View style={styles.verticalContainer}>
           <Text>Slidebar goes here</Text>
         </View>
-        <GoToCamera navigate={this.props.navigate}/>
       </View>
     );
   }
@@ -46,15 +49,21 @@ const styles = StyleSheet.create({
   headerFont: {
     color: 'black',
     fontWeight: 'bold',
-    marginBottom: 20,
     flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
   },
-  bottomContainer: {
-    flex: 1,
+  verticalContainer: {
+    flex: 0.5,
     paddingBottom: 5,
     justifyContent: "center",
+    alignItems: 'center',
+  },
+  horizontalContainer: {
+    flex: 0.5,
+    paddingBottom: 5,
+    flexDirection: "row",
+    justifyContent: "space-around",
     alignItems: 'center',
   },
   contentContainer: {
