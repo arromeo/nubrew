@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Slider } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default class VotePrompt extends React.Component {
@@ -8,6 +8,7 @@ export default class VotePrompt extends React.Component {
     this.state = {
       favorites: null,
       loading: true,
+      value: 0,
     }
   }
   render() {
@@ -40,15 +41,18 @@ export default class VotePrompt extends React.Component {
         </View>
         <View style={styles.verticalContainer}>
           <Text style={styles.headerFont}>{beer.brewery_name}'s {beer.beer_name}</Text>
-          <Text>{beer.category}</Text>
-          <View style={styles.contentContainer}>
+          <Text>Style: {beer.category}</Text>
+          <View style={styles.verticalContainer}>
             <Text>ABV: {beer.abv}</Text>
             <Text>IBU: {beer.ibu}</Text>
           </View>
-          <Text>{beer.description}</Text>
+          <Text>{beer.beer_description}</Text>
         </View>
         <View style={styles.verticalContainer}>
-          <Text>Slidebar goes here</Text>
+          <Slider
+            value={this.state.value}
+            onValueChange={value => this.setState({ value })}
+          />
         </View>
       </View>
     );
@@ -70,7 +74,7 @@ const styles = StyleSheet.create({
   },
   verticalContainer: {
     flex: 0.5,
-    paddingBottom: 5,
+    margin: 10,
     justifyContent: "center",
     alignItems: 'center',
   },

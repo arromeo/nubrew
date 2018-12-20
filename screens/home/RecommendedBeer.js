@@ -6,7 +6,6 @@ import {
   Image,
   View
 } from 'react-native';
-import { MonoText } from '../../components/StyledText';
 
 export default class RecommendedBeer extends React.Component {
   render() {
