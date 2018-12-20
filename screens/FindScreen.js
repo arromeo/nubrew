@@ -9,6 +9,7 @@ import BrewerySearch from './search/BrewerySearch.js';
 import EventSearch from './search/EventSearch.js';
 import SearchComponent from './search/SearchComponent.js';
 import GoToCamera from './goto/GoToCamera.js';
+import FavoriteList from './favorites/FavoriteList.js'
 
 export default class FindScreen extends React.Component {
   constructor(props) {
@@ -81,7 +82,7 @@ export default class FindScreen extends React.Component {
           {!this.state.loading &&
             <View style={styles.searchContainer}>
               {this.state.searchResultCategory === "Beer" &&
-                <BeerSearch data={this.state.searchResult} styles={styles} navigate={navigate}/>
+                <FavoriteList data={this.state.searchResult} crowdFavorite={true} styles={styles} navigate={navigate}/>
               }
               {this.state.searchResultCategory === "Brewery" &&
                 <BrewerySearch data={this.state.searchResult} styles={styles} navigate={navigate}/>
