@@ -219,7 +219,7 @@ app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
 // Checks if a user has tried a beer and either creates the entry in the table
 // or updates the vote value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
-  const newVote;
+  let newVote;
 
   // This normalizes the input coming in through the path since it would be too
   // easy to put in a large number.
@@ -241,7 +241,7 @@ app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
           .select('*')
           .where('user_id', request.params.user_id)
           .andWhere('beer_id', request.params.beer_id)
-          .update('vote', request.params.vote)
+          .update('vote', newVote)
           .returning('*')
           .then((voteResult) => {
             response.json(voteResult);
@@ -256,7 +256,7 @@ app.post('/api/user/:user_id/beer/:beer_id/vote/:vote', (request, response) => {
             user_id: request.params.user_id,
             beer_id: request.params.beer_id,
             favorite: false,
-            vote: request.params.votes
+            vote: newVote
           })
           .returning('*')
           .then((voteResult) => {
