@@ -3,10 +3,10 @@ const port = require('../dev_port.json');
 
 import React from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import BeerSearch from './details/BeerSearch.js';
-import StoreSearch from './details/StoreSearch.js';
-import BrewerySearch from './details/BrewerySearch.js';
-import EventSearch from './details/EventSearch.js';
+import BeerDetails from './details/BeerDetails.js';
+import StoreDetails from './details/StoreDetails.js';
+import BreweryDetails from './details/BreweryDetails.js';
+import EventDetails from './details/EventDetails.js';
 
 export default class DetailScreen extends React.Component {
   constructor(props) {
@@ -48,16 +48,16 @@ export default class DetailScreen extends React.Component {
         {!this.state.loading &&
           <View style={styles.searchContainer}>
             {this.state.searchResultCategory === "Beer" &&
-              <BeerSearch data={this.state.searchResult} styles={styles}/>
+              <BeerDetails data={this.state.searchResult} styles={styles}/>
             }
             {this.state.searchResultCategory === "Brewery" &&
-              <BrewerySearch data={this.state.searchResult} styles={styles}/>
+              <BreweryDetails data={this.state.searchResult} styles={styles}/>
             }
             {this.state.searchResultCategory === "Store" &&
-              <StoreSearch data={this.state.searchResult} styles={styles}/>
+              <StoreDetails data={this.state.searchResult} styles={styles}/>
             }
             {this.state.searchResultCategory === "Event" &&
-              <EventSearch data={this.state.searchResult} styles={styles}/>
+              <EventDetails data={this.state.searchResult} styles={styles}/>
             }
             {this.state.searchResultCategory === "None" &&
               <Text>No results could be found.</Text>

@@ -1,30 +1,31 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Image} from 'react-native';
 
-export default class BrewerySearch extends React.Component {
+export default class BreweryDetails extends React.Component {
   render() {
-    const styles = this.props.styles;
+    const brewery = this.props.data[0];
     return (
-        <FlatList
-        data={this.props.data}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => 
-          <TouchableOpacity style={styles.listItemContainer}
-            onPress={() => {
-              this.props.navigate('Detail', {
-                category: "Brewery",
-                id: item.id,
-              })}
-            }
-          >
-            <View style={styles.searchResultContainer}>
-              <Text>{item.name}</Text>
-              <Text>{item.description}</Text>
-              <Text>{item.street_address}, {item.city}, {item.province}, {item.postal_code}</Text>
-            </View>
-          </TouchableOpacity>
-        }
-        />
+      <View style={styles.container}>
+        <Text style={styles.detailsTitle}>{brewery.name}</Text>
+        <Text>Name: {brewery.description}</Text>
+        <Text>Name: {brewery.street_address}</Text>
+        <Text>Name: {brewery.city}</Text>
+        <Text>Name: {brewery.province}</Text>
+        <Text>Name: {brewery.postal_code}</Text>
+      </View>
     )
   }
+
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    padding: 15
+  },
+  detailsTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+  }
+});
