@@ -94,6 +94,7 @@ export default class FindScreen extends React.Component {
               {this.state.searchResultCategory === "None" &&
                 <Text>No results could be found.</Text>
               }
+              <View style={{height: 100}}/>
             </View>
           }
         </ScrollView>
@@ -126,5 +127,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-  },
+  }
 });
