@@ -192,33 +192,35 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
 // Checks if a user has tried a beer and either creates the entry in the table
 // or updates the favorite value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
+  const data = request.body;
+  console.log(data);
   knex('beers_users_tried')
     .select('*')
-    .where('user_id', request.params.user_id)
-    .andWhere('beer_id', request.params.beer_id)
+    .where('user_id', data.user_id)
+    .andWhere('beer_id', data.beer_id)
     .then((existsResult) => {
       if (existsResult.length > 0) {
         knex('beers_users_tried')
           .select('*')
-          .where('user_id', request.params.user_id)
-          .andWhere('beer_id', request.params.beer_id)
+          .where('user_id', data.user_id)
+          .andWhere('beer_id', data.beer_id)
           .update('favorite', !existsResult[0].favorite)
           .returning('*')
-          .then((favoriteResult) => {
-            response.json(favoriteResult);
+          .then((result) => {
+            response.json({ favorited: result[0].favorite });
           });
       } else {
         knex('beers_users_tried')
           .select('*')
           .insert({
-            user_id: request.params.user_id,
-            beer_id: request.params.beer_id,
-            favorites: true,
+            user_id: data.user_id,
+            beer_id: data.beer_id,
+            favorite: true,
             vote: 0
           })
           .returning('*')
           .then((favoriteResult) => {
-            response.json(favoriteResult);
+            response.json({ favorited: true });
           });
       }
     });

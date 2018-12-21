@@ -14,6 +14,7 @@ export default class VotePrompt extends React.Component {
       loading: true,
       value: 0,
       voteCast: 'None',
+      confirmFavorite: false,
     }
   }
   render() {
@@ -25,6 +26,28 @@ export default class VotePrompt extends React.Component {
           body: JSON.stringify({
             user_id, beer_id, vote
         }),
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+
+    const addToFavoriteList = (user_id, beer_id) => {
+      console.log("Add to fav function triggered")
+      return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/favorite`, 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id, beer_id
+        }),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({
+          confirmFavorite: data.favorited,
+        })
       })
       .catch((error) => {
         console.error(error);
@@ -76,10 +99,15 @@ export default class VotePrompt extends React.Component {
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
-                console.log("favorite function goes in here");
+                addToFavoriteList(this.props.user, beer.beer_id);
               }}>
               <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
-              <Text style={styles.buttonLabel}>Favorites</Text>
+              {this.state.confirmFavorite && 
+                <Text style={styles.buttonLabel}>Unfavorite</Text>
+              }
+              {!this.state.confirmFavorite && 
+                <Text style={styles.buttonLabel}>Favorites</Text>
+              }
             </TouchableOpacity>
           </View>
         </View>

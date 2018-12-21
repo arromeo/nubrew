@@ -32,6 +32,21 @@ export default class BeerDetails extends React.Component {
       })
     }
 
+    const addToFavoriteList = (user_id, beer_id) => {
+      console.log("Add to fav function triggered")
+      return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/favorite`, 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id, beer_id
+        }),
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+
     const voteIndicator = (event, user_id, beer_id) => {
       let vote = 0;
       if (event > 0.8) {
@@ -77,7 +92,7 @@ export default class BeerDetails extends React.Component {
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
-                console.log("favorite function goes in here");
+                addToFavoriteList(this.props.navigationParams.user_id, beer.beer_id);
               }}>
               <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
               <Text style={styles.buttonLabel}>Favorites</Text>
