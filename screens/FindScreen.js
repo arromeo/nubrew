@@ -38,33 +38,39 @@ export default class FindScreen extends React.Component {
     }
 
     const searchDatabase = (value, category) => {
-      const data = {
-        category: category,
-        keywords: value,
-      }
-      return fetch(`${port.DEV_PORT}/api/find`, 
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+      if (!value) {
+        this.setState({
+          loading: false,
         })
-      .then(res => res.json())
-      .then(data => {
-        if (data.searchCategory === "None") {
-          this.setState({
-            searchResultCategory: "None",
+      } else {
+        const data = {
+          category: category,
+          keywords: value,
+        }
+        return fetch(`${port.DEV_PORT}/api/find`, 
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
           })
-        } else {
-          this.setState({
-            searchResult: data.searchResult,
-            searchResultCategory: data.searchResultCategory,
-            input: "",
-            loading: false,
-          })
-        }})
-      .catch((error) => {
-        console.error(error);
-      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.searchCategory === "None") {
+            this.setState({
+              searchResultCategory: "None",
+            })
+          } else {
+            this.setState({
+              searchResult: data.searchResult,
+              searchResultCategory: data.searchResultCategory,
+              input: "",
+              loading: false,
+            })
+          }})
+        .catch((error) => {
+          console.error(error);
+        })
+      }
     }
 
     // if search category is beer... do... else if store... do... else if brewery... do...
@@ -77,8 +83,7 @@ export default class FindScreen extends React.Component {
             title="Search"
             color="#61170E"
             onPress={() => {
-              searchDatabase(this.state.input, this.state.pickerValue)
-              this.state.loading = true;
+              searchDatabase(this.state.input, this.state.pickerValue);
             }}
             />
 
