@@ -60,6 +60,7 @@ export default class RateDrinkScreen extends React.Component {
             data: data.data[0],
             confirmDrink: true,
             couldNotFind: false,
+            loading: false,
           })
         }
       })
@@ -71,6 +72,9 @@ export default class RateDrinkScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     const snap = async () => {
+      this.setState({
+        loading: true,
+      })
       const options = {
         quality: 0.1,
         base64: true,
@@ -93,15 +97,15 @@ export default class RateDrinkScreen extends React.Component {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
       return <View/>;
-    } else if (hasCameraPermission === false) {
+    } else if (!hasCameraPermission === false) {
       return (
-      <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={styles.paragraphFont}>Sorry! This feature is not available if camera permission is not provided.</Text>
         <Ionicons name="md-sad" size={50} color="red"/>
         <TouchableOpacity 
           style={styles.buttonStyle}
           onPress={() => {
-            this.props.navigate('Find');
+            navigate('Find');
           }}>
           <Ionicons name="md-search" size={50} color="yellow"/>
         </TouchableOpacity>
@@ -124,14 +128,23 @@ export default class RateDrinkScreen extends React.Component {
                 }}>
                 <Ionicons name="md-arrow-round-back" size={32} color="white"/>
               </TouchableOpacity>
-
               <TouchableOpacity 
                 style={styles.pictureGuide}
                   onPress={() => {
                     snap();
                   }}>
-                <Text style={styles.photoGuideFont}>Center the label.</Text>
-                <Text style={styles.photoGuideFont}>Tap the Screen!</Text>
+                {!this.state.loading && 
+                  <View>
+                    <Text style={styles.photoGuideFont}>Center the label.</Text>
+                    <Text style={styles.photoGuideFont}>Tap the Screen!</Text>
+                  </View>
+                }
+                {this.state.loading &&
+                  <View style={styles.spinner}>
+                    <ActivityIndicator size={100} color="orange" />
+                  </View> 
+                }
+
               </TouchableOpacity>
             </Camera>
           }
