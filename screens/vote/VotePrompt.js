@@ -18,16 +18,25 @@ export default class VotePrompt extends React.Component {
     }
   }
 
-  componentOnMount() {
+  componentDidMount() {
+    console.log(this.props);
     let url = `${port.DEV_PORT}/api/user/${this.props.user}/favorites`
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        // this.setState({
-
-        // })
+        let found = false;
+        data['result'].forEach(beer => {
+          if (beer['beer_id'] === this.props.data.beer_id) {
+            found = true;
+          }
+        })
+        this.setState({
+          favorited: found,
+        })
       })
+      .catch(err => {
+        console.log(err)
+      });
   }
 
   render() {
@@ -111,7 +120,6 @@ export default class VotePrompt extends React.Component {
               onPress={() => {
                 addToFavoriteList(this.props.user, beer.beer_id);
               }}>
-              <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
               {this.state.favorited && 
                 <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
               }
@@ -181,10 +189,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#61170E',
   },
-  buttonLabel: {
-    color: '#FFBC02'
-  },
-  buttonIcon: {
-    paddingLeft: 8
-  }
 });

@@ -18,6 +18,28 @@ export default class BeerDetails extends React.Component {
     }
   }
 
+  componentDidMount() {
+    let url = `${port.DEV_PORT}/api/user/${this.props.navigationParams.user_id}/favorites`
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        let found = false;
+        console.log("before", found)
+        data['result'].forEach(beer => {
+          if (beer['beer_id'] === this.props.data[0].beer_id) {
+            found = true;
+          }
+        })
+        console.log(found);
+        this.setState({
+          favorited: found,
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  }
+
   render() {
     const updateVote = (vote, beer_id, user_id) => {
       return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/vote`, 
