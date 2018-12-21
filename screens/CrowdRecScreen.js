@@ -2,7 +2,7 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import FavoriteList from './favorites/FavoriteList.js';
 import GoToCamera from './goto/GoToCamera.js';
 
@@ -36,8 +36,10 @@ export default class CrowdRecommendation extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
-          {this.state.loading &&  
-            <View><Text>LoadingScreen goes here</Text></View>
+          {this.state.loading &&
+            <View style={styles.spinner}>
+              <ActivityIndicator size={100} color="orange" />
+            </View> 
           }
           {!this.state.loading && 
             <View>
@@ -45,8 +47,10 @@ export default class CrowdRecommendation extends React.Component {
               <View style={{height: 100}}/>
             </View>
           }
+         </ScrollView>
+         {!this.state.loading &&
           <GoToCamera navigate={navigate} user={this.state.user_id}/>
-        </ScrollView>
+          }
       </View>
     );
   }
@@ -65,5 +69,9 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
+  },
+  spinner: {
+    margin: 200,
+    alignSelf: 'center'
   }
 });

@@ -2,7 +2,7 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, FlatList, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import EventList from './home/EventList.js';
 import GoToCamera from './goto/GoToCamera.js';
 
@@ -38,8 +38,10 @@ export default class Events extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
-          {this.state.loading &&  
-            <View><Text>LoadingScreen goes here</Text></View>
+          {this.state.loading &&
+            <View style={styles.spinner}>
+              <ActivityIndicator size={100} color="orange" />
+            </View> 
           }
           {!this.state.loading && 
             <View>
@@ -110,5 +112,9 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     fontWeight: "bold"
+  },
+  spinner: {
+    margin: 200,
+    alignSelf: 'center'
   }
 });

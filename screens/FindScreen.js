@@ -2,7 +2,7 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Button } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Button, ActivityIndicator } from 'react-native';
 import BeerSearch from './search/BeerSearch.js';
 import StoreSearch from './search/StoreSearch.js';
 import BrewerySearch from './search/BrewerySearch.js';
@@ -20,7 +20,7 @@ export default class FindScreen extends React.Component {
       pickerValue: "Beer",
       searchResult: null,
       searchResultCategory: null,
-      loading: true,
+      loading: false,
     }
   }
 
@@ -77,9 +77,17 @@ export default class FindScreen extends React.Component {
           <Button 
             title="Search"
             color="#61170E"
-            onPress={() => searchDatabase(this.state.input, this.state.pickerValue)}
+            onPress={() => {
+              searchDatabase(this.state.input, this.state.pickerValue)
+              this.state.loading = true;
+            }}
             />
 
+          {this.state.loading &&
+            <View style={styles.spinner}>
+              <ActivityIndicator size={100} color="orange" />
+            </View> 
+          }
           {!this.state.loading &&
             <View style={styles.searchContainer}>
               {this.state.searchResultCategory === "Beer" &&
@@ -130,5 +138,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  spinner: {
+    margin: 150,
+    alignSelf: 'center'
   }
 });
