@@ -2,7 +2,7 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, View, StyleSheet, Text } from 'react-native';
+import { ScrollView, View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import BeerDetails from './details/BeerDetails.js';
 import StoreDetails from './details/StoreDetails.js';
 import BreweryDetails from './details/BreweryDetails.js';
@@ -46,6 +46,11 @@ export default class DetailScreen extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <ScrollView style={styles.container}>
+          {this.state.loading &&
+            <View style={styles.spinner}>
+              <ActivityIndicator size={100} color="orange" />
+            </View> 
+          }
         {!this.state.loading &&
           <View style={styles.searchContainer}>
             {this.state.searchResultCategory === "Beer" &&
@@ -92,4 +97,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  spinner: {
+    margin: 150,
+    alignSelf: 'center'
+  }
 })

@@ -3,7 +3,7 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
+import { ScrollView, TouchableOpacity, StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default class CameraScreen extends React.Component {
@@ -32,8 +32,10 @@ export default class CameraScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        {this.state.loading && 
-          <View><Text>LoadingScreen goes here</Text></View>
+        {this.state.loading &&
+          <View style={styles.spinner}>
+            <ActivityIndicator size={100} color="orange" />
+          </View> 
         }
         {!this.state.loading &&
           <View>
@@ -72,4 +74,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1
   },
+  spinner: {
+    margin: 150,
+    alignSelf: 'center'
+  }
 })
