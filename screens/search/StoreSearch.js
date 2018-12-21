@@ -13,11 +13,10 @@ export default class EventSearch extends React.Component {
                 <TouchableOpacity
                   style={[styles.eventContainer, styles.homeScreenFilename]}
                   onPress={() => {
-                    navigate('Detail', {
+                    this.props.navigate('Detail', {
                       id: item.id,
-                      category: "Event"
+                      category: "Store"
                     });
-                  this.props.searchDatabase(item.id.toString(), "HighlightEvent");
                 }}>
                 <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
                 <View>
