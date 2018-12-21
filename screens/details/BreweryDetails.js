@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
   },
   addressCard: {
     marginLeft: 15,
-    marginTop: 15
+    marginTop: 15,
+    alignItems: 'center'
   },
   description: {
     marginTop: 15
