@@ -3,11 +3,11 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, TouchableOpacity, StyleSheet, View, Text } from 'react-native';
+import { ScrollView, TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
 import { Camera, Permissions, ImageManipulator } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { SearchBar } from 'react-native-elements';
-import VotePrompt from './vote/VotePrompt.js';
+// import VotePrompt from './vote/VotePrompt.js';
 
 
 export default class RateDrinkScreen extends React.Component {
@@ -29,9 +29,6 @@ export default class RateDrinkScreen extends React.Component {
       data: null,
     };
   }
-  static navigationOptions = {
-    title: 'Scan',
-  };
 
   // if camera permission granted in phone
   async componentDidMount() {
@@ -53,7 +50,6 @@ export default class RateDrinkScreen extends React.Component {
         })
       .then(res => res.json())
       .then(data => {
-        console.log("API Data: ", data);
         this.setState({
           data: data.data[0],
           confirmDrink: data.confirmDrink,
@@ -121,17 +117,38 @@ export default class RateDrinkScreen extends React.Component {
               </TouchableOpacity>
             </Camera>
           }
-          {this.state.confirmDrink &&
-            <TouchableOpacity
-              onPress={() => {
-                console.log(this.state.data);
-                navigate('Detail', {
-                  category: "Beer",
-                  id: this.state.data.beer_id,
-                });
-              }}>
-              <Text>Confirm the Drink</Text>
-            </TouchableOpacity>
+          {this.state.confirmDrink && !this.state.couldNotFind &&
+            <View style={styles.contentContainer}>
+              <Text style={styles.headerFont}>{this.state.data.brewery_name}'s {this.state.data.beer_name}</Text>
+              <Image source={{uri: this.state.data.img_url}} style={{height: 200, width: 150}}/>
+              <View style={styles.verticalContainer}>
+                <Text>Is this the correct drink?</Text>
+                <TouchableOpacity
+                  style={styles.buttonStyle}
+                  onPress={() => {
+                    navigate('Detail', {
+                      category: "Beer",
+                      id: this.state.data.beer_id,
+                    });
+                  }}>
+                  <Ionicons name="md-checkmark-circle-outline" size={25} color="green"/>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  style={styles.buttonStyle}
+                  onPress={() => {
+                    navigate({
+                      routeName: 'Find',
+                    });
+                  }}>
+                  <Ionicons name="md-close-circle-outline" size={25} color="red"/>
+                </TouchableOpacity>
+              </View>
+            </View>
+          }
+          {this.state.couldNotFind && 
+            <View>
+              <Text>This triggers when the drink could not be identified by the google api</Text>
+            </View>
           }
         </View>
       );
@@ -144,6 +161,26 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  headerFont: {
+    color: 'black',
+    fontWeight: 'bold',
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
+  verticalContainer: {
+    flex: 0.5,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+  },
+  contentContainer: {
+    flex: 0.5,
+    paddingBottom: 5,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: 'center',
   },
   cameraContainer: {
     flex: 1,
@@ -172,6 +209,17 @@ const styles = StyleSheet.create({
     margin: 20,
     color: 'white',
     backgroundColor: 'rgba(0,0,0,0.0)',
+  },
+  buttonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5,
+    flex: 0.2,
+    width: '75%',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#61170E',
   },
   spinner: {
     margin: 150,
