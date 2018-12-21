@@ -10,7 +10,7 @@ import { SearchBar } from 'react-native-elements';
 import VotePrompt from './vote/VotePrompt.js';
 
 
-export default class CameraScreen extends React.Component {
+export default class RateDrinkScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
