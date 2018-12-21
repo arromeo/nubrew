@@ -6,7 +6,7 @@ export default class BreweryDetails extends React.Component {
     const brewery = this.props.data[0];
     return (
       <View style={styles.container}>
-        <Image style={{height: 200, width:300}} source={{uri: brewery.img_url}} resizeMode='stretch'/>
+        <Image style={{height: 200, width:300}} source={{uri: brewery.img_url}} resizeMode='contain'/>
         <Text style={styles.detailsTitle}>{brewery.name}</Text>
         <View style={styles.addressCard}>
           <Text>{brewery.street_address}</Text>
