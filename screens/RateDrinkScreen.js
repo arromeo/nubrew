@@ -62,7 +62,7 @@ export default class RateDrinkScreen extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
+    const { navigate, NavigationActions } = this.props.navigation;
     const snap = async () => {
       const options = {
         quality: 0.1,
@@ -118,11 +118,13 @@ export default class RateDrinkScreen extends React.Component {
             </Camera>
           }
           {this.state.confirmDrink && !this.state.couldNotFind &&
-            <View style={styles.contentContainer}>
-              <Text style={styles.headerFont}>{this.state.data.brewery_name}'s {this.state.data.beer_name}</Text>
-              <Image source={{uri: this.state.data.img_url}} style={{height: 200, width: 150}}/>
+            <View style={styles.container}>
               <View style={styles.verticalContainer}>
+                <Text style={styles.headerFont}>{this.state.data.brewery_name}'s {this.state.data.beer_name}</Text>
+                <Image source={{uri: this.state.data.img_url}} style={{height: 200, width: 150}}/>
                 <Text>Is this the correct drink?</Text>
+              </View>
+              <View style={styles.contentContainer}>
                 <TouchableOpacity
                   style={styles.buttonStyle}
                   onPress={() => {
@@ -136,9 +138,14 @@ export default class RateDrinkScreen extends React.Component {
                 <TouchableOpacity 
                   style={styles.buttonStyle}
                   onPress={() => {
-                    navigate({
-                      routeName: 'Find',
-                    });
+                    this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Rate' })], 0)
+                  }}>
+                  <Ionicons name="md-camera" size={25} color="white"/>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  style={styles.buttonStyle}
+                  onPress={() => {
+                    navigate('Find');
                   }}>
                   <Ionicons name="md-close-circle-outline" size={25} color="red"/>
                 </TouchableOpacity>
@@ -165,12 +172,13 @@ const styles = StyleSheet.create({
   headerFont: {
     color: 'black',
     fontWeight: 'bold',
+    fontSize: 25,
     flex: 1,
     textAlign: 'center',
     justifyContent: 'center',
   },
   verticalContainer: {
-    flex: 0.5,
+    flex: 1,
     margin: 10,
     justifyContent: "center",
     alignItems: 'center',
