@@ -3,10 +3,9 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { Camera, Permissions, ImageManipulator } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
-import { SearchBar } from 'react-native-elements';
 import ConfirmPrompt from './vote/ConfirmPrompt.js';
 
 
@@ -24,6 +23,7 @@ export default class RateDrinkScreen extends React.Component {
       barcodeScanning: false,
       faceDetecting: false,
       showGallery: false,
+      loading: false,
       couldNotFind: false,
       confirmDrink: false,
       data: null,
@@ -95,14 +95,17 @@ export default class RateDrinkScreen extends React.Component {
       return <View/>;
     } else if (hasCameraPermission === false) {
       return (
-        <ScrollView style={styles.container}>
-          <View style={styles.searchContainer}>
-            <SearchBar
-              onChangeText={(text) => { this.setState({input: text}) }}
-              value={this.state.input}
-              placeholder='Type Here...' />
-          </View>
-        </ScrollView>
+      <View style={{flex: 0.5, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={styles.paragraphFont}>Sorry! This feature is not available if camera permission is not provided.</Text>
+        <Ionicons name="md-sad" size={50} color="red"/>
+        <TouchableOpacity 
+          style={styles.buttonStyle}
+          onPress={() => {
+            this.props.navigate('Find');
+          }}>
+          <Ionicons name="md-search" size={50} color="yellow"/>
+        </TouchableOpacity>
+      </View>
       )
     } else {
       return (
@@ -151,6 +154,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  paragraphFont: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 15,
+    paddingTop: 10,
+    width: '90%',
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
   pictureGuide: {
     alignSelf: 'center',
     margin: 'auto',
@@ -174,6 +186,17 @@ const styles = StyleSheet.create({
     margin: 20,
     color: 'white',
     backgroundColor: 'rgba(0,0,0,0.0)',
+  },
+  buttonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5,
+    flex: 0.2,
+    width: '75%',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#61170E',
   },
   spinner: {
     margin: 150,
