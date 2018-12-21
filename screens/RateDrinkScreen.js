@@ -162,5 +162,9 @@ const styles = StyleSheet.create({
     margin: 20,
     color: 'white',
     backgroundColor: 'rgba(0,0,0,0.0)',
+  },
+  spinner: {
+    margin: 150,
+    alignSelf: 'center'
   }
 })

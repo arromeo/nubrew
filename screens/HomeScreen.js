@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ActivityIndicator
 } from 'react-native';
 
 import EventList from './home/EventList.js';
@@ -75,8 +76,10 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        {this.state.loading && 
-          <View><Text>LoadingScreen goes here</Text></View>
+        {this.state.loading &&
+          <View style={styles.spinner}>
+            <ActivityIndicator size={100} color="orange" />
+          </View> 
         }
         {!this.state.loading && 
           <View style={styles.container}>
@@ -134,5 +137,9 @@ const styles = StyleSheet.create({
     left: 20,
     fontWeight: "bold",
     fontSize: 15
+  },
+  spinner: {
+    margin: 200,
+    alignSelf: 'center'
   }
 });
