@@ -62,7 +62,7 @@ export default class RateDrinkScreen extends React.Component {
   }
 
   render() {
-    const { navigate, NavigationActions } = this.props.navigation;
+    const { navigate } = this.props.navigation;
     const snap = async () => {
       const options = {
         quality: 0.1,
@@ -138,7 +138,11 @@ export default class RateDrinkScreen extends React.Component {
                 <TouchableOpacity 
                   style={styles.buttonStyle}
                   onPress={() => {
-                    this.props.navigation.reset([NavigationActions.navigate({ routeName: 'Rate' })], 0)
+                    this.setState({
+                      couldNotFind: false,
+                      confirmDrink: false,
+                      data: null,
+                    })
                   }}>
                   <Ionicons name="md-camera" size={25} color="white"/>
                 </TouchableOpacity>
