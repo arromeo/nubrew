@@ -468,7 +468,7 @@ app.post('/api/find', (request, response) => {
 app.post('/api/visionML', (request, response) => {
   automlapi(request.body, cred, (APIresult) => {
     if (APIresult.displayName === "none_of_the_above") {
-      response.json({ data: null, couldNotFind: true })
+      response.json({ couldNotFind: true })
     } else {
       return knex
         .select(['beers.img_url AS img_url', 'abv', 'ibu', 'category', 'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
