@@ -14,9 +14,22 @@ export default class VotePrompt extends React.Component {
       loading: true,
       value: 0,
       voteCast: 'None',
-      confirmFavorite: false,
+      favorited: false,
     }
   }
+
+  componentOnMount() {
+    let url = `${port.DEV_PORT}/api/user/${this.props.user}/favorites`
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        // this.setState({
+
+        // })
+      })
+  }
+
   render() {
     const updateVote = (vote, beer_id, user_id) => {
       return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/vote`, 
@@ -33,7 +46,6 @@ export default class VotePrompt extends React.Component {
     }
 
     const addToFavoriteList = (user_id, beer_id) => {
-      console.log("Add to fav function triggered")
       return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/favorite`, 
         {
           method: "POST",
@@ -44,9 +56,8 @@ export default class VotePrompt extends React.Component {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({
-          confirmFavorite: data.favorited,
+          favorited: data.favorited
         })
       })
       .catch((error) => {
@@ -94,7 +105,6 @@ export default class VotePrompt extends React.Component {
                 });
               }}>
               <Ionicons style={styles.buttonIcon} name="md-search" size={25} color="#FFBC02"/>
-              <Text style={styles.buttonLabel}>Search</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle}
@@ -102,11 +112,11 @@ export default class VotePrompt extends React.Component {
                 addToFavoriteList(this.props.user, beer.beer_id);
               }}>
               <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
-              {this.state.confirmFavorite && 
-                <Text style={styles.buttonLabel}>Unfavorite</Text>
+              {this.state.favorited && 
+                <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
               }
-              {!this.state.confirmFavorite && 
-                <Text style={styles.buttonLabel}>Favorites</Text>
+              {!this.state.favorited && 
+                <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="grey"/>
               }
             </TouchableOpacity>
           </View>
@@ -161,14 +171,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonStyle: {
-    flexDirection: "row",
     marginTop: 10,
     marginBottom: 10,
     padding: 5,
     flex: 0.2,
-    width: '100%',
+    width: '75%',
     borderRadius: 25,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#61170E',
   },

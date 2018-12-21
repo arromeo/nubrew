@@ -14,6 +14,7 @@ export default class BeerDetails extends React.Component {
       value: 0,
       thumbImage: 'https://image.flaticon.com/icons/svg/168/168557.svg',
       voteCast: 'None',
+      favorited: false,
     }
   }
 
@@ -33,7 +34,6 @@ export default class BeerDetails extends React.Component {
     }
 
     const addToFavoriteList = (user_id, beer_id) => {
-      console.log("Add to fav function triggered")
       return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/favorite`, 
         {
           method: "POST",
@@ -41,6 +41,12 @@ export default class BeerDetails extends React.Component {
           body: JSON.stringify({
             user_id, beer_id
         }),
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          favorited: data.favorited
+        })
       })
       .catch((error) => {
         console.error(error);
@@ -71,10 +77,9 @@ export default class BeerDetails extends React.Component {
         })
       }
     }
-
     const beer = this.props.data[0];
-    return (
 
+    return (
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <Image source={{uri: beer.img_url}} style={{height: 200, width: 150}}/>
@@ -87,15 +92,22 @@ export default class BeerDetails extends React.Component {
                 });
               }}>
               <Ionicons style={styles.buttonIcon} name="md-search" size={25} color="#FFBC02"/>
-              <Text style={styles.buttonLabel}>Find</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
                 addToFavoriteList(this.props.navigationParams.user_id, beer.beer_id);
               }}>
-              <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
-              <Text style={styles.buttonLabel}>Favorites</Text>
+              {this.state.favorited && 
+                <View>
+                  <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
+                </View>
+              }
+              {!this.state.favorited && 
+                <View>
+                  <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="grey"/>
+                </View>
+              }
             </TouchableOpacity>
           </View>
         </View>
@@ -148,21 +160,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonStyle: {
-    flexDirection: "row",
     marginTop: 10,
     marginBottom: 10,
     padding: 5,
     flex: 0.2,
-    width: '100%',
+    width: '75%',
     borderRadius: 25,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#61170E',
   },
-  buttonLabel: {
-    color: '#FFBC02'
-  },
-  buttonIcon: {
-    paddingLeft: 8
-  }
 });

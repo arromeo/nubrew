@@ -3,8 +3,12 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
+<<<<<<< HEAD
 import { ScrollView, TouchableOpacity, StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+=======
+import { StyleSheet, View, Text, Image } from 'react-native';
+>>>>>>> favorites now trigger appropriately
 
 export default class CameraScreen extends React.Component {
   constructor(props) {

@@ -193,7 +193,6 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
 // or updates the favorite value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
   const data = request.body;
-  console.log(data);
   knex('beers_users_tried')
     .select('*')
     .where('user_id', data.user_id)
