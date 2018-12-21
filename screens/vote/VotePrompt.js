@@ -19,7 +19,6 @@ export default class VotePrompt extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     let url = `${port.DEV_PORT}/api/user/${this.props.user}/favorites`
     fetch(url)
       .then(res => res.json())

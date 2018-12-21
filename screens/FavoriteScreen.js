@@ -11,7 +11,6 @@ export default class FindScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user_id: 1,
       favorites: null,
       loading: true,
     }
@@ -19,8 +18,7 @@ export default class FindScreen extends React.Component {
 
   componentDidMount() {
     // need to figure out how to pass userid through different stacks
-    let userId = 1;
-    let url = `${port.DEV_PORT}/api/user/${userId}/favorites`;
+    let url = `${port.DEV_PORT}/api/user/${this.props.screenProps.user_id}/favorites`;
     fetch(url)
       .then(res => res.json())
       .then(data => this.setState ({

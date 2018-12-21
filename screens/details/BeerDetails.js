@@ -2,7 +2,7 @@
 const port = require('../../dev_port.json');
 
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Slider } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import VoteComponent from '../vote/VoteComponent.js';
 
@@ -19,18 +19,16 @@ export default class BeerDetails extends React.Component {
   }
 
   componentDidMount() {
-    let url = `${port.DEV_PORT}/api/user/${this.props.navigationParams.user_id}/favorites`
+    let url = `${port.DEV_PORT}/api/user/${this.props.user_id}/favorites`
     fetch(url)
       .then(res => res.json())
       .then(data => {
         let found = false;
-        console.log("before", found)
         data['result'].forEach(beer => {
           if (beer['beer_id'] === this.props.data[0].beer_id) {
             found = true;
           }
         })
-        console.log(found);
         this.setState({
           favorited: found,
         })
@@ -118,7 +116,7 @@ export default class BeerDetails extends React.Component {
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
-                addToFavoriteList(this.props.navigationParams.user_id, beer.beer_id);
+                addToFavoriteList(this.props.user_id, beer.beer_id);
               }}>
               {this.state.favorited && 
                 <View>

@@ -43,6 +43,9 @@ export default class DetailScreen extends React.Component {
   }
 
   render() {
+    const user_id = this.props.screenProps.user_id;
+    console.log("This is the DetailScreen's screenProps:", this.props.screenProps.user_id);
+
     const { navigate } = this.props.navigation
     return (
       <ScrollView style={styles.container}>
@@ -54,7 +57,7 @@ export default class DetailScreen extends React.Component {
         {!this.state.loading &&
           <View style={styles.searchContainer}>
             {this.state.searchResultCategory === "Beer" &&
-              <BeerDetails data={this.state.searchResult} styles={styles} navigate={navigate} navigationParams={this.props.navigation.state.params}/>
+              <BeerDetails data={this.state.searchResult} styles={styles} navigate={navigate} navigationParams={this.props.navigation.state.params} user_id={user_id}/>
             }
             {this.state.searchResultCategory === "Brewery" &&
               <BreweryDetails data={this.state.searchResult} styles={styles}/>

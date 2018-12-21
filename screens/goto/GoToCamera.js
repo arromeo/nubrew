@@ -12,12 +12,7 @@ export default class GoToCamera extends React.Component {
 
         <TouchableOpacity style={styles.iconCircle}
           onPress={() => {
-            this.props.navigate({
-              routeName: 'Rate',
-              params: {
-                user_id: this.props.user,
-              }
-            });
+            this.props.navigate('Rate');
           }}>
           <Ionicons name="md-camera" size={32} color="#FFBC02"/>
         </TouchableOpacity>

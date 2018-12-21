@@ -53,6 +53,7 @@ export default class RateDrinkScreen extends React.Component {
         })
       .then(res => res.json())
       .then(data => {
+        console.log("API Data: ", data);
         this.setState({
           data: data.data[0],
           confirmDrink: data.confirmDrink,
@@ -121,7 +122,16 @@ export default class RateDrinkScreen extends React.Component {
             </Camera>
           }
           {this.state.confirmDrink &&
-            <VotePrompt data={this.state.data} navigate={navigate} user={this.props.navigation.state.params.user_id}/>
+            <TouchableOpacity
+              onPress={() => {
+                console.log(this.state.data);
+                navigate('Detail', {
+                  category: "Beer",
+                  id: this.state.data.beer_id,
+                });
+              }}>
+              <Text>Confirm the Drink</Text>
+            </TouchableOpacity>
           }
         </View>
       );

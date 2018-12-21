@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class CrowdRecommendations extends React.Component {
+export default class CrowdFavorite extends React.Component {
   render() {
     return (
       <TouchableOpacity 

@@ -11,7 +11,7 @@ import {
 
 import EventList from './home/EventList.js';
 import RecommendedBeer from './home/RecommendedBeer.js';
-import CrowdRecommendations from './home/CrowdRecommendations.js';
+import CrowdFavorite from './home/CrowdFavorite.js';
 import RecommendedButton from './home/RecommendedButton.js';
 import EventsButton from './home/EventsButton.js';
 import GoToCamera from './goto/GoToCamera.js';
@@ -22,7 +22,6 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user_id: 1,
       event: null,
       recommendedBeer: null,
       loading: true,
@@ -48,31 +47,6 @@ export default class HomeScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const searchDatabase = (value, category) => {
-      const data = {
-        category: category,
-        keywords: value,
-      }
-      return fetch(`${port.DEV_PORT}/api/find`, 
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-      .then(res => res.json())
-      .then(data => {
-        if (data.searchResult.length) {
-          this.setState({
-            searchResult: data.searchResult,
-            searchResultCategory: data.searchResultCategory,
-            input: "",
-            loading: false,
-          })
-        }})
-      .catch((error) => {
-        console.error(error);
-      })
-    }
 
     return (
       <View style={styles.container}>
@@ -84,18 +58,18 @@ export default class HomeScreen extends React.Component {
         {!this.state.loading && 
           <View style={styles.container}>
             <Text style={styles.contentHeader}>Upcoming Events</Text>
-            <EventList data={this.state.event} searchDatabase={searchDatabase} navigate={navigate}/>
+            <EventList data={this.state.event} navigate={navigate}/>
             <View style={styles.contentContainer}>
-              <RecommendedBeer data={this.state.recommendedBeer} user={this.state.user_id} searchDatabase={searchDatabase} navigate={navigate}/>
+              <RecommendedBeer data={this.state.recommendedBeer} navigate={navigate}/>
               <View style={styles.buttonContainer}>
-                <CrowdRecommendations style={styles.button} searchDatabase={searchDatabase} navigate={navigate}/>
-                <RecommendedButton style={styles.button} searchDatabase={searchDatabase} navigate={navigate}/>
-                <EventsButton style={styles.button} searchDatabase={searchDatabase} navigate={navigate}/>
+                <CrowdFavorite navigate={navigate}/>
+                <RecommendedButton navigate={navigate}/>
+                <EventsButton navigate={navigate}/>
               </View>
             </View>
           </View>
         }
-        <GoToCamera navigate={navigate} user={this.state.user_id}/>
+        <GoToCamera navigate={navigate}/>
         <Text style={styles.drinkResponsibly}>Please drink responsibly.</Text>
       </View>
     );

@@ -10,7 +10,6 @@ export default class CrowdRecommendation extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user_id: 1,
       favorites: null,
       loading: true,
     }
@@ -49,7 +48,7 @@ export default class CrowdRecommendation extends React.Component {
           }
          </ScrollView>
          {!this.state.loading &&
-          <GoToCamera navigate={navigate} user={this.state.user_id}/>
+          <GoToCamera navigate={navigate} />
           }
       </View>
     );
