@@ -432,8 +432,6 @@ app.post('/api/find', (request, response) => {
   // splits the keywords into regex format
   let keywords = request.body.keywords.split(" ").join("|");
   let regex = new RegExp(keywords, 'ig');
-  console.log(keywords);
-  console.log(regex);
   const filterSearch = (criteria, category, queryResult, requiredData) => {
     let searchResult = [];
     queryResult.forEach((list) => {
@@ -441,7 +439,6 @@ app.post('/api/find', (request, response) => {
       requiredData.forEach((data) => {
         words += `${list[data]} `;
       })
-      console.log(`WORDS: ${words}`);
       if (criteria.test(words)) {
         searchResult.push(list);
       }
