@@ -44,7 +44,6 @@ export default class DetailScreen extends React.Component {
 
   render() {
     const user_id = this.props.screenProps.user_id;
-    console.log("This is the DetailScreen's screenProps:", this.props.screenProps.user_id);
 
     const { navigate } = this.props.navigation
     return (

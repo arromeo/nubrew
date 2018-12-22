@@ -10,20 +10,29 @@ export default class ProfileScreen extends React.Component {
     super(props)
     this.state = {
       loading: true,
-      user: null,
+      user: this.props.screenProps.user_id,
+      favoriteBeers: null,
     }
   }
 
   componentDidMount() {
-    // TODO find out a way to pass userID dynamically between stacks
     let userId = 1;
-    let url = `${port.DEV_PORT}/api/user/${userId}`;
-    fetch(url)
+    // get user info
+    fetch(`${port.DEV_PORT}/api/user/${userId}`)
       .then(res => res.json())
-      .then(data => this.setState ({
+      .then(data => this.setState({
         loading: false,
         user: data.result[0]
       }))
+
+    // get full list of beers the users tried
+    fetch(`${port.DEV_PORT}/api/user/${userId}/favorites`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({
+        favoriteBeers: data.result,
+      })})
   }
 
   render() {
@@ -41,6 +50,18 @@ export default class ProfileScreen extends React.Component {
             <View style={styles.profileContainer}>
               <Image style={styles.avatar} source={require('../assets/images/default_profile_pic.png')} />
               <Text style={styles.profileName}>{user.email}</Text>
+            </View>
+          </View>
+        }
+        {this.state.favoriteBeers &&
+          <View>
+            <View style={styles.detailsContainer}>
+              <Image style={styles.avatar} source={require('../assets/images/beer.png')} />
+              <Text>{this.state.favoriteBeers.length} beers favorited.</Text>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Image style={styles.avatar} source={require('../assets/images/beer.png')} />
+              <Text>number of beers tried</Text>
             </View>
           </View>
         }
@@ -72,6 +93,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1
+  },
+  detailsContainer: {
+    flex: 1,
+    flexDirection: 'row',
   },
   spinner: {
     margin: 150,
