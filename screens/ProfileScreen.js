@@ -39,7 +39,9 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     const user = this.state.user;
-
+    const logout = () => {
+      console.log("This is in the profile screen. We need to implement a log out function here");
+    }
     return (
       <ScrollView style={styles.container}>
         {this.state.loading &&
@@ -63,8 +65,13 @@ export default class ProfileScreen extends React.Component {
               <Image style={styles.avatar} source={require('../assets/images/beer.png')} />
               <Text>{this.state.totalBeers.length} beers tried</Text>
             </View>
-            <TouchableOpacity>
-
+            <View style={{height: 100, backgroundColor: '#fff'}}></View>
+            <TouchableOpacity
+              style={styles.logoutContainer}
+              onPress={() => {
+                logout()
+              }}>
+              <Text>Logout</Text>
             </TouchableOpacity>
           </View>
         }
@@ -102,13 +109,22 @@ const styles = StyleSheet.create({
   detailsContainer: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 5,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingTop: 15,
+    paddingLeft: 30,
+    paddingRight: 30,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  logoutContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    borderRadius: 50,
+    width: '100%',
+    height: 40,
   },
   spinner: {
     margin: 150,
