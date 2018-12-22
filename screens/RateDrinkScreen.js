@@ -97,7 +97,7 @@ export default class RateDrinkScreen extends React.Component {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
       return <View/>;
-    } else if (!hasCameraPermission === false) {
+    } else if (hasCameraPermission === false) {
       return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={styles.paragraphFont}>Sorry! This feature is not available if camera permission is not provided.</Text>
