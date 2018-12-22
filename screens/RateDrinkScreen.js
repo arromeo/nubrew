@@ -90,6 +90,7 @@ export default class RateDrinkScreen extends React.Component {
       this.setState({
         couldNotFind: false,
         confirmDrink: false,
+        loading: false,
         data: null,
       })
     }

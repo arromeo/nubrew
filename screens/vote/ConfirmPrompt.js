@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     flex: 1,
-    paddingTop: 10,
+    paddingTop: 3,
     width: '90%',
     textAlign: 'center',
     justifyContent: 'center',
