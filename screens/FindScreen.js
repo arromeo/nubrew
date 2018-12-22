@@ -107,7 +107,9 @@ export default class FindScreen extends React.Component {
                 <EventSearch data={this.state.searchResult} styles={styles} navigate={navigate}/>
               }
               {this.state.searchResultCategory === "None" &&
-                <Text>No results could be found.</Text>
+                <View style={styles.searchResultContainer}>
+                  <Text>No results could be found.</Text>
+                </View>
               }
               <View style={{height: 100}}/>
             </View>
@@ -124,11 +126,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
-
   },
   searchResultContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
     flexDirection: "column",
     width: '90%',
     margin: 10,
@@ -136,8 +135,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   listItemContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
