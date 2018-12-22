@@ -93,9 +93,10 @@ app.post('/api/details', (request, response) => {
         })
     case "Event":
       return knex
-        .select("*")
+        .select(["*", 'stores.name AS store_name', 'stores.img_url AS img_url'])
         .from("events")
-        .where('id', request.body.id)
+        .innerJoin('stores', 'events.store_id', 'stores.id')
+        .where('events.id', request.body.id)
         .then((result) => {
           response.json({searchResult: result, searchResultCategory: "Event"})
         })
