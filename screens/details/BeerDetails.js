@@ -87,16 +87,19 @@ export default class BeerDetails extends React.Component {
           voteCast: 'Disliked',
         })
         updateVote(vote, beer_id, user_id);
+      } else {
+        if (this.state.value === 0) {
+          this.setState({
+            value: 0.01,
+          })
+        } else {
+          this.setState({
+            value: 0,
+          })
+        }
       }
     }
 
-    const sliderController = (event) => {
-      if (event < 0.8 || event > -0.8) {
-        this.setState({
-          value: 0,
-        })
-      }
-    }
     const beer = this.props.data[0];
 
     return (
@@ -140,7 +143,7 @@ export default class BeerDetails extends React.Component {
           </View>
           <Text>{beer.beer_description}</Text>
         </View>
-        <VoteComponent onValueChange={sliderController} onSlidingComplete={voteIndicator} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast}/>
+        <VoteComponent onSlidingComplete={voteIndicator} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast} user_id={this.props.user_id}/>
       </View>
     );
   }
