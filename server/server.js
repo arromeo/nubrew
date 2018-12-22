@@ -189,6 +189,31 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
     });
 });
 
+app.get('/api/user/:user_id/stats', (request, response) => {
+  knex
+    .select('*')
+    .from('beers_users_tried')
+    .where('user_id', request.params.user_id)
+    .then((result) => {
+      let favorites = [];
+      result.forEach(beer => {
+        if (beer.favorite === true) {
+          favorites.push(beer);
+        }
+      })
+      let data = {
+        totalFavorites: favorites,
+        totalTried: result
+      }
+      response.json({
+        result: data,
+      });
+    })
+    .catch((err) => {
+      console.error("This is the error " + err);
+    });
+});
+
 // Checks if a user has tried a beer and either creates the entry in the table
 // or updates the favorite value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {

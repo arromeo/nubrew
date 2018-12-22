@@ -3,7 +3,7 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, Image, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native';
 
 export default class ProfileScreen extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export default class ProfileScreen extends React.Component {
       loading: true,
       user: this.props.screenProps.user_id,
       favoriteBeers: null,
+      totalBeers: null,
     }
   }
 
@@ -25,47 +26,49 @@ export default class ProfileScreen extends React.Component {
         user: data.result[0]
       }))
 
-    // get full list of beers the users tried
-    fetch(`${port.DEV_PORT}/api/user/${userId}/favorites`)
+    // get full list of beers the users tried/favorited
+    fetch(`${port.DEV_PORT}/api/user/${userId}/stats`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({
-        favoriteBeers: data.result,
+        favoriteBeers: data.result.totalFavorites,
+        totalBeers: data.result.totalTried
       })})
+
   }
 
   render() {
     const user = this.state.user;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {this.state.loading &&
           <View style={styles.spinner}>
             <ActivityIndicator size={100} color="orange" />
           </View> 
         }
         {!this.state.loading &&
-          <View>
-            <View style={styles.profileContainer}>
-              <Image style={styles.avatar} source={require('../assets/images/default_profile_pic.png')} />
-              <Text style={styles.profileName}>{user.email}</Text>
-            </View>
+          <View style={styles.profileContainer}>
+            <Image style={styles.avatar} source={require('../assets/images/default_profile_pic.png')} />
+            <Text style={styles.profileName}>{user.email}</Text>
           </View>
         }
-        {this.state.favoriteBeers &&
-          <View>
+        {!this.state.loading && this.state.favoriteBeers &&
+          <View style={styles.profileContainer}>
             <View style={styles.detailsContainer}>
               <Image style={styles.avatar} source={require('../assets/images/beer.png')} />
               <Text>{this.state.favoriteBeers.length} beers favorited.</Text>
             </View>
             <View style={styles.detailsContainer}>
               <Image style={styles.avatar} source={require('../assets/images/beer.png')} />
-              <Text>number of beers tried</Text>
+              <Text>{this.state.totalBeers.length} beers tried</Text>
             </View>
+            <TouchableOpacity>
+
+            </TouchableOpacity>
           </View>
         }
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -75,8 +78,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginTop: 20,
-    marginBottom: 10
+  },
+  placeImages: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
   },
   profileName: {
     color: '#FEF2B2',
@@ -84,19 +90,25 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   container: {
-    flex: 0.4,
-    alignItems: 'center',
-    backgroundColor: '#61170E'
+    flex: 1,
   },
   profileContainer: {
     backgroundColor: '#61170E',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1
+    width: '100%',
+    flex: 0.5
   },
   detailsContainer: {
     flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    width: '100%',
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   spinner: {
     margin: 150,
