@@ -74,13 +74,13 @@ export default class BeerDetails extends React.Component {
 
     const voteIndicator = (event, user_id, beer_id) => {
       let vote = 0;
-      if (event > 0.8) {
+      if (event > 0.5) {
         vote = 1;
         this.setState({
           voteCast: 'Liked',
         })
         updateVote(vote, beer_id, user_id);
-      } else if (event < -0.8) {
+      } else if (event < -0.5) {
         vote = -1;
         this.setState({
           voteCast: 'Disliked',
