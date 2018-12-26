@@ -59,13 +59,13 @@ export default class DetailScreen extends React.Component {
               <BeerDetails data={this.state.searchResult} styles={styles} navigate={navigate} navigationParams={this.props.navigation.state.params} user_id={user_id}/>
             }
             {this.state.searchResultCategory === "Brewery" &&
-              <BreweryDetails data={this.state.searchResult} styles={styles}/>
+              <BreweryDetails data={this.state.searchResult} styles={styles} navigate={navigate}/>
             }
             {this.state.searchResultCategory === "Store" &&
-              <StoreDetails data={this.state.searchResult} styles={styles}/>
+              <StoreDetails data={this.state.searchResult} styles={styles} navigate={navigate}/>
             }
             {this.state.searchResultCategory === "Event" &&
-              <EventDetails data={this.state.searchResult} styles={styles}/>
+              <EventDetails data={this.state.searchResult} styles={styles} navigate={navigate}/>
             }
             {this.state.searchResultCategory === "None" &&
               <Text>No results could be found.</Text>

@@ -1,16 +1,25 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image} from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default class EventDetails extends React.Component {
   render() {
     const event = this.props.data[0];
-    console.log(event);
     return (
       <View style={styles.container}>
         <Image style={{height: 200, width:300}} source={{uri: event.img_url}} resizeMode='contain'/>
         <Text style={styles.detailsTitle}>{event.name}</Text>
         <Text style={styles.description}>{event.store_name}</Text>
         <Text style={styles.description}>{event.details}</Text>
+        <TouchableOpacity 
+          style={styles.buttonStyle}
+          onPress={() => {
+            this.props.navigate({
+              routeName: 'Map',
+            });
+          }}>
+          <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -35,5 +44,16 @@ const styles = StyleSheet.create({
   },
   description: {
     marginTop: 15
-  }
+  },
+  buttonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5,
+    flex: 0.2,
+    width: '75%',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#61170E',
+  },
 });

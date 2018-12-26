@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image} from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default class StoreDetails extends React.Component {
   render() {
@@ -13,6 +14,15 @@ export default class StoreDetails extends React.Component {
           <Text>{store.city}, {store.province}</Text>
           <Text>{store.postal_code}</Text>
         </View>
+        <TouchableOpacity 
+          style={styles.buttonStyle}
+          onPress={() => {
+            this.props.navigate({
+              routeName: 'Map',
+            });
+          }}>
+          <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -37,5 +47,16 @@ const styles = StyleSheet.create({
   },
   description: {
     marginTop: 15
-  }
+  },
+  buttonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5,
+    flex: 0.2,
+    width: '75%',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#61170E',
+  },
 });
