@@ -54,6 +54,7 @@ export default class RateDrinkScreen extends React.Component {
           this.setState({
             confirmDrink: true,
             couldNotFind: true,
+            loading: false,
           })
         } else {
           this.setState({

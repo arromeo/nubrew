@@ -17,7 +17,6 @@ export default class VoteComponent extends React.Component {
               maximumValue={1}
               minimumTrackTintColor={'white'}
               maximumTrackTintColor={'white'}
-              thumbImage={require('../../assets/images/beer.png')}
               onSlidingComplete={(event) => {
                 this.props.onSlidingComplete(event, this.props.user_id, this.props.navigationParams.id);
               }}

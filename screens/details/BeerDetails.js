@@ -12,7 +12,6 @@ export default class BeerDetails extends React.Component {
     super(props);
     this.state = {
       value: 0,
-      thumbImage: 'https://image.flaticon.com/icons/svg/168/168557.svg',
       voteCast: 'None',
       favorited: false,
     }
