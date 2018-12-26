@@ -39,14 +39,16 @@ export default class MapScreen extends React.Component {
   
   render() {
     const navigationParams = this.props.navigation.state.params;
+
     console.log('this is the navigation params:  ', this.props.navigation.state.params)
+    
     return (
 
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
-          latitude: navigationParams.latitude,
-          longitude: navigationParams.longitude,
+          latitude: navigationParams.latitude || 49.281235,
+          longitude: navigationParams.longitude || -123.114854,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}

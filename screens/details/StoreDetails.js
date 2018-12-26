@@ -17,9 +17,10 @@ export default class StoreDetails extends React.Component {
         <TouchableOpacity 
           style={styles.buttonStyle}
           onPress={() => {
-            this.props.navigate({
-              routeName: 'Map',
-            });
+            this.props.navigate('Map', {
+              latitude: store.meridians.latitude,
+              longitude: store.meridians.logitude,
+            })
           }}>
           <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
         </TouchableOpacity>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 15
   },
-  buttonStyle: {
+   buttonStyle: {
     marginTop: 10,
     marginBottom: 10,
     padding: 5,

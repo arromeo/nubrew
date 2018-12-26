@@ -14,9 +14,10 @@ export default class EventDetails extends React.Component {
         <TouchableOpacity 
           style={styles.buttonStyle}
           onPress={() => {
-            this.props.navigate({
-              routeName: 'Map',
-            });
+            this.props.navigate('Map', {
+              latitude: event.meridians.latitude,
+              longitude: event.meridians.logitude,
+            })
           }}>
           <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
         </TouchableOpacity>
