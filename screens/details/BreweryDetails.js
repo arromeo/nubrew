@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 export default class BreweryDetails extends React.Component {
   render() {
     const brewery = this.props.data[0];
+    console.log(brewery);
     return (
       <View style={styles.container}>
         <Image style={{height: 200, width:300}} source={{uri: brewery.img_url}} resizeMode='contain'/>
@@ -18,16 +19,16 @@ export default class BreweryDetails extends React.Component {
         <TouchableOpacity 
           style={styles.buttonStyle}
           onPress={() => {
-            this.props.navigate({
-              routeName: 'Map',
-            });
+            this.props.navigate('Map', {
+              latitude: brewery.meridians.latitude,
+              longitude: brewery.meridians.logitude,
+            })
           }}>
           <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
         </TouchableOpacity>
       </View>
     )
   }
-
 }
 
 const styles = StyleSheet.create({

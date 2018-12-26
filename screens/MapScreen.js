@@ -12,10 +12,6 @@ export default class MapScreen extends React.Component {
     this.state = {
       location: null,
       errorMessage: null,
-      latitute: null,
-      longitude: null,
-      latitudeDelta: null,
-      longitudeDelta: null,
     }
   }
   componentWillMount() {
@@ -36,19 +32,21 @@ export default class MapScreen extends React.Component {
         errorMessage: 'Permission to access location was denied',
       });
     }
-    IntentLauncherAndroid.startActivityAsync(IntentLauncherAndroid.ACTION_LOCATION_SOURCE_SETTINGS);
+    // IntentLauncherAndroid.startActivityAsync(IntentLauncherAndroid.ACTION_LOCATION_SOURCE_SETTINGS);
     let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
     this.setState({ location });
   };
   
   render() {
+    const navigationParams = this.props.navigation.state.params;
+    console.log('this is the navigation params:  ', this.props.navigation.state.params)
     return (
 
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: navigationParams.latitude,
+          longitude: navigationParams.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
