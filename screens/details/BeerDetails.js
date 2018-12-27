@@ -110,10 +110,10 @@ export default class BeerDetails extends React.Component {
               style={styles.buttonStyle}
               onPress={() => {
                 this.props.navigate({
-                  routeName: 'Map',
+                  routeName: 'Find',
                 });
               }}>
-              <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
+              <Ionicons style={styles.buttonIcon} name="md-search" size={25} color="#FFBC02"/>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle}
