@@ -28,6 +28,8 @@ export default class App extends React.Component {
       });
   }
 
+  // Updates the favorites list when beers are added or removed by clicking
+  // the star button on the beer details page.
   updateFavorites() {
     let url = `${port.DEV_PORT}/api/user/${this.state.user_id}/favorites`;
     fetch(url)
