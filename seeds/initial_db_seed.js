@@ -62,7 +62,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'http://www.gib.ca/app/themes/gib/dist/images/header-logo.png',
         meridians: {
           latitude: 49.270621,
-          logitude: 123.135671
+          longitude: -123.135671
         }
       },
       {
@@ -76,7 +76,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpw2VoX1ZZfsm13DuhYStVrA-TFASmEl0aJy7ihITDHx5xI8rdg',
         meridians: {
           latitude: 48.315717,
-          logitude: 11.891505
+          longitude: 11.891505
         }
       },
       {
@@ -90,7 +90,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'http://33acresbrewing.com/app/themes/33acres/assets/images/logo.svg',
         meridians: {
           latitude: 49.264329,
-          logitude: -123.105369
+          longitude: -123.105369
         }
       },
       {
@@ -104,7 +104,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://www.elysianbrewing.com/assets/images/temp-logo.png',
         meridians: {
           latitude: 47.614301, 
-          logitude: -122.315983
+          longitude: -122.315983
         }
       },
       {
@@ -118,7 +118,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Left_Hand_Logo.jpg',
         meridians: {
           latitude: 40.158654,
-          logitude: -105.098068
+          longitude: -105.098068
         }
       },
       {
@@ -132,7 +132,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://pbs.twimg.com/profile_images/844693056888553472/9Ug5p3Ha.jpg',
         meridians: {
           latitude: 49.285035,
-          logitude: -123.110537
+          longitude: -123.110537
         }
       },
       {
@@ -146,7 +146,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://driftwoodbeer.com/app/themes/driftwood/dist/images/driftwood-full-logo.png',
         meridians: {
           latitude: 48.437176,
-          logitude: -123.373320
+          longitude: -123.373320
         }
       },
       {
@@ -160,7 +160,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'http://www.persephonebrewing.com/wp-content/uploads/2015/05/Persephone_Logo.png',
         meridians: {
           latitude: 49.420801,
-          logitude:  -123.508033
+          longitude:  -123.508033
         }
       },
       {
@@ -174,7 +174,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://pbs.twimg.com/profile_images/820024782376706049/4YmBSKDG_400x400.jpg',
         meridians: {
           latitude: 49.269148, 
-          logitude: -123.096510
+          longitude: -123.096510
         }
       },
       {
@@ -188,7 +188,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'http://www.whistlerbeer.com/wp-content/themes/whislter_brewery/_assets/img/whistler_brewery.jpg',
         meridians: {
           latitude: 50.088109, 
-          logitude: -123.040801
+          longitude: -123.040801
         }
       },
       {
@@ -202,7 +202,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://www.brewersjournal.ca/wp-content/uploads/2016/10/Breweries-300x300.jpg',
         meridians: {
           latitude: 49.147837, 
-          logitude: -122.861953
+          longitude: -122.861953
         }
       },
       {
@@ -216,7 +216,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'http://transatlanticbrews.com/wp-content/uploads/2015/07/redracer.rev_1000.png',
         meridians: {
           latitude: 49.210186,
-          logitude: -122.863677
+          longitude: -122.863677
         }
       },
     ]);
@@ -235,7 +235,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://forgetsomeday.com/wp-content/uploads/Vancouver-52.jpg',
         meridians: {
           latitude: 49.285035,
-          logitude: -123.110537
+          longitude: -123.110537
         }
       },
       {
@@ -249,7 +249,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'http://donnellygroup.ca/library-square/wp-content/uploads/sites/16/2015/09/LSVenueSlides_Venue4.jpg',
         meridians: {
           latitude: 49.280313,
-          logitude: -123.114890
+          longitude: -123.114890
         }
       },
       {
@@ -263,7 +263,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://d2ciprw05cjhos.cloudfront.net/files/v3/styles/gs_large/public/images/17/04/the_railway.png?itok=f-VR0gFV',
         meridians: {
           latitude: 49.283155,
-          logitude: -123.114978
+          longitude: -123.114978
         }
       },
       {
@@ -277,7 +277,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://i.pinimg.com/originals/ee/b2/f4/eeb2f476b5844212cf7644fff6dc8a80.jpg',
         meridians: {
           latitude: 49.282654,
-          logitude: -123.117711
+          longitude: -123.117711
         }
       },
       {
@@ -291,7 +291,7 @@ exports.seed = function(knex, Promise) {
         img_url: 'https://ssmscdn.yp.ca/image/resize/fe4ccdea-4741-4627-b87b-8df31a08bead/ypui-d-mp-pic-gal-lg/bc-liquor-store-storefront-1.jpg',
         meridians: {
           latitude: 49.284851,
-          logitude: -123.111935
+          longitude: -123.111935
         }
       }
     ])

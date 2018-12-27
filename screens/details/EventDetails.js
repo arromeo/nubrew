@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, View, Text, Image } from 'react-native';
+
 
 export default class EventDetails extends React.Component {
   render() {
@@ -11,16 +11,6 @@ export default class EventDetails extends React.Component {
         <Text style={styles.detailsTitle}>{event.name}</Text>
         <Text style={styles.description}>{event.store_name}</Text>
         <Text style={styles.description}>{event.details}</Text>
-        <TouchableOpacity 
-          style={styles.buttonStyle}
-          onPress={() => {
-            this.props.navigate('Map', {
-              latitude: event.meridians.latitude,
-              longitude: event.meridians.logitude,
-            })
-          }}>
-          <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
-        </TouchableOpacity>
       </View>
     )
   }
@@ -45,16 +35,5 @@ const styles = StyleSheet.create({
   },
   description: {
     marginTop: 15
-  },
-  buttonStyle: {
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 5,
-    flex: 0.2,
-    width: '75%',
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#61170E',
   },
 });

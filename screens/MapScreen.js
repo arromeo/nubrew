@@ -3,8 +3,8 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { Platform } from 'react-native';
-import { MapView, Location, Constants, Permissions, IntentLauncherAndroid } from 'expo';
+import { Platform, StyleSheet, Text, View, Image } from 'react-native';
+import { MapView, Location, Constants, Permissions } from 'expo';
 
 export default class MapScreen extends React.Component {
   constructor(props) {
@@ -37,23 +37,65 @@ export default class MapScreen extends React.Component {
     this.setState({ location });
   };
   
+  //https://github.com/react-native-community/react-native-maps/blob/master/docs/marker.md
   render() {
-    const navigationParams = this.props.navigation.state.params;
+    const navigationParams = this.props.navigation.state.params.data;
 
-    console.log('this is the navigation params:  ', this.props.navigation.state.params)
+    console.log('this is the navigation params:  ', navigationParams)
     
     return (
 
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
-          latitude: navigationParams.latitude || 49.281235,
-          longitude: navigationParams.longitude || -123.114854,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitude: navigationParams.meridians.latitude,
+          longitude: navigationParams.meridians.longitude,
+          latitudeDelta: 0.006,
+          longitudeDelta: 0.003,
         }}
-      />
+      >
+        <MapView.Marker
+          coordinate={{
+            latitude: navigationParams.meridians.latitude,
+            longitude: navigationParams.meridians.longitude
+          }}
+          pinColor='#FFA500'
+          hideCallout
+        >
+          <MapView.Callout tooltip={false}>
+            <View style={styles.markerContainer}>
+              <Image
+                style={styles.imageStyle}
+                source={{uri: navigationParams.img_url }}
+                />
+              <View style={styles.calloutContent}>
+                <Text style={styles.calloutHeader}>{navigationParams.name}</Text>
+                <Text>{navigationParams.description}</Text>
+              </View>
+            </View>
+          </MapView.Callout>
+        </MapView.Marker>
+      </MapView>
 
     )
   }
 }
+
+const styles = StyleSheet.create({
+  markerContainer: {
+    width: 200,
+    height: 'auto',
+    flex: 1,
+    flexDirection: 'row'
+  },
+  imageStyle: {
+    flex: 0.25,
+  },
+  calloutContent: {
+    flex: 0.75,
+    paddingLeft: 10,
+  },
+  calloutHeader: {
+    fontWeight: "bold"
+  }
+})

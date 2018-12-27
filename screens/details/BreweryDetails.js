@@ -20,8 +20,7 @@ export default class BreweryDetails extends React.Component {
           style={styles.buttonStyle}
           onPress={() => {
             this.props.navigate('Map', {
-              latitude: brewery.meridians.latitude,
-              longitude: brewery.meridians.logitude,
+              data: brewery,
             })
           }}>
           <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>

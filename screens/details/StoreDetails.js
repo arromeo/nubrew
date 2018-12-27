@@ -18,8 +18,7 @@ export default class StoreDetails extends React.Component {
           style={styles.buttonStyle}
           onPress={() => {
             this.props.navigate('Map', {
-              latitude: store.meridians.latitude,
-              longitude: store.meridians.logitude,
+              data: store,
             })
           }}>
           <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
