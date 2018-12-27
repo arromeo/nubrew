@@ -14,30 +14,30 @@ export default class MapScreen extends React.Component {
       errorMessage: null,
     }
   }
-  componentWillMount() {
-    if (Platform.OS === 'android' && !Constants.isDevice) {
-      this.setState({
-        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-      });
-    } else {
-      this._getLocationAsync();
-    }
-  }
+  // componentWillMount() {
+  //   if (Platform.OS === 'android' && !Constants.isDevice) {
+  //     this.setState({
+  //       errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+  //     });
+  //   } else {
+  //     this._getLocationAsync();
+  //   }
+  // }
 
-  // TODO: Android error, cannot retrieve permission (https://github.com/expo/expo/issues/946)
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
-    // IntentLauncherAndroid.startActivityAsync(IntentLauncherAndroid.ACTION_LOCATION_SOURCE_SETTINGS);
-    let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
-    this.setState({ location });
-  };
+  // // TODO: Android error, cannot retrieve permission (https://github.com/expo/expo/issues/946)
+  // _getLocationAsync = async () => {
+  //   let { status } = await Permissions.askAsync(Permissions.LOCATION);
+  //   if (status !== 'granted') {
+  //     this.setState({
+  //       errorMessage: 'Permission to access location was denied',
+  //     });
+  //   }
+  //   // IntentLauncherAndroid.startActivityAsync(IntentLauncherAndroid.ACTION_LOCATION_SOURCE_SETTINGS);
+  //   let location = await Location.getCurrentPositionAsync({enableHighAccuracy: true});
+  //   this.setState({ location });
+  // };
   
-  //https://github.com/react-native-community/react-native-maps/blob/master/docs/marker.md
+  // //https://github.com/react-native-community/react-native-maps/blob/master/docs/marker.md
   render() {
     const navigationParams = this.props.navigation.state.params.data;
 
@@ -69,7 +69,11 @@ export default class MapScreen extends React.Component {
                   style={styles.imageStyle}
                   source={{uri: navigationParams.img_url }}
                   />
-                <Text style={styles.name}>{navigationParams.name}</Text>
+                <View style={styles.addressContainer}>
+                  <Text style={styles.name}>{navigationParams.name}</Text>
+                  <Text>{navigationParams.street_address}</Text>
+                  <Text>{navigationParams.city}, {navigationParams.province}</Text>
+                </View>
               </View>
               <Text style={styles.description}>{navigationParams.description}</Text>
             </View>
@@ -100,7 +104,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 15,
-    flexWrap: 'wrap',
+  },
+  addressContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   name: {
     fontWeight: "bold",
