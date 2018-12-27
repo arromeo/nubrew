@@ -11,13 +11,8 @@ export default class FindScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      favorites: null,
       loading: false,
     }
-  }
-
-  componentDidMount() {
-    this.setState({favorites: this.props.screenProps.favorites});
   }
 
   render() {
@@ -33,7 +28,7 @@ export default class FindScreen extends React.Component {
           }
           {!this.state.loading && 
             <View>
-              <FavoriteList data={this.state.favorites} navigate={navigate} crowdFavorite={false} />
+              <FavoriteList data={this.props.screenProps.favorites} navigate={navigate} crowdFavorite={false} />
             </View>
           }
           <View style={{height: 100}}/>

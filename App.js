@@ -30,12 +30,10 @@ export default class App extends React.Component {
 
   updateFavorites() {
     let url = `${port.DEV_PORT}/api/user/${this.state.user_id}/favorites`;
-    console.log('updating the list');
     fetch(url)
       .then(res => res.json())
       .then(data => {
         this.setState ({ favorites: data.result, })
-        console.log(this.state.favorites);
       })
       .catch(error => {
         console.error(error);
