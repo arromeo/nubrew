@@ -12,22 +12,12 @@ export default class FindScreen extends React.Component {
     super(props)
     this.state = {
       favorites: null,
-      loading: true,
+      loading: false,
     }
   }
 
   componentDidMount() {
-    // need to figure out how to pass userid through different stacks
-    let url = `${port.DEV_PORT}/api/user/${this.props.screenProps.user_id}/favorites`;
-    fetch(url)
-      .then(res => res.json())
-      .then(data => this.setState ({
-        favorites: data.result,
-        loading: false,
-      }))
-      .catch(error => {
-        console.error(error);
-      });
+    this.setState({favorites: this.props.screenProps.favorites});
   }
 
   render() {

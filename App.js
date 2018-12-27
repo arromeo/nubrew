@@ -2,11 +2,26 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+const port = require('./dev_port.json');
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
+    favorites: null,
+    user_id: 1
   };
+
+  componentDidMount() {
+    let url = `${port.DEV_PORT}/api/user/${this.state.user_id}/favorites`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        this.setState ({ favorites: data.result, })
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -21,7 +36,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator screenProps={{user_id: 1}}/>
+          <AppNavigator screenProps={{user_id: this.state.user_id, favorites: this.state.favorites }}/>
         </View>
       );
     }

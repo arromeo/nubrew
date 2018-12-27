@@ -63,7 +63,6 @@ export default class BeerDetails extends React.Component {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({
           favorited: data.favorited
         })
