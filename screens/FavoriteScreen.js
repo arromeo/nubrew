@@ -3,7 +3,7 @@ const port = require('../dev_port.json');
 
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
-import FavoriteList from './favorites/FavoriteList.js';
+import BeerSearch from './search/BeerSearch.js';
 import GoToCamera from './goto/GoToCamera.js';
 
 
@@ -28,7 +28,7 @@ export default class FindScreen extends React.Component {
           }
           {!this.state.loading && 
             <View>
-              <FavoriteList data={this.props.screenProps.favorites} navigate={navigate} crowdFavorite={false} />
+              <BeerSearch data={this.props.screenProps.favorites} navigate={navigate} crowdFavorite={false} />
             </View>
           }
           <View style={{height: 100}}/>

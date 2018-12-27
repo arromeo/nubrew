@@ -3,7 +3,7 @@ const port = require('../dev_port.json');
 
 import React from 'react';
 import { ScrollView, View, ActivityIndicator, StyleSheet } from 'react-native';
-import FavoriteList from './favorites/FavoriteList.js';
+import BeerSearch from './search/BeerSearch.js';
 
 export default class InventoryScreen extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ export default class InventoryScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    
+
     return (
       <ScrollView style={styles.container}>
         {!this.state.data &&
@@ -47,7 +47,7 @@ export default class InventoryScreen extends React.Component {
           </View> 
         }
         {this.state.data &&
-          <FavoriteList data={this.state.data} navigate={navigate}/>
+          <BeerSearch data={this.state.data} navigate={navigate}/>
         }
       </ScrollView>
     )

@@ -1,33 +1,97 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default class BeerSearch extends React.Component {
   render() {
-    const styles = this.props.styles;
+    const crowdRecommendation = this.props.crowdFavorite;
     return (
-        <FlatList
+      <FlatList
         data={this.props.data}
         keyExtractor={item => item.beer_id.toString()}
         renderItem={({item}) => 
-          <TouchableOpacity 
-            style={styles.listItemContainer}
-            onPress={() => {
-              this.props.navigate('Detail', {
-                category: "Beer",
-                id: item.beer_id,
-              })}
+        <View style={styles.listItemContainer}>
+
+          <View>
+            <Image
+                source={{ uri: item.img_url }}
+                style={{ height: 100, width: 100 }}
+                />
+          </View>
+
+          <View style={styles.searchResultContainer}>
+            <Text style={styles.beerTitle}>{item.beer_name}</Text>
+            <Text style={styles.beerDetails}>{item.brewery_name}</Text>
+            <Text style={styles.beerDetails}>Type: {item.category}</Text>
+          </View>
+
+          <View style={styles.optionsContainer}>
+            <TouchableOpacity
+              style={styles.optionButton}
+              onPress={() => {
+                this.props.navigate('Detail', {
+                  category: "Beer",
+                  id: item.beer_id,
+                });
+            }}>
+              <Ionicons name="md-search" size={32} color="black"/>
+            </TouchableOpacity>
+            { !crowdRecommendation &&
+              <TouchableOpacity
+              style={styles.optionButton}
+              onPress={() => {
+                this.props.navigate('Detail', {
+                  category: "Beer",
+                  id: item.beer_id,
+                });
+              }}>
+                <Ionicons name="md-trash" size={32} color="red"/>
+              </TouchableOpacity>
             }
-          >
-            <View style={styles.searchResultContainer}>
-              <Text>Brewery: {item.brewery_name}'s</Text>
-              <Text>Beer Name: {item.beer_name}</Text>
-              <Text>Type: {item.category}</Text>
-              <Text>{item.beer_description}</Text>
-              <Text>IBU: {item.ibu} - ABV: {item.abv}</Text>
-            </View>
-          </TouchableOpacity>
+          </View>
+        </View>
         }
-        />
+      />
     )
   }
 }
+
+const styles = StyleSheet.create({
+  recommendationContainer: {
+    flexDirection: "column",
+    width: '45%',
+    margin: 10,
+  },
+  listItemContainer: {
+    flex: 1,
+    marginTop: 7,
+    marginBottom: 7,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  searchResultContainer: {
+    flexDirection: "column",
+    margin: 10,
+    justifyContent: 'center', 
+    alignItems: 'flex-start',
+    textAlign: 'center',
+    width: '50%',
+  },
+  optionsContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  optionButton: {
+    marginTop: 5,
+    marginBottom: 5
+  },
+  beerTitle: {
+    fontWeight: 'bold',
+    fontSize: 15
+  }, 
+  beerDetails: {
+    fontSize: 12
+  }
+});
