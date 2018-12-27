@@ -18,6 +18,16 @@ export default class StoreDetails extends React.Component {
         <TouchableOpacity 
           style={styles.buttonStyle}
           onPress={() => {
+            this.props.navigate('Inventory', {
+              id: store.id,
+              category: 'Store'
+            })
+          }}>
+          <Ionicons style={styles.buttonIcon} name="md-list" size={25} color="#FFBC02"/>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.buttonStyle}
+          onPress={() => {
             this.props.navigate('Map', {
               data: store,
             })

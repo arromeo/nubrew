@@ -355,7 +355,6 @@ app.get('/api/beers', (request, response) => {
 
 // Returns beers sold by location.
 app.post('/api/:location_id/inventory', (request, response) => {
-  console.log(request.body);
   switch(request.body.category) {
     case "Brewery":
       return knex
@@ -384,6 +383,7 @@ app.post('/api/:location_id/inventory', (request, response) => {
     case "Store": 
       return knex
         .select([
+          'beers.id AS beer_id',
           'category',
           'beers.name AS beer_name',
           'breweries.name AS brewery_name',
