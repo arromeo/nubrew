@@ -1,9 +1,9 @@
-
 // make sure this gets deleted at the end and figure out how to set-up proxy
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, View, ActivityIndicator, StyleSheet } from 'react-native';
+import FavoriteList from './favorites/FavoriteList.js';
 
 export default class InventoryScreen extends React.Component {
   constructor(props) {
@@ -14,46 +14,49 @@ export default class InventoryScreen extends React.Component {
   }
 
   componentDidMount() {
-
+    const navigationParams = this.props.navigation.state.params;
+    const data = {
+      id: navigationParams.id,
+      category: navigationParams.category,
+    }
+    fetch(`${port.DEV_PORT}/api/:location_id/inventory`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          data: data.result,
+        })
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+    
     return (
       <ScrollView style={styles.container}>
-        <View>
-          <FlatList
-            data={this.state.data}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => 
-            <TouchableOpacity
-              style={[styles.eventContainer, styles.homeScreenFilename]}
-              onPress={() => {
-                this.props.navigate('Detail', {
-                  id: item.id,
-                  category: "Store"
-                });
-            }}>
-              <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
-                <View>
-                  <Image
-                    style={{width: 75, height: 75}}
-                    source={{uri: item.img_url}}
-                  />
-                </View>
-                <View>
-                  <Text style={styles.eventTitle}>{item.name}</Text>
-                  <Text style={styles.eventDetails}>{item.street_address}</Text>
-                  <Text style={styles.eventDetails}>{item.city}, {item.province}</Text>
-                  <Text style={styles.eventDetails}>{item.postal_code}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          }/>
-        </View>
+        {!this.state.data &&
+          <View style={styles.spinner}>
+            <ActivityIndicator size={100} color="orange" />
+          </View> 
+        }
+        {this.state.data &&
+          <FavoriteList data={this.state.data} navigate={navigate}/>
+        }
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  spinner: {
+    margin: 200,
+    alignSelf: 'center'
+  },
 })

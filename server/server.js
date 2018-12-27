@@ -191,6 +191,7 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
     });
 });
 
+// profile page, sends list of drinks user has tried + favorited
 app.get('/api/user/:user_id/stats', (request, response) => {
   knex
     .select('*')
@@ -352,32 +353,69 @@ app.get('/api/beers', (request, response) => {
   });
 })
 
-// Returns beers sold by store.
-app.get('/api/store/:store_id/inventory', (request, response) => {
-  knex
-    .select([
-      'category',
-      'beers.name AS beer_name',
-      'breweries.name AS brewery_name',
-      'ibu',
-      'abv',
-      'beers.img_url as beer_img_url'])
-    .from('beers_stores')
-    .innerJoin('beers', 'beers_stores.beer_id', 'beers.id')
-    .innerJoin('stores', 'beers_stores.store_id', 'stores.id')
-    .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
-    .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
-    .innerJoin('categories', 'beers.category_id', 'categories.id')
-    .where('beers_stores.store_id', request.params.store_id)
-    .then((result) => {
-      response.json({
-        result
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+// Returns beers sold by location.
+app.post('/api/:location_id/inventory', (request, response) => {
+  console.log(request.body);
+  switch(request.body.category) {
+    case "Brewery":
+      return knex
+        .select([
+          'beers.id AS beer_id',
+          'category',
+          'beers.name AS beer_name',
+          'breweries.name AS brewery_name',
+          'ibu',
+          'abv',
+          'beers.img_url as img_url'])
+        .from('beers_breweries')
+        .innerJoin('beers', 'beers_breweries.beer_id', 'beers.id')
+        .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+        .innerJoin('categories', 'beers.category_id', 'categories.id')
+        .where('beers_breweries.brewery_id', request.body.id)
+        .then((result) => {
+          console.log("This is the brewery: ", result);
+          response.json({
+            result
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    case "Store": 
+      return knex
+        .select([
+          'category',
+          'beers.name AS beer_name',
+          'breweries.name AS brewery_name',
+          'ibu',
+          'abv',
+          'beers.img_url as img_url'])
+        .from('beers_stores')
+        .innerJoin('beers', 'beers_stores.beer_id', 'beers.id')
+        .innerJoin('stores', 'beers_stores.store_id', 'stores.id')
+        .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
+        .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+        .innerJoin('categories', 'beers.category_id', 'categories.id')
+        .where('beers_stores.store_id', request.body.id)
+        .then((result) => {
+          console.log("This is the store: ", result);          
+          response.json({
+            result
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+  }
 });
+
+// Gets list of locations that sells a specific beer
+// app.get('/api/:beer_id/locations', (request, response) => {
+//   knex
+//     .select([
+
+//     ])
+// })
 
 // Returns list of beers made by brewery.
 app.get('/api/brewery/:brewery_id/beers', (request, response) => {

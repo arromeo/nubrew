@@ -5,7 +5,6 @@ import { Ionicons } from '@expo/vector-icons';
 export default class BreweryDetails extends React.Component {
   render() {
     const brewery = this.props.data[0];
-    console.log(brewery);
     return (
       <View style={styles.container}>
         <Image style={{height: 200, width:300}} source={{uri: brewery.img_url}} resizeMode='contain'/>
@@ -16,6 +15,16 @@ export default class BreweryDetails extends React.Component {
           <Text>{brewery.postal_code}</Text>
         </View>
         <Text style={styles.description}>{brewery.description}</Text>
+        <TouchableOpacity 
+          style={styles.buttonStyle}
+          onPress={() => {
+            this.props.navigate('Inventory', {
+              id: brewery.id,
+              category: 'Brewery'
+            })
+          }}>
+          <Ionicons style={styles.buttonIcon} name="md-list" size={25} color="#FFBC02"/>
+        </TouchableOpacity>
         <TouchableOpacity 
           style={styles.buttonStyle}
           onPress={() => {

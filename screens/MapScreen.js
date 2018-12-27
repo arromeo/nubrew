@@ -40,8 +40,6 @@ export default class MapScreen extends React.Component {
   // //https://github.com/react-native-community/react-native-maps/blob/master/docs/marker.md
   render() {
     const navigationParams = this.props.navigation.state.params.data;
-
-    console.log('this is the navigation params:  ', navigationParams)
     
     return (
 
