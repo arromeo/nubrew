@@ -90,14 +90,16 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   imageStyle: {
-    height: 60,
-    width: 60,
+    height: 75,
+    width: 75,
+    borderRadius: 25,
     marginRight: 20
   },
   calloutHeader: {
     flex: 0.2,
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 15
   },
   name: {
     fontWeight: "bold"

@@ -14,6 +14,7 @@ export default class StoreDetails extends React.Component {
           <Text>{store.city}, {store.province}</Text>
           <Text>{store.postal_code}</Text>
         </View>
+        <Text style={styles.detailsTitle}>{store.description}</Text>
         <TouchableOpacity 
           style={styles.buttonStyle}
           onPress={() => {
