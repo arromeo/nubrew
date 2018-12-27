@@ -56,7 +56,7 @@ export default class DetailScreen extends React.Component {
         {!this.state.loading &&
           <View style={styles.searchContainer}>
             {this.state.searchResultCategory === "Beer" &&
-              <BeerDetails data={this.state.searchResult} styles={styles} navigate={navigate} navigationParams={this.props.navigation.state.params} user_id={user_id}/>
+              <BeerDetails data={this.state.searchResult} styles={styles} navigate={navigate} navigationParams={this.props.navigation.state.params} user_id={user_id} updateFavorites={this.props.screenProps.updateFavorites}/>
             }
             {this.state.searchResultCategory === "Brewery" &&
               <BreweryDetails data={this.state.searchResult} styles={styles} navigate={navigate}/>

@@ -5,11 +5,16 @@ import AppNavigator from './navigation/AppNavigator';
 const port = require('./dev_port.json');
 
 export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-    favorites: null,
-    user_id: 1
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoadingComplete: false,
+      favorites: null,
+      user_id: 1
+    };
+
+    this.updateFavorites = this.updateFavorites.bind(this);
+  }
 
   componentDidMount() {
     let url = `${port.DEV_PORT}/api/user/${this.state.user_id}/favorites`;
@@ -17,6 +22,20 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState ({ favorites: data.result, })
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  updateFavorites() {
+    let url = `${port.DEV_PORT}/api/user/${this.state.user_id}/favorites`;
+    console.log('updating the list');
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        this.setState ({ favorites: data.result, })
+        console.log(this.state.favorites);
       })
       .catch(error => {
         console.error(error);
@@ -36,7 +55,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator screenProps={{user_id: this.state.user_id, favorites: this.state.favorites }}/>
+          <AppNavigator screenProps={{user_id: this.state.user_id, favorites: this.state.favorites, updateFavorites: this.updateFavorites }}/>
         </View>
       );
     }
