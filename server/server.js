@@ -180,6 +180,7 @@ app.get('/api/user/:user_id/favorites', (request, response) => {
     .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
     .innerJoin('categories', 'beers.category_id', 'categories.id')
     .where('beers_users_tried.user_id', request.params.user_id)
+    .andWhere('beers_users_tried.favorite', true)
     .then((result) => {
       response.json({
         result
