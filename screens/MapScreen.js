@@ -64,14 +64,14 @@ export default class MapScreen extends React.Component {
         >
           <MapView.Callout tooltip={false}>
             <View style={styles.markerContainer}>
-              <Image
-                style={styles.imageStyle}
-                source={{uri: navigationParams.img_url }}
-                />
-              <View style={styles.calloutContent}>
-                <Text style={styles.calloutHeader}>{navigationParams.name}</Text>
-                <Text>{navigationParams.description}</Text>
+              <View style={styles.calloutHeader}>
+                <Image
+                  style={styles.imageStyle}
+                  source={{uri: navigationParams.img_url }}
+                  />
+                <Text style={styles.name}>{navigationParams.name}</Text>
               </View>
+              <Text style={styles.description}>{navigationParams.description}</Text>
             </View>
           </MapView.Callout>
         </MapView.Marker>
@@ -83,19 +83,26 @@ export default class MapScreen extends React.Component {
 
 const styles = StyleSheet.create({
   markerContainer: {
-    width: 200,
+    width: 250,
     height: 'auto',
     flex: 1,
-    flexDirection: 'row'
+    margin: 15,
+    flexWrap: 'wrap',
   },
   imageStyle: {
-    flex: 0.25,
-  },
-  calloutContent: {
-    flex: 0.75,
-    paddingLeft: 10,
+    height: 60,
+    width: 60,
+    marginRight: 20
   },
   calloutHeader: {
+    flex: 0.2,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  name: {
     fontWeight: "bold"
+  },
+  description: {
+    flexWrap: 'wrap'
   }
 })
