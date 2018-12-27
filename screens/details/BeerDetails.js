@@ -111,8 +111,9 @@ export default class BeerDetails extends React.Component {
             <TouchableOpacity 
               style={styles.buttonStyle}
               onPress={() => {
-                this.props.navigate({
-                  routeName: 'Find',
+                this.props.navigate('Inventory', {
+                  id: beer.beer_id,
+                  category: 'Beer',
                 });
               }}>
               <Ionicons style={styles.buttonIcon} name="md-search" size={25} color="#FFBC02"/>

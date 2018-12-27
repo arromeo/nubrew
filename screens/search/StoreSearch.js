@@ -6,10 +6,10 @@ export default class EventSearch extends React.Component {
     return (
         <ScrollView style={styles.container}>
             <View>
-                <FlatList
-                  data={this.props.data}
-                  keyExtractor={item => item.id.toString()}
-                  renderItem={({item}) => 
+              <FlatList
+                data={this.props.data}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({item}) => 
                 <TouchableOpacity
                   style={[styles.eventContainer, styles.homeScreenFilename]}
                   onPress={() => {
@@ -18,23 +18,23 @@ export default class EventSearch extends React.Component {
                       category: "Store"
                     });
                 }}>
-                <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
-                <View>
-                  <Image
-                    style={{width: 75, height: 75}}
-                    source={{uri: item.img_url }}
-                  />
+                  <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
+                  <View>
+                    <Image
+                      style={{width: 75, height: 75}}
+                      source={{uri: item.img_url }}
+                    />
+                  </View>
+                  <View>
+                    <Text style={styles.eventTitle}>{item.name}</Text>
+                    <Text style={styles.eventDetails}>{item.street_address}</Text>
+                    <Text style={styles.eventDetails}>{item.city}, {item.province}</Text>
+                    <Text style={styles.eventDetails}>{item.postal_code}</Text>
+                  </View>
                 </View>
-                <View>
-                  <Text style={styles.eventTitle}>{item.name}</Text>
-                  <Text style={styles.eventDetails}>{item.street_address}</Text>
-                  <Text style={styles.eventDetails}>{item.city}, {item.province}</Text>
-                  <Text style={styles.eventDetails}>{item.postal_code}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          }/>
-            </View>
+              </TouchableOpacity>
+            }/>
+          </View>
         </ScrollView>
     )
   }
