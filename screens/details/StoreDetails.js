@@ -14,7 +14,7 @@ export default class StoreDetails extends React.Component {
           <Text>{store.city}, {store.province}</Text>
           <Text>{store.postal_code}</Text>
         </View>
-        <Text style={styles.detailsTitle}>{store.description}</Text>
+        <Text>{store.description}</Text>
         <TouchableOpacity 
           style={styles.buttonStyle}
           onPress={() => {
@@ -42,8 +42,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   addressCard: {
-    marginLeft: 15,
-    marginTop: 15,
+    margin:15,
     alignItems: 'center'
   },
   description: {

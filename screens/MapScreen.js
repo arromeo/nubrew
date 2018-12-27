@@ -99,10 +99,11 @@ const styles = StyleSheet.create({
     flex: 0.2,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15
+    marginBottom: 15,
+    flexWrap: 'wrap',
   },
   name: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   description: {
     flexWrap: 'wrap'

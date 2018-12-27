@@ -10,7 +10,7 @@ export default class EventDetails extends React.Component {
         <Image style={{height: 200, width:300}} source={{uri: event.img_url}} resizeMode='contain'/>
         <Text style={styles.detailsTitle}>{event.name}</Text>
         <Text style={styles.description}>{event.store_name}</Text>
-        <Text style={styles.description}>{event.details}</Text>
+        <Text style={styles.description}>{event.description}</Text>
       </View>
     )
   }
