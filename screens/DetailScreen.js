@@ -12,14 +12,16 @@ export default class DetailScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      category: null,
       searchResult: null,
       searchResultCategory: null,
       loading: true,
     }
+
+    this.searchDatabaseForDetails = this.searchDatabaseForDetails.bind(this);
   }
 
-  componentDidMount() {
-    const navigationParams = this.props.navigation.state.params;
+  searchDatabaseForDetails(navigationParams) {
     const data = {
       category: navigationParams.category,
       id: navigationParams.id,
@@ -28,23 +30,33 @@ export default class DetailScreen extends React.Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.setState({
-        searchResult: data.searchResult,
-        searchResultCategory: data.searchResultCategory,
-        loading: false,
       })
-    })
-    .catch((error) => {
-      console.error(error);
-    })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          category: navigationParams.category,
+          searchResult: data.searchResult,
+          searchResultCategory: data.searchResultCategory,
+          loading: false,
+        })
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }
+  
+  componentDidMount() {
+    this.searchDatabaseForDetails(this.props.navigation.state.params);
+  }
+
+  componentDidUpdate() {
+    if (this.state.category !== this.props.navigation.state.params.category) {
+      this.searchDatabaseForDetails(this.props.navigation.state.params);
+    }
   }
 
   render() {
     const user_id = this.props.screenProps.user_id;
-
     const { navigate } = this.props.navigation
     return (
       <ScrollView style={styles.container}>
