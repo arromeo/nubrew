@@ -14,76 +14,82 @@ export default class FindScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: "",
-      pickerValue: "Beer",
       searchResult: null,
       searchResultCategory: null,
       loading: false,
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.screenProps.currentSearch && this.props.screenProps.initSearch === true) {
+      this.searchDatabase(this.props.screenProps.currentSearch , this.props.screenProps.currentSearchCategory);
+
+      this.props.screenProps.changeSearch('');
+      this.props.screenProps.initiateSearch();
+    }
+  }
+
+  searchDatabase (value, category) {
+    if (!value) {
+      this.setState({
+        loading: false,
+      })
+    } else {
+      const data = {
+        category: category,
+        keywords: value,
+      }
+      return fetch(`${port.DEV_PORT}/api/find`, 
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+      .then(res => res.json())
+      .then(data => {
+        if (data.searchCategory === "None") {
+          this.setState({
+            searchResultCategory: "None",
+          })
+        } else {
+          this.setState({
+            searchResult: data.searchResult,
+            searchResultCategory: data.searchResultCategory,
+            input: "",
+            loading: false,
+          })
+        }})
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+  }
   render() {
     const { navigate } = this.props.navigation;
     const changeInput = (event) => {
-      // this.setState({
-      //   input: event,
-      // })
       this.props.screenProps.changeSearch(event);
     }
 
     const pickCategory = (event) => {
-      this.setState({
-        pickerValue: event,
-      })
+      this.props.screenProps.changeSearchCategory(event);
     }
 
-    const searchDatabase = (value, category) => {
-      if (!value) {
-        this.setState({
-          loading: false,
-        })
-      } else {
-        const data = {
-          category: category,
-          keywords: value,
-        }
-        return fetch(`${port.DEV_PORT}/api/find`, 
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          })
-        .then(res => res.json())
-        .then(data => {
-          if (data.searchCategory === "None") {
-            this.setState({
-              searchResultCategory: "None",
-            })
-          } else {
-            this.setState({
-              searchResult: data.searchResult,
-              searchResultCategory: data.searchResultCategory,
-              input: "",
-              loading: false,
-            })
-          }})
-        .catch((error) => {
-          console.error(error);
-        })
-      }
-    }
 
     // if search category is beer... do... else if store... do... else if brewery... do...
     return (
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
-          <SearchComponent input={this.props.screenProps.currentSearch} changeInput={changeInput} pickerValue={this.state.pickerValue} pickCategory={pickCategory}/>
+          <SearchComponent
+            input={this.props.screenProps.currentSearch}
+            changeInput={changeInput}
+            pickerValue={this.props.screenProps.currentSearchCategory}
+            pickCategory={pickCategory}/>
             
           <Button 
             title="Search"
             color="#61170E"
             onPress={() => {
-              searchDatabase(this.state.input, this.state.pickerValue);
+              this.searchDatabase(this.props.screenProps.currentSearch , this.props.screenProps.currentSearchCategory);
             }}
             />
 

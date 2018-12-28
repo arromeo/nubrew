@@ -111,7 +111,10 @@ export default class BeerDetails extends React.Component {
             <TouchableOpacity 
               style={styles.buttonStyle}
               onPress={() => {
-                this.props.navigate('Inventory', {
+                this.props.changeSearchCategory('Store');
+                this.props.changeSearch(':beer=' + beer.beer_id);
+                this.props.initiateSearch();
+                this.props.navigate('Find', {
                   id: beer.beer_id,
                   category: 'Beer',
                 });

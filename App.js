@@ -12,11 +12,15 @@ export default class App extends React.Component {
       isLoadingComplete: false,
       favorites: null,
       currentSearch: '',
+      currentSearchCategory: 'Beer',
+      initSearch: false,
       user_id: 1
     };
 
     this.changeSearch = this.changeSearch.bind(this);
+    this.changeSearchCategory = this.changeSearchCategory.bind(this);
     this.updateFavorites = this.updateFavorites.bind(this);
+    this.initiateSearch = this.initiateSearch.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +30,7 @@ export default class App extends React.Component {
   // Updates the favorites list when beers are added or removed by clicking
   // the star button on the beer details page.
   updateFavorites() {
+    console.log('updating favorites list');
     let url = `${port.DEV_PORT}/api/user/${this.state.user_id}/favorites`;
     fetch(url)
       .then(res => res.json())
@@ -38,7 +43,15 @@ export default class App extends React.Component {
   }
 
   changeSearch(event) {
-    this.setState( {currentSearch: event });
+    this.setState({ currentSearch: event });
+  }
+
+  changeSearchCategory(event) {
+    this.setState({ currentSearchCategory: event });
+  }
+
+  initiateSearch() {
+    this.setState({ initSearch: !this.state.initSearch });
   }
 
   render() {
@@ -54,7 +67,18 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator screenProps={{user_id: this.state.user_id, favorites: this.state.favorites, updateFavorites: this.updateFavorites, changeSearch: this.changeSearch }}/>
+          <AppNavigator
+            screenProps={{
+              user_id: this.state.user_id,
+              favorites: this.state.favorites,
+              updateFavorites: this.updateFavorites,
+              changeSearch: this.changeSearch,
+              changeSearchCategory: this.changeSearchCategory,
+              currentSearch: this.state.currentSearch,
+              currentSearchCategory: this.state.currentSearchCategory,
+              initiateSearch: this.initiateSearch,
+              initSearch: this.state.initSearch
+              }}/>
         </View>
       );
     }
