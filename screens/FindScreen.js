@@ -25,9 +25,10 @@ export default class FindScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     const changeInput = (event) => {
-      this.setState({
-        input: event,
-      })
+      // this.setState({
+      //   input: event,
+      // })
+      this.props.screenProps.changeSearch(event);
     }
 
     const pickCategory = (event) => {
@@ -76,7 +77,7 @@ export default class FindScreen extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={styles.container}>
-          <SearchComponent input={this.state.input} changeInput={changeInput} pickerValue={this.state.pickerValue} pickCategory={pickCategory}/>
+          <SearchComponent input={this.props.screenProps.currentSearch} changeInput={changeInput} pickerValue={this.state.pickerValue} pickCategory={pickCategory}/>
             
           <Button 
             title="Search"

@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import VoteComponent from './screens/vote/VoteComponent';
 const port = require('./dev_port.json');
 
 export default class App extends React.Component {
@@ -10,9 +11,11 @@ export default class App extends React.Component {
     this.state = {
       isLoadingComplete: false,
       favorites: null,
+      currentSearch: '',
       user_id: 1
     };
 
+    this.changeSearch = this.changeSearch.bind(this);
     this.updateFavorites = this.updateFavorites.bind(this);
   }
 
@@ -34,6 +37,10 @@ export default class App extends React.Component {
       });
   }
 
+  changeSearch(event) {
+    this.setState( {currentSearch: event });
+  }
+
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
@@ -47,7 +54,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator screenProps={{user_id: this.state.user_id, favorites: this.state.favorites, updateFavorites: this.updateFavorites }}/>
+          <AppNavigator screenProps={{user_id: this.state.user_id, favorites: this.state.favorites, updateFavorites: this.updateFavorites, changeSearch: this.changeSearch }}/>
         </View>
       );
     }
