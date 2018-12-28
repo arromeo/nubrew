@@ -28,7 +28,7 @@ export default class FindScreen extends React.Component {
           }
           {!this.state.loading && 
             <View>
-              <BeerSearch data={this.props.screenProps.favorites} navigate={navigate} crowdFavorite={false} />
+              <BeerSearch data={this.props.screenProps.favorites} navigate={navigate} />
             </View>
           }
           <View style={{height: 100}}/>

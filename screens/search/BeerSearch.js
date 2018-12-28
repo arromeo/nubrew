@@ -4,7 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default class BeerSearch extends React.Component {
   render() {
-    const crowdRecommendation = this.props.crowdFavorite;
     return (
       <FlatList
         data={this.props.data}
@@ -29,6 +28,7 @@ export default class BeerSearch extends React.Component {
             <TouchableOpacity
               style={styles.optionButton}
               onPress={() => {
+                console.log('beer_id?: ', item);
                 this.props.navigate('Detail', {
                   category: "Beer",
                   id: item.beer_id,
@@ -36,18 +36,6 @@ export default class BeerSearch extends React.Component {
             }}>
               <Ionicons name="md-search" size={32} color="black"/>
             </TouchableOpacity>
-            { !crowdRecommendation &&
-              <TouchableOpacity
-              style={styles.optionButton}
-              onPress={() => {
-                this.props.navigate('Detail', {
-                  category: "Beer",
-                  id: item.beer_id,
-                });
-              }}>
-                <Ionicons name="md-trash" size={32} color="red"/>
-              </TouchableOpacity>
-            }
           </View>
         </View>
         }

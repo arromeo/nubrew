@@ -26,7 +26,6 @@ export default class InventoryScreen extends React.Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.setState({
           data: data.result,
         })

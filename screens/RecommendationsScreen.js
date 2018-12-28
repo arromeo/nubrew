@@ -42,7 +42,7 @@ export default class Recommendations extends React.Component {
           }
           {!this.state.loading && 
             <View>
-              <BeerSearch data={this.state.favorites} navigate={navigate} crowdFavorite={true}/>
+              <BeerSearch data={this.state.favorites} navigate={navigate} />
               <View style={{height: 100}}/>
             </View>
           }
