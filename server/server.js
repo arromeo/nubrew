@@ -372,7 +372,6 @@ app.post('/api/:location_id/inventory', (request, response) => {
         .innerJoin('categories', 'beers.category_id', 'categories.id')
         .where('beers_breweries.brewery_id', request.body.id)
         .then((result) => {
-          console.log("This is the brewery: ", result);
           response.json({
             result
           });
@@ -398,7 +397,6 @@ app.post('/api/:location_id/inventory', (request, response) => {
         .innerJoin('categories', 'beers.category_id', 'categories.id')
         .where('beers_stores.store_id', request.body.id)
         .then((result) => {
-          console.log("This is the store: ", result);          
           response.json({
             result
           });
@@ -471,6 +469,8 @@ app.post('/api/find', (request, response) => {
   // splits the keywords into regex format
   let keywords = request.body.keywords.split(" ").join("|");
   let regex = new RegExp(keywords, 'ig');
+
+
   const filterSearch = (criteria, category, queryResult, requiredData) => {
     let searchResult = [];
     queryResult.forEach((list) => {
@@ -519,6 +519,23 @@ app.post('/api/find', (request, response) => {
             filterSearch(regex, "Event", result, ['name', 'details', 'time']);
           })
       case "Store":
+        let beerSearch = new RegExp(/^:beer=[0-9]+$/);
+        if (beerSearch.test(request.body.keywords)) {
+          let beer_id = request.body.keywords.slice(6);
+          return knex
+            .select("stores.*")
+            .from("stores")
+            .innerJoin("beers_stores", "stores.id", "beers_stores.store_id")
+            .where('beers_stores.beer_id', beer_id)
+            .then((result) => {
+              if (result.length > 0) {
+                response.json({searchResult: result, searchResultCategory: "Store"});
+              } else {
+                response.json({searchResultCategory: "None"});
+              }
+            });
+        }
+
         return knex
           .select("*")
           .from("stores")

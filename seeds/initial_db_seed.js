@@ -601,7 +601,7 @@ exports.seed = function(knex, Promise) {
       {
         id: 16,
         beer_id: 8,
-        store_id: 2
+        store_id: 3
       },
       {
         id: 17,

@@ -24,6 +24,7 @@ export default class FindScreen extends React.Component {
     if (this.props.screenProps.currentSearch && this.props.screenProps.initSearch === true) {
       this.searchDatabase(this.props.screenProps.currentSearch , this.props.screenProps.currentSearchCategory);
 
+      // Resets the search field and sets the initiateSearch to false
       this.props.screenProps.changeSearch('');
       this.props.screenProps.initiateSearch();
     }
@@ -73,7 +74,6 @@ export default class FindScreen extends React.Component {
     const pickCategory = (event) => {
       this.props.screenProps.changeSearchCategory(event);
     }
-
 
     // if search category is beer... do... else if store... do... else if brewery... do...
     return (

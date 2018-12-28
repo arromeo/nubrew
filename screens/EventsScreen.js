@@ -55,7 +55,6 @@ export default class Events extends React.Component {
                     id: item.id,
                     category: "Event"
                   });
-                  this.props.searchDatabase(item.id.toString(), "HighlightEvent");
                 }}>
                 <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
                 <View>

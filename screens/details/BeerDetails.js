@@ -64,7 +64,6 @@ export default class BeerDetails extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.props.updateFavorites();
-        // console.log(this.props.updateFavorites());
         this.setState({
           favorited: data.favorited
         })
