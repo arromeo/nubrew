@@ -13,14 +13,14 @@ export default class VoteComponent extends React.Component {
               onPress={() => {
                 this.props.updateVote(-1, this.props.navigationParams.id, this.props.user_id)
               }}>
-              <Ionicons style={{zIndex: 2}} name="md-thumbs-down" size={40} color="red"/>
+              <Ionicons style={{zIndex: 2}} name="md-thumbs-down" size={50} color="red"/>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
                 this.props.updateVote(1, this.props.navigationParams.id, this.props.user_id)
               }}>
-              <Ionicons style={{zIndex: 2}} name="md-thumbs-up" size={40} color="green"/>
+              <Ionicons style={{zIndex: 2}} name="md-thumbs-up" size={50} color="green"/>
             </TouchableOpacity>
           </View>
         }

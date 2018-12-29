@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import AddressCard from '../components/AddressCard';
 
 export default class StoreDetails extends React.Component {
   render() {
@@ -8,12 +9,9 @@ export default class StoreDetails extends React.Component {
     return (
       <View style={styles.container}>
         <Image style={{height: 200, width:300}} source={{uri: store.img_url}} resizeMode='contain'/>
-        <Text style={styles.detailsTitle}>{store.name}</Text>
-        <View style={styles.addressCard}>
-          <Text>{store.street_address}</Text>
-          <Text>{store.city}, {store.province}</Text>
-          <Text>{store.postal_code}</Text>
-        </View>
+
+        <AddressCard type={store}/>
+
         <Text>{store.description}</Text>
         <TouchableOpacity 
           style={styles.buttonStyle}
@@ -46,14 +44,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     padding: 15
-  },
-  detailsTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  addressCard: {
-    margin:15,
-    alignItems: 'center'
   },
   description: {
     marginTop: 15
