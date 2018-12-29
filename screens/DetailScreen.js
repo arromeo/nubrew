@@ -102,23 +102,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  searchResultContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flexDirection: "column",
-    width: '90%',
-    margin: 10,
-    justifyContent: 'center', 
-    alignItems: 'center',
-  },
-  listItemContainer: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
   spinner: {
     margin: 150,
     alignSelf: 'center'

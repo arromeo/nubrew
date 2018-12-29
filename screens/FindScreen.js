@@ -140,12 +140,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
   },
-  listItemContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
   spinner: {
     margin: 150,
     alignSelf: 'center'

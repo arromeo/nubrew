@@ -10,8 +10,7 @@ export default class ConfirmPrompt extends React.Component {
         {this.props.couldNotFind &&
           <View style={styles.verticalContainer}>
             <Text style={styles.headerFont}>We couldn't find your drink!</Text>
-            <Text style={styles.paragraphFont}>Sometimes the labels change or maybe we don't have it in our database just yet! We'll keep this in mind for the future.</Text>
-            <Text style={styles.paragraphFont}>Try taking up the entire label in the photo or searching by the drink's name!</Text>
+            <Text style={styles.paragraphFont}>Sometimes the labels change or maybe we don't have it in our database just yet! We'll keep this in mind for the future. Try taking up the entire label in the photo or searching by the drink's name!</Text>
           </View>
         }
         {!this.props.couldNotFind &&

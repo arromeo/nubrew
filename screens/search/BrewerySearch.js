@@ -44,20 +44,6 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#fff',
   },
-  headerFont: {
-    color: 'black',
-    fontWeight: 'bold',
-    marginBottom: 20,
-    flex: 1,
-    textAlign: 'center',
-    justifyContent: 'center',
-  },
-  contentContainer: {
-    paddingBottom: 5,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: 'flex-start',
-  },
   eventDetailsContainer: {
     flexDirection: "row",
     flex: 1,

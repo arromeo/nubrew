@@ -61,14 +61,6 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#fff',
   },
-  headerFont: {
-    color: 'black',
-    fontWeight: 'bold',
-    marginBottom: 20,
-    flex: 1,
-    textAlign: 'center',
-    justifyContent: 'center',
-  },
   spinner: {
     margin: 200,
     alignSelf: 'center'
