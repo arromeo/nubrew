@@ -141,13 +141,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: 'center',
   },
-  horizontalContainer: {
-    flex: 0.5,
-    paddingBottom: 5,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: 'center',
-  },
   contentContainer: {
     flex: 1,
     paddingBottom: 5,
