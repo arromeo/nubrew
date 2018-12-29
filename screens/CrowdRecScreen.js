@@ -4,7 +4,7 @@ const port = require('../dev_port.json');
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import BeerSearch from './search/BeerSearch.js';
-import GoToCamera from './goto/GoToCamera.js';
+import GoToCamera from './components/GoToCamera.js';
 
 export default class CrowdRecommendation extends React.Component {
   constructor(props) {

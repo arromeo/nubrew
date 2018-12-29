@@ -14,7 +14,7 @@ import RecommendedBeer from './home/RecommendedBeer.js';
 import CrowdFavorite from './home/CrowdFavorite.js';
 import RecommendedButton from './home/RecommendedButton.js';
 import EventsButton from './home/EventsButton.js';
-import GoToCamera from './goto/GoToCamera.js';
+import GoToCamera from './components/GoToCamera.js';
 
 import { WebBrowser } from 'expo';
 

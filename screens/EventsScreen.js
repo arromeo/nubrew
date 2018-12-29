@@ -3,8 +3,6 @@ const port = require('../dev_port.json');
 
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text, FlatList, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
-import EventList from './home/EventList.js';
-import GoToCamera from './goto/GoToCamera.js';
 
 export default class Events extends React.Component {
   constructor(props) {

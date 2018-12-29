@@ -8,7 +8,7 @@ import BrewerySearch from './search/BrewerySearch.js';
 import EventSearch from './search/EventSearch.js';
 import SearchComponent from './search/SearchComponent.js';
 import BeerSearch from './search/BeerSearch.js'
-import GoToCamera from './goto/GoToCamera.js';
+import GoToCamera from './components/GoToCamera.js';
 
 export default class FindScreen extends React.Component {
   constructor(props) {

@@ -5,7 +5,6 @@ import AddressCard from '../components/AddressCard';
 export default class EventDetails extends React.Component {
   render() {
     const event = this.props.data[0];
-    console.log(event);
     return (
       <View style={styles.container}>
         <Image style={{height: 200, width:300}} source={{uri: event.img_url}} resizeMode='contain'/>

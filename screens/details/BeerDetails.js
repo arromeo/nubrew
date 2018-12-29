@@ -4,7 +4,8 @@ const port = require('../../dev_port.json');
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import VoteComponent from '../vote/VoteComponent.js';
+import VoteComponent from '../vote/VoteComponent';
+import BeerInformation from '../components/BeerInformation';
 
 
 export default class BeerDetails extends React.Component {
@@ -121,15 +122,7 @@ export default class BeerDetails extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.verticalContainer}>
-          <Text style={styles.headerFont}>{beer.brewery_name}'s {beer.beer_name}</Text>
-          <Text>Style: {beer.category}</Text>
-          <View style={styles.verticalContainer}>
-            <Text>ABV: {beer.abv}</Text>
-            <Text>IBU: {beer.ibu}</Text>
-          </View>
-          <Text>{beer.beer_description}</Text>
-        </View>
+        <BeerInformation data={beer}/>
         <VoteComponent updateVote={updateVote} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast} user_id={this.props.user_id}/>
       </View>
     );
@@ -141,13 +134,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
-  },
-  headerFont: {
-    color: 'black',
-    fontWeight: 'bold',
-    flex: 1,
-    textAlign: 'center',
-    justifyContent: 'center',
   },
   verticalContainer: {
     flex: 0.5,
