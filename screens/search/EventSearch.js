@@ -6,10 +6,10 @@ export default class EventSearch extends React.Component {
     return (
         <ScrollView style={styles.container}>
             <View>
-                <FlatList
-                  data={this.props.data}
-                  keyExtractor={item => item.id.toString()}
-                  renderItem={({item}) => 
+              <FlatList
+                data={this.props.data}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({item}) => 
                 <TouchableOpacity
                   style={[styles.eventContainer, styles.homeScreenFilename]}
                   onPress={() => {

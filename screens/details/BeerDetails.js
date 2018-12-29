@@ -39,6 +39,16 @@ export default class BeerDetails extends React.Component {
 
   render() {
     const updateVote = (vote, beer_id, user_id) => {
+      if (vote === 1) {
+        this.setState({
+          voteCast: 'Liked'
+        })
+      }
+      if (vote === -1) {
+        this.setState({
+          voteCast: 'Disliked'
+        })
+      }
       return fetch(`${port.DEV_PORT}/api/user/:user_id/beer/:beer_id/vote`, 
         {
           method: "POST",
@@ -71,33 +81,6 @@ export default class BeerDetails extends React.Component {
       .catch((error) => {
         console.error(error);
       })
-    }
-
-    const voteIndicator = (event, user_id, beer_id) => {
-      let vote = 0;
-      if (event > 0.5) {
-        vote = 1;
-        this.setState({
-          voteCast: 'Liked',
-        })
-        updateVote(vote, beer_id, user_id);
-      } else if (event < -0.5) {
-        vote = -1;
-        this.setState({
-          voteCast: 'Disliked',
-        })
-        updateVote(vote, beer_id, user_id);
-      } else {
-        if (this.state.value === 0) {
-          this.setState({
-            value: 0.01,
-          })
-        } else {
-          this.setState({
-            value: 0,
-          })
-        }
-      }
     }
 
     const beer = this.props.data[0];
@@ -147,7 +130,7 @@ export default class BeerDetails extends React.Component {
           </View>
           <Text>{beer.beer_description}</Text>
         </View>
-        <VoteComponent onSlidingComplete={voteIndicator} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast} user_id={this.props.user_id}/>
+        <VoteComponent updateVote={updateVote} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast} user_id={this.props.user_id}/>
       </View>
     );
   }

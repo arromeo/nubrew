@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Slider } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Slider } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default class VoteComponent extends React.Component {
@@ -7,21 +7,21 @@ export default class VoteComponent extends React.Component {
     return (
       <View>
         {this.props.voteCast === 'None' &&
-          <View style={styles.sliderContainer}>
-            <Ionicons style={{zIndex: 2}} name="md-thumbs-down" size={50} color="red"/>
-            <Slider
-              style={styles.sliderStyle}
-              value={this.props.value}
-              thumbTintColor={'green'}
-              minimumValue={-1}
-              maximumValue={1}
-              minimumTrackTintColor={'white'}
-              maximumTrackTintColor={'white'}
-              onSlidingComplete={(event) => {
-                this.props.onSlidingComplete(event, this.props.user_id, this.props.navigationParams.id);
-              }}
-              />
-            <Ionicons style={{zIndex: 2}} name="md-thumbs-up" size={50} color="green"/>
+          <View style={styles.voteContainer}>
+            <TouchableOpacity
+              style={styles.buttonStyle}
+              onPress={() => {
+                this.props.updateVote(-1, this.props.navigationParams.id, this.props.user_id)
+              }}>
+              <Ionicons style={{zIndex: 2}} name="md-thumbs-down" size={40} color="red"/>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle}
+              onPress={() => {
+                this.props.updateVote(1, this.props.navigationParams.id, this.props.user_id)
+              }}>
+              <Ionicons style={{zIndex: 2}} name="md-thumbs-up" size={40} color="green"/>
+            </TouchableOpacity>
           </View>
         }
         {this.props.voteCast === 'Liked' &&
@@ -39,17 +39,10 @@ export default class VoteComponent extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  sliderStyle: {
-    flex: 1,
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
-    zIndex: 0
-  },
-
-  sliderContainer: {
+  voteContainer: {
     flex: 0.5,
+    paddingTop: 20,
+    paddingBottom: 20,
     paddingLeft: 60,
     paddingRight: 60,
     flexDirection: "row",
@@ -60,5 +53,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  buttonStyle: {
+    flex: 0.2,
+    width: '75%',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'grey',
+    opacity: 0.8,
+  },
 });
