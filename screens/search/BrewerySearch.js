@@ -5,20 +5,19 @@ export default class BrewerySearch extends React.Component {
   render() {
     return (
         <ScrollView style={styles.container}>
-            <View>
-                <FlatList
-                  data={this.props.data}
-                  keyExtractor={item => item.id.toString()}
-                  renderItem={({item}) => 
-                <TouchableOpacity
-                  style={[styles.eventContainer, styles.homeScreenFilename]}
-                  onPress={() => {
-                    this.props.navigate('Detail', {
-                      id: item.id,
-                      category: "Brewery"
-                    });
-                }}>
-                <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
+          <FlatList
+            data={this.props.data}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item}) => 
+              <TouchableOpacity
+                style={[styles.eventContainer, styles.homeScreenFilename]}
+                onPress={() => {
+                  this.props.navigate('Detail', {
+                    id: item.id,
+                    category: "Brewery"
+                  });
+              }}>
+              <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
                 <View>
                   <Image
                     style={{width: 75, height: 75}}
@@ -34,7 +33,6 @@ export default class BrewerySearch extends React.Component {
               </View>
             </TouchableOpacity>
           }/>
-            </View>
         </ScrollView>
     )
   }
