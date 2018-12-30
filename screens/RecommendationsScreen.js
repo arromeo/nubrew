@@ -20,7 +20,7 @@ export default class Recommendations extends React.Component {
 
   componentDidMount() {
 
-    let url = `${port.DEV_PORT}/api/recommended`;
+    let url = `${port.DEV_PORT}/api/user/${this.screenProps.user_id}/recommended`;
     fetch(url)
       .then(res => res.json())
       .then(data => {

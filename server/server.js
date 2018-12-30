@@ -345,7 +345,37 @@ app.get('/api/user/:user_id/recommended', (request, response) => {
             )`)
             .then((result) => {
               fullResult['Categories'] = result;
-              response.json({ fullResult })
+              return knex
+              .select([
+                'category',
+                'beers.name AS beer_name',
+                'breweries.name AS brewery_name',
+                'ibu',
+                'abv',
+                'beers.img_url AS img_url'])
+              .from('beers')
+              .innerJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
+              .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
+              .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+              .innerJoin('categories', 'beers.category_id', 'categories.id')
+              .whereRaw(`ibu >
+                ((SELECT AVG(ibu) FROM beers
+                JOIN beers_users_tried ON beers.id = beer_id
+                WHERE beers.id IN (SELECT beer_id FROM beers_users_tried 
+                                  WHERE user_id = ${request.params.user_id}
+                                  AND vote = 1)) - 10)
+              `)
+              .whereRaw(`ibu <
+                ((SELECT AVG(ibu) FROM beers
+                JOIN beers_users_tried ON beers.id = beer_id
+                WHERE beers.id IN (SELECT beer_id FROM beers_users_tried 
+                                  WHERE user_id = ${request.params.user_id}
+                                  AND vote = 1)) + 10)
+              `)
+              .then((result) => {
+                fullResult['ibuAverage'] = result;
+                response.json({ fullResult });
+              })
             })
             .catch((err) => {
               console.error(err);
