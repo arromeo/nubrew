@@ -11,6 +11,7 @@ export default class VoteComponent extends React.Component {
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
+                this.props.profileUpdate();
                 this.props.updateVote(-1, this.props.navigationParams.id, this.props.user_id)
               }}>
               <Ionicons style={{zIndex: 2}} name="md-thumbs-down" size={50} color="red"/>
@@ -18,6 +19,7 @@ export default class VoteComponent extends React.Component {
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
+                this.props.profileUpdate();
                 this.props.updateVote(1, this.props.navigationParams.id, this.props.user_id)
               }}>
               <Ionicons style={{zIndex: 2}} name="md-thumbs-up" size={50} color="green"/>

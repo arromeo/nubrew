@@ -37,6 +37,20 @@ export default class ProfileScreen extends React.Component {
 
   }
 
+  componentDidUpdate() {
+    let userId = 1;
+    if (this.props.screenProps.updateProfile === true) {
+      fetch(`${port.DEV_PORT}/api/user/${userId}/stats`)
+      .then(res => res.json())
+      .then(data => {
+        this.props.screenProps.profileUpdate();
+        this.setState({
+          favoriteBeers: data.result.totalFavorites,
+          totalBeers: data.result.totalTried
+        })})
+      }
+  }
+
   render() {
     const user = this.state.user;
     const logout = () => {
@@ -58,7 +72,7 @@ export default class ProfileScreen extends React.Component {
         {!this.state.loading && this.state.favoriteBeers &&
           <View style={styles.profileCountContainer}>
             <View style={styles.countBox}>
-              <Text style={styles.countNumber}>{ this.state.favoriteBeers.length}</Text>
+              <Text style={styles.countNumber}>{ this.props.screenProps.favorites.length}</Text>
               <Text style={styles.countLabel}>Favorites</Text>
             </View>
             <View style={styles.countBox}>
