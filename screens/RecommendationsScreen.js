@@ -11,6 +11,9 @@ export default class Recommendations extends React.Component {
     super(props)
     this.state = {
       favorites: null,
+      notTried: null,
+      categories: null,
+      ibuRange: null,
       loading: true,
     }
   }
@@ -20,10 +23,23 @@ export default class Recommendations extends React.Component {
     let url = `${port.DEV_PORT}/api/recommended`;
     fetch(url)
       .then(res => res.json())
-      .then(data => this.setState ({
-        favorites: data.result,
-        loading: false,
-      }))
+      .then(data => {
+        console.log(data);
+        switch (data.type) {
+          case 'Not Tried':
+            this.setState({
+              notTried: data.result,
+              loading: false,
+            })
+            return;
+          case 'Categories':
+            this.setState({
+              categories: data.result,
+              loading: false,
+            })
+            return;
+        }
+      })
       .catch(error => {
         console.error(error);
       });

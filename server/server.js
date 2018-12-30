@@ -299,13 +299,15 @@ app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
 // TODO: This currently contains a list of all untried beers. A recommendation
 // algorithm should be implemented here.
 app.get('/api/user/:user_id/recommended', (request, response) => {
+  // list of drinks that the user has not tried
+  let fullResult = {};
   knex
     .select('beer_id')
     .from('beers_users_tried')
     .where('user_id', request.params.user_id)
     .then((triedResult) => {
       triedResult = triedResult.map(item => item.beer_id);
-      knex
+      return knex
         .select([
           'category',
           'beers.name AS beer_name',
@@ -314,12 +316,40 @@ app.get('/api/user/:user_id/recommended', (request, response) => {
           'abv',
           'beers.img_url AS img_url'])
         .from('beers')
+        .innerJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
         .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
         .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
         .innerJoin('categories', 'beers.category_id', 'categories.id')
         .whereNotIn('beers.id', triedResult)
         .then((result) => {
-          response.json({result});
+          fullResult['notTried'] = result;
+          return knex
+            .select([
+              'category',
+              'beers.name AS beer_name',
+              'breweries.name AS brewery_name',
+              'ibu',
+              'abv',
+              'beers.img_url AS img_url'])
+            .from('beers')
+            .innerJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
+            .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
+            .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+            .innerJoin('categories', 'beers.category_id', 'categories.id')
+            .whereRaw(`category_id IN (
+              SELECT category_id FROM beers
+              JOIN beers_users_tried ON beers.id = beer_id
+              WHERE beers.id IN (SELECT beer_id FROM beers_users_tried 
+                                WHERE user_id = ${request.params.user_id}
+                                AND vote = 1)
+            )`)
+            .then((result) => {
+              fullResult['Categories'] = result;
+              response.json({ fullResult })
+            })
+            .catch((err) => {
+              console.error(err);
+            })
         })
         .catch((err) => {
           console.error(err);
@@ -328,7 +358,6 @@ app.get('/api/user/:user_id/recommended', (request, response) => {
     .catch((err) => {
       console.error(err);
     });
-
 })
 
 // Returns a list of all beers.
