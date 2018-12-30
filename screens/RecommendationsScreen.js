@@ -24,7 +24,6 @@ export default class Recommendations extends React.Component {
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.setState({
           notTried: data.fullResult['notTried'],
           categories: data.fullResult['Categories'],
