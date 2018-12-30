@@ -13,6 +13,9 @@ import RecommendationsScreen from '../screens/RecommendationsScreen';
 import EventsScreen from '../screens/EventsScreen';
 import MapScreen from '../screens/MapScreen';
 import InventoryScreen from '../screens/InventoryScreen';
+import RecommendedListScreen from '../screens/RecommendedListScreen';
+
+
 
 
 import { Ionicons } from '@expo/vector-icons';
@@ -45,7 +48,8 @@ const Routes = {
   Favorites: { key: "Favorites", title: "Favorites" },
   Profile: { key: "Profile", title: "Title" },
   Map: { key: 'Map', title: 'Map'},
-  Inventory: { key: 'Inventory', title: 'Inventory'}
+  Inventory: { key: 'Inventory', title: 'Inventory'},
+  RecommendedList: { key: 'RecommendedList', title: 'RecommendedList'}
 }
 
 const tabNavigator = createMaterialTopTabNavigator({
@@ -124,7 +128,8 @@ const mainNavigator = createStackNavigator(
     [Routes.Recommendations.key]: RecommendationsScreen,
     [Routes.Events.key]: EventsScreen,
     [Routes.Map.key]: MapScreen, 
-    [Routes.Inventory.key]: InventoryScreen,    
+    [Routes.Inventory.key]: InventoryScreen,   
+    [Routes.RecommendedList.key]: RecommendedListScreen,   
   }, {
     initialRouteName: Routes.TabStack.key,
     navigationOptions: ({ navigation }) => {

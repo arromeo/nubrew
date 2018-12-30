@@ -10,7 +10,7 @@ export default class RecommendedButton extends React.Component {
   render() {
     return (
       <TouchableOpacity 
-        style={[styles.recommendationContainer, styles.homeScreenFilename]}
+        style={styles.recommendationContainer}
         onPress={() => {
           this.props.navigate('Events');
         }}>

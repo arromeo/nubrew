@@ -376,18 +376,13 @@ app.get('/api/user/:user_id/recommended', (request, response) => {
                 fullResult['ibuAverage'] = result;
                 response.json({ fullResult });
               })
+              .catch(err => {
+                console.error(err);
+              })
             })
-            .catch((err) => {
-              console.error(err);
-            })
+          })
         })
-        .catch((err) => {
-          console.error(err);
-        })
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+
 })
 
 // Returns a list of all beers.
