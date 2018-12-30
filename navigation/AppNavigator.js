@@ -13,7 +13,7 @@ import RecommendationsScreen from '../screens/RecommendationsScreen';
 import EventsScreen from '../screens/EventsScreen';
 import MapScreen from '../screens/MapScreen';
 import InventoryScreen from '../screens/InventoryScreen';
-import RecommendedListScreen from '../screens/RecommendedListScreen';
+import RecommendationListScreen from '../screens/RecommendationListScreen';
 
 
 
@@ -49,7 +49,7 @@ const Routes = {
   Profile: { key: "Profile", title: "Title" },
   Map: { key: 'Map', title: 'Map'},
   Inventory: { key: 'Inventory', title: 'Inventory'},
-  RecommendedList: { key: 'RecommendedList', title: 'RecommendedList'}
+  RecommendationList: { key: 'RecommendationListScreen', title: 'Recommendations'}
 }
 
 const tabNavigator = createMaterialTopTabNavigator({
@@ -129,7 +129,7 @@ const mainNavigator = createStackNavigator(
     [Routes.Events.key]: EventsScreen,
     [Routes.Map.key]: MapScreen, 
     [Routes.Inventory.key]: InventoryScreen,   
-    [Routes.RecommendedList.key]: RecommendedListScreen,   
+    [Routes.RecommendationList.key]: RecommendationListScreen,   
   }, {
     initialRouteName: Routes.TabStack.key,
     navigationOptions: ({ navigation }) => {

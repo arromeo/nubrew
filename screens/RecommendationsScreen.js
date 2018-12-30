@@ -4,7 +4,6 @@ const port = require('../dev_port.json');
 import React from 'react';
 import { StyleSheet, View, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import BeerSearch from './search/BeerSearch';
 
 import GoToCamera from './components/GoToCamera.js';
 
@@ -25,10 +24,11 @@ export default class Recommendations extends React.Component {
     fetch(url)
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         this.setState({
-          notTried: data['notTried'],
-          categories: data['Categories'],
-          ibuAverage: data['ibuAverage'],
+          notTried: data.fullResult['notTried'],
+          categories: data.fullResult['Categories'],
+          ibuAverage: data.fullResult['ibuAverage'],
           loading: false,
         })
       })
@@ -48,38 +48,41 @@ export default class Recommendations extends React.Component {
           </View> 
         }
         {!this.state.loading &&
-          <View style={{width: '80%', height: '100%'}}>
+          <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
-                navigate('RecommendationList', {
+                navigate('RecommendationListScreen', {
                   category: 'notTried',
+                  title: 'Discover New Drinks!',
                   data: this.state.notTried,
                 })
               }}>
-              <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
-              <Text style={styles.buttonLabel}>Try Something New</Text>
+              <Ionicons style={styles.buttonIcon} name="md-pint" size={25} color="#FFBC02"/>
+              <Text style={styles.buttonLabel}>Something New</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
-                  navigate('RecommendationList', {
+                  navigate('RecommendationListScreen', {
                     category: 'Category',
+                    title: 'Based on your previous tastes!',
                     data: this.state.categories,
                 })
               }}>
-              <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
+              <Ionicons style={styles.buttonIcon} name="md-thumbs-up" size={25} color="#FFBC02"/>
               <Text style={styles.buttonLabel}>By previous likes</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
-                navigate('RecommendationList', {
+                navigate('RecommendationListScreen', {
                   category: 'IBU',
+                  title: 'Bitterness to the right degree!',
                   data: this.state.ibuAverage,
                 })
               }}>
-              <Ionicons style={styles.buttonIcon} name="md-star" size={25} color="#FFBC02"/>
+              <Ionicons style={styles.buttonIcon} name="md-water" size={25} color="#FFBC02"/>
               <Text style={styles.buttonLabel}>By IBU Average</Text>
             </TouchableOpacity>
           </View>
@@ -99,6 +102,13 @@ const styles = StyleSheet.create({
   spinner: {
     margin: 150,
     alignSelf: 'center'
+  },
+  buttonContainer: {
+    flex: 0.8,
+    margin: 50,
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonStyle: {
     flexDirection: "row",
