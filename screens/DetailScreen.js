@@ -76,7 +76,8 @@ export default class DetailScreen extends React.Component {
                 updateFavorites={this.props.screenProps.updateFavorites}
                 changeSearch={this.props.screenProps.changeSearch}
                 changeSearchCategory={this.props.screenProps.changeSearchCategory}
-                initiateSearch={this.props.screenProps.initiateSearch} />
+                initiateSearch={this.props.screenProps.initiateSearch}
+                profileUpdate={this.props.screenProps.profileUpdate} />
             }
             {this.state.searchResultCategory === "Brewery" &&
               <BreweryDetails data={this.state.searchResult} styles={styles} navigate={navigate}/>

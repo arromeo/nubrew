@@ -14,12 +14,14 @@ export default class App extends React.Component {
       currentSearch: '',
       currentSearchCategory: 'Beer',
       initSearch: false,
+      updateProfile: false,
       user_id: 1
     };
 
     this.changeSearch = this.changeSearch.bind(this);
     this.changeSearchCategory = this.changeSearchCategory.bind(this);
     this.updateFavorites = this.updateFavorites.bind(this);
+    this.profileUpdate = this.profileUpdate.bind(this);
     this.initiateSearch = this.initiateSearch.bind(this);
   }
 
@@ -53,6 +55,10 @@ export default class App extends React.Component {
     this.setState({ initSearch: !this.state.initSearch });
   }
 
+  profileUpdate() {
+    this.setState({ updateProfile: !this.state.updateProfile});
+  }
+  
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
@@ -76,7 +82,9 @@ export default class App extends React.Component {
               currentSearch: this.state.currentSearch,
               currentSearchCategory: this.state.currentSearchCategory,
               initiateSearch: this.initiateSearch,
-              initSearch: this.state.initSearch
+              initSearch: this.state.initSearch,
+              profileUpdate: this.profileUpdate,
+              updateProfile: this.state.updateProfile
               }}/>
         </View>
       );

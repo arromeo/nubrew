@@ -83,9 +83,9 @@ export default class BeerDetails extends React.Component {
         console.error(error);
       })
     }
-
+    
     const beer = this.props.data[0];
-
+    
     return (
       <View style={styles.container}>
         <View style={styles.contentContainer}>
@@ -107,6 +107,7 @@ export default class BeerDetails extends React.Component {
             <TouchableOpacity
               style={styles.buttonStyle}
               onPress={() => {
+                this.props.profileUpdate();
                 addToFavoriteList(this.props.user_id, beer.beer_id);
               }}>
               {this.state.favorited && 
@@ -123,7 +124,7 @@ export default class BeerDetails extends React.Component {
           </View>
         </View>
         <BeerInformation data={beer}/>
-        <VoteComponent updateVote={updateVote} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast} user_id={this.props.user_id}/>
+        <VoteComponent updateVote={updateVote} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast} user_id={this.props.user_id} profileUpdate={this.props.profileUpdate}/>
       </View>
     );
   }
