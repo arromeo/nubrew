@@ -43,7 +43,7 @@ export default class ProfileScreen extends React.Component {
       console.log("This is in the profile screen. We need to implement a log out function here");
     }
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         {this.state.loading &&
           <View style={styles.spinner}>
             <ActivityIndicator size={100} color="orange" />
@@ -56,26 +56,26 @@ export default class ProfileScreen extends React.Component {
           </View>
         }
         {!this.state.loading && this.state.favoriteBeers &&
-          <View style={styles.profileContainer}>
-            <View style={styles.detailsContainer}>
-              <Image style={styles.avatar} source={require('../assets/images/beer.png')} />
-              <Text>{this.state.favoriteBeers.length} beers favorited.</Text>
+          <View style={styles.profileCountContainer}>
+            <View style={styles.countBox}>
+              <Text style={styles.countNumber}>{ this.state.favoriteBeers.length}</Text>
+              <Text style={styles.countLabel}>Favorites</Text>
             </View>
-            <View style={styles.detailsContainer}>
-              <Image style={styles.avatar} source={require('../assets/images/beer.png')} />
-              <Text>{this.state.totalBeers.length} beers tried</Text>
+            <View style={styles.countBox}>
+              <Text style={styles.countNumber}>{ this.state.totalBeers.length}</Text>
+              <Text style={styles.countLabel}>Tried</Text>
             </View>
             <View style={{height: 100, backgroundColor: '#fff'}}></View>
-            <TouchableOpacity
-              style={styles.logoutContainer}
-              onPress={() => {
-                logout()
-              }}>
-              <Text>Logout</Text>
-            </TouchableOpacity>
           </View>
         }
-      </ScrollView>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            logout()
+          }}>
+          <Text style={styles.buttonText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 }
@@ -106,6 +106,20 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 0.5
   },
+  profileCountContainer: {
+    flexDirection: 'row',
+  },
+  countBox: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  countNumber: {
+    fontSize: 24
+  },
+  countLabel: {
+
+  },
   detailsContainer: {
     flex: 1,
     backgroundColor: '#fff',
@@ -117,14 +131,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  logoutContainer: {
-    flex: 1,
+  button: {
+    flex: 0.1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
+    alignSelf: 'center',
+    backgroundColor: '#61170E',
     borderRadius: 50,
-    width: '100%',
+    width: '80%',
     height: 40,
+  },
+  buttonText: {
+    color: '#FFFFFF'
   },
   spinner: {
     margin: 150,
