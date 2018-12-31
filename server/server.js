@@ -35,7 +35,7 @@ app.post('/api/details', (request, response) => {
   }
 })
 
-// Returns an top 5 voted drinks
+// Returns top 5 voted drinks
 app.get('/api/crowdrecommendations', (request, response) => {
   recommendationQueries.getCrowdRecommendations(request, response);
 });
