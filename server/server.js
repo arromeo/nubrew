@@ -193,96 +193,21 @@ app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
 // algorithm should be implemented here.
 app.get('/api/user/:user_id/recommended', (request, response) => {
   // list of drinks that the user has not tried
-  let fullResult = {};
-  knex
-    .select('beer_id')
-    .from('beers_users_tried')
-    .where('user_id', request.params.user_id)
-    .then((triedResult) => {
-      triedResult = triedResult.map(item => item.beer_id);
-      return knex
-        .select([
-          'category',
-          'beers.name AS beer_name',
-          'breweries.name AS brewery_name',
-          'ibu',
-          'abv',
-          'beers.img_url AS img_url'])
-        .distinct('beers.id AS beer_id')
-        .from('beers')
-        .innerJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
-        .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
-        .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
-        .innerJoin('categories', 'beers.category_id', 'categories.id')
-        .whereNotIn('beers.id', triedResult)
-        .then((result) => {
-          fullResult['notTried'] = result;
-
-          // list of drinks by category previously liked
-          return knex
-            .select([
-              'category',
-              'beers.name AS beer_name',
-              'breweries.name AS brewery_name',
-              'ibu',
-              'abv',
-              'beers.img_url AS img_url'])
-            .distinct('beers.id AS beer_id')
-            .from('beers')
-            .innerJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
-            .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
-            .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
-            .innerJoin('categories', 'beers.category_id', 'categories.id')
-            .whereRaw(`category_id IN (
-              SELECT DISTINCT category_id FROM beers
-              JOIN beers_users_tried ON beers.id = beer_id
-              WHERE beers.id IN (SELECT beer_id FROM beers_users_tried 
-                                WHERE user_id = ${request.params.user_id}
-                                AND vote = 1)
-            )`)
-            .then((result) => {
-              fullResult['Categories'] = result;
-
-              // list of drinks by IBU average +- 10
-              return knex
-              .select([
-                'category',
-                'beers.name AS beer_name',
-                'breweries.name AS brewery_name',
-                'ibu',
-                'abv',
-                'beers.img_url AS img_url'])
-              .distinct('beers.id AS beer_id')
-              .from('beers')
-              .innerJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
-              .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
-              .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
-              .innerJoin('categories', 'beers.category_id', 'categories.id')
-              .whereRaw(`ibu >
-                ((SELECT AVG(ibu) FROM beers
-                JOIN beers_users_tried ON beers.id = beer_id
-                WHERE beers.id IN (SELECT DISTINCT beer_id FROM beers_users_tried 
-                                  WHERE user_id = ${request.params.user_id}
-                                  AND vote = 1)) - 10)
-              `)
-              .whereRaw(`ibu <
-                ((SELECT AVG(ibu) FROM beers
-                JOIN beers_users_tried ON beers.id = beer_id
-                WHERE beers.id IN (SELECT DISTINCT beer_id FROM beers_users_tried 
-                                  WHERE user_id = ${request.params.user_id}
-                                  AND vote = 1)) + 10)
-              `)
-              .then((result) => {
-                fullResult['ibuAverage'] = result;
-                response.json({ fullResult });
-              })
-              .catch(err => {
-                console.error(err);
-              })
-            })
-          })
-        })
-
+  Promise.all([
+    recommendationQueries.getListOfDrinksNotTried(request, response),
+    recommendationQueries.getListBasedOnPreviousLikes(request,response),
+    recommendationQueries.getListBasedOnAverageIBU(request, response),
+  ])
+  .then((data) => {
+    let fullResult = {};
+    fullResult['notTried'] = data[0];
+    fullResult['Categories'] = data[1];
+    fullResult['ibuAverage'] = data[2];
+    response.json({ fullResult });
+  })
+  .catch(err => {
+    console.error(err);
+  });
 })
 
 // Returns a list of all beers.
