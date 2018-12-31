@@ -212,28 +212,6 @@ app.get('/api/user/:user_id/recommended', (request, response) => {
   });
 })
 
-// // Returns a list of all beers.
-// app.get('/api/beers', (request, response) => {
-//   knex
-//   .select([
-//     'category',
-//     'beers.name AS beer_name',
-//     'breweries.name AS brewery_name',
-//     'ibu',
-//     'abv',
-//     'beers.img_url AS img_url'])
-//   .from('beers')
-//   .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
-//   .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
-//   .innerJoin('categories', 'beers.category_id', 'categories.id')
-//   .then((result) => {
-//     response.json({result});
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
-// })
-
 // Returns beers sold by location.
 app.post('/api/:location_id/inventory', (request, response) => {
   switch(request.body.category) {
