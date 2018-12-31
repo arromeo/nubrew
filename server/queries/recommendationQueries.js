@@ -54,7 +54,6 @@ module.exports = {
           .whereNotIn('beers.id', triedResult)
           .then((result) => {
             return result;
-            // fullResult['notTried'] = result;
           })
           .catch(err => {
             console.error(err);
