@@ -17,7 +17,7 @@ export default class CrowdRecommendation extends React.Component {
 
   componentDidMount() {
 
-    let url = `${port.DEV_PORT}/api/recommended`;
+    let url = `${port.DEV_PORT}/api/crowdrecommendations`;
     fetch(url)
       .then(res => res.json())
       .then(data => this.setState ({
