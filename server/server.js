@@ -7,6 +7,8 @@ const detailsQueries = require('./queries/detailsQueries.js');
 const recommendationQueries = require('./queries/recommendationQueries.js');
 const inventoryQueries = require('./queries/inventoryQueries.js');
 const searchQueries = require('./queries/searchQueries.js');
+const userQueries = require('./queries/userQueries.js');
+
 
 const automlapi = require('./automlvision.js');
 const cred = require('../dev_port.json');
@@ -151,43 +153,7 @@ app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
 // Checks if a user has tried a beer and either creates the entry in the table
 // or updates the vote value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
-  let data = request.body;
-  let newVote;
-  if (data.vote > 0) {
-    newVote = 1;
-  } else {
-    newVote = -1;
-  }
-  knex('beers_users_tried')
-    .select('*')
-    .where('user_id', data.user_id)
-    .andWhere('beer_id', data.beer_id)
-    .then((existsResult) => {
-      if (existsResult.length > 0) {
-        knex('beers_users_tried')
-          .select('*')
-          .where('user_id', data.user_id)
-          .andWhere('beer_id', data.beer_id)
-          .update('vote', newVote)
-          .then()
-          .catch((err) => {
-            console.error(err);
-          });
-      } else {
-        knex('beers_users_tried')
-          .select('*')
-          .insert({
-            user_id: data.user_id,
-            beer_id: data.beer_id,
-            favorite: false,
-            vote: newVote
-          })
-          .then()
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    })
+  userQueries.userVoteOnDrink(request, response);
 })
 
 // Returns list of recommended beers.
