@@ -2,7 +2,7 @@
 const port = require('../dev_port.json');
 
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Button, ActivityIndicator } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import StoreSearch from './search/StoreSearch.js';
 import BrewerySearch from './search/BrewerySearch.js';
 import EventSearch from './search/EventSearch.js';
@@ -85,13 +85,13 @@ export default class FindScreen extends React.Component {
             pickerValue={this.props.screenProps.currentSearchCategory}
             pickCategory={pickCategory}/>
             
-          <Button 
-            title="Search"
-            color="#61170E"
+          <TouchableOpacity
+            style={styles.searchButton}
             onPress={() => {
               this.searchDatabase(this.props.screenProps.currentSearch , this.props.screenProps.currentSearchCategory);
-            }}
-            />
+            }}>
+            <Text style={styles.searchButtonText}>SEARCH</Text>
+          </TouchableOpacity>
 
           {this.state.loading &&
             <View style={styles.spinner}>
@@ -128,9 +128,18 @@ export default class FindScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  searchButton: {
+    width: '100%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#61170E'
+  },
+  searchButtonText: {
+    color: "#FFBC02"
+  },
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff',
   },
   searchResultContainer: {

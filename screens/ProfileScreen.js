@@ -106,8 +106,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   profileName: {
-    color: '#FEF2B2',
+    color: '#FFBC02',
     fontWeight: 'bold',
+    marginTop: 10,
     marginBottom: 20
   },
   container: {
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonText: {
-    color: '#FFFFFF'
+    color: '#FFBC02'
   },
   spinner: {
     margin: 150,

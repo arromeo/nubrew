@@ -114,7 +114,7 @@ const tabNavigator = createMaterialTopTabNavigator({
       showLabel: false,
       activeTintColor: 'red',
       style: { backgroundColor: '#61170E' },
-      iconStyle: { color: 'white'}
+      iconStyle: { color: '#FFBC02' }
     }
  })
 
@@ -147,7 +147,7 @@ const mainNavigator = createStackNavigator(
       // This sets the icon that shows up in the header. Can be replaced with
       // logo if we make one.
       const headerTitle = <View style={{flexDirection: 'row'}}><Ionicons
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'} size={28} style={{ marginLeft: 10, color: "#61170E"}}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-beer'} size={28} style={{ marginLeft: 10, color: '#61170E'}}
     /><Text style={{marginLeft: 10, fontSize: 20}}>{ title }</Text></View>
        return { title, headerStyle, headerTitle }
     },
