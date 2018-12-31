@@ -9,7 +9,6 @@ const inventoryQueries = require('./queries/inventoryQueries.js');
 const searchQueries = require('./queries/searchQueries.js');
 const userQueries = require('./queries/userQueries.js');
 
-
 const automlapi = require('./automlvision.js');
 const cred = require('../dev_port.json');
 
@@ -36,7 +35,7 @@ app.post('/api/details', (request, response) => {
   }
 })
 
-// Returns an array of beers currently in favorites.
+// Returns an top 5 voted drinks
 app.get('/api/crowdrecommendations', (request, response) => {
   recommendationQueries.getCrowdRecommendations(request, response);
 });
@@ -62,6 +61,7 @@ app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
   userQueries.userFavoriteDrink(request, response);
 });
 
+// user votes like or dislike on drink (or no indication)
 app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
   userQueries.userVoteOnDrink(request, response);
 })
