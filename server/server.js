@@ -2,10 +2,8 @@ const express = require('express');
 const knexConfig  = require("../knexfile");
 const knex        = require("knex")(knexConfig['development']);
 
-const knexQueries = require('./queries/knexQueries.js')
-
-
-
+const indexQueries = require('./queries/indexQueries.js')
+const detailsQueries = require('./queries/detailsQueries.js')
 
 const automlapi = require('./automlvision.js');
 const cred = require('../dev_port.json');
@@ -16,48 +14,20 @@ const PORT = 5000;
 app.use(require("body-parser").json())
 
 app.get('/api/index', (request, response) => {
-  knexQueries.getHomepageDetails(request, response);
+  indexQueries.getHomepageDetails(request, response);
 });
 
 // specific page details
 app.post('/api/details', (request, response) => {
   switch (request.body.category) {
     case "Beer":
-      return knexQueries.getDetailsByBeer(request, response);
+      return detailsQueries.getDetailsByBeer(request, response);
     case "Brewery":
-      return knex
-        .select("*")
-        .from("breweries")
-        .where('id', request.body.id)
-        .then((result) => {
-          response.json({searchResult: result, searchResultCategory: "Brewery"});
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      return detailsQueries.getDetailsByBrewery(request, response);
     case "Event":
-      return knex
-        .select(["*", 'stores.name AS store_name', 'stores.img_url AS img_url'])
-        .from("events")
-        .innerJoin('stores', 'events.store_id', 'stores.id')
-        .where('events.id', request.body.id)
-        .then((result) => {
-          response.json({searchResult: result, searchResultCategory: "Event"})
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      return detailsQueries.getDetailsByEvent(request, response);
     case "Store":
-      return knex
-        .select("*")
-        .from("stores")
-        .where('id', request.body.id)
-        .then((result) => {
-          response.json({searchResult: result, searchResultCategory: "Store"})
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      return detailsQueries.getDetailsByStore(request, response);
   }
 })
 

@@ -43,28 +43,4 @@ module.exports = {
       });
     });
   },
-
-  getDetailsByBeer: function (request, response) {
-    return knex
-      .select([
-        "beers.img_url AS img_url",
-        'ibu',
-        'abv',
-        'category',
-        'beers.id AS beer_id',
-        'beers.name AS beer_name',
-        'breweries.name AS brewery_name',
-        'beers.description AS beer_description'])
-      .from("beers")
-      .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
-      .innerJoin('categories', 'beers.category_id', 'categories.id')
-      .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
-      .where('beer_id', request.body.id)
-      .then((result) => {
-        response.json({searchResult: result, searchResultCategory: "Beer"});
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
 }
