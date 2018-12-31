@@ -43,121 +43,30 @@ app.get('/api/crowdrecommendations', (request, response) => {
 
 // Returns information needed for user profile page
 app.get('/api/user/:user_id', (request, response) => {
-  knex
-  .select(
-    'first_name',
-    'last_name',
-    'email')
-  .from('users')
-  .where('users.id', request.params.user_id)
-  .then((result) => {
-    response.json({
-      result
-    })
-  })
-  .catch((err) => {
-    console.error(err);
-  })
+  userQueries.getUserDetails(request, response);
 })
 
 // Returns an array of beers currently in favorites.
 app.get('/api/user/:user_id/favorites', (request, response) => {
-  knex
-    .select([
-      'beers_users_tried.beer_id AS beer_id',
-      'category',
-      'beers.name AS beer_name',
-      'breweries.name AS brewery_name',
-      'ibu',
-      'abv',
-      'beers.img_url AS img_url'])
-    .from('beers_users_tried')
-    .innerJoin('beers', 'beers_users_tried.beer_id', 'beers.id')
-    .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
-    .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
-    .innerJoin('categories', 'beers.category_id', 'categories.id')
-    .where('beers_users_tried.user_id', request.params.user_id)
-    .andWhere('beers_users_tried.favorite', true)
-    .then((result) => {
-      response.json({
-        result
-      });
-    })
-    .catch((err) => {
-      console.error("This is the error " + err);
-    });
+  userQueries.getUserFavoriteDrinkList(request, response);
 });
 
 // profile page, sends list of drinks user has tried + favorited
 app.get('/api/user/:user_id/stats', (request, response) => {
-  knex
-    .select('*')
-    .from('beers_users_tried')
-    .where('user_id', request.params.user_id)
-    .then((result) => {
-      let favorites = [];
-      result.forEach(beer => {
-        if (beer.favorite === true) {
-          favorites.push(beer);
-        }
-      })
-      let data = {
-        totalFavorites: favorites,
-        totalTried: result
-      }
-      response.json({
-        result: data,
-      });
-    })
-    .catch((err) => {
-      console.error("This is the error " + err);
-    });
+  userQueries.getUserStats(request, response);
 });
 
 // Checks if a user has tried a beer and either creates the entry in the table
 // or updates the favorite value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/favorite', (request, response) => {
-  const data = request.body;
-  knex('beers_users_tried')
-    .select('*')
-    .where('user_id', data.user_id)
-    .andWhere('beer_id', data.beer_id)
-    .then((existsResult) => {
-      if (existsResult.length > 0) {
-        knex('beers_users_tried')
-          .select('*')
-          .where('user_id', data.user_id)
-          .andWhere('beer_id', data.beer_id)
-          .update('favorite', !existsResult[0].favorite)
-          .returning('*')
-          .then((result) => {
-            response.json({ favorited: result[0].favorite });
-          });
-      } else {
-        knex('beers_users_tried')
-          .select('*')
-          .insert({
-            user_id: data.user_id,
-            beer_id: data.beer_id,
-            favorite: true,
-            vote: 0
-          })
-          .returning('*')
-          .then((favoriteResult) => {
-            response.json({ favorited: true });
-          });
-      }
-    });
+  userQueries.userFavoriteDrink(request, response);
 });
 
-// Checks if a user has tried a beer and either creates the entry in the table
-// or updates the vote value on the record.
 app.post('/api/user/:user_id/beer/:beer_id/vote', (request, response) => {
   userQueries.userVoteOnDrink(request, response);
 })
 
 // Returns list of recommended beers.
-// TODO: This currently contains a list of all untried beers. A recommendation
 // algorithm should be implemented here.
 app.get('/api/user/:user_id/recommended', (request, response) => {
   // list of drinks that the user has not tried
