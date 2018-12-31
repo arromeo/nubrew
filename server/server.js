@@ -15,7 +15,6 @@ const PORT = 5000;
 
 app.use(require("body-parser").json())
 
-// Fetches two events and a featured beer that's relevent to the index page.
 app.get('/api/index', (request, response) => {
   knexQueries.getHomepageDetails(request, response);
 });
@@ -24,27 +23,7 @@ app.get('/api/index', (request, response) => {
 app.post('/api/details', (request, response) => {
   switch (request.body.category) {
     case "Beer":
-      return knex
-        .select([
-          "beers.img_url AS img_url",
-          'ibu',
-          'abv',
-          'category',
-          'beers.id AS beer_id',
-          'beers.name AS beer_name',
-          'breweries.name AS brewery_name',
-          'beers.description AS beer_description'])
-        .from("beers")
-        .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
-        .innerJoin('categories', 'beers.category_id', 'categories.id')
-        .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
-        .where('beer_id', request.body.id)
-        .then((result) => {
-          response.json({searchResult: result, searchResultCategory: "Beer"});
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      return knexQueries.getDetailsByBeer(request, response);
     case "Brewery":
       return knex
         .select("*")
