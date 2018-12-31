@@ -51,5 +51,28 @@ module.exports = {
       .catch((err) => {
         console.error(err);
       });
+  },
+  getBeersCreatedByBrewery: function(request, response) {
+    knex
+    .select([
+      'category',
+      'beers.name AS beer_name',
+      'breweries.name AS brewery_name',
+      'ibu',
+      'abv',
+      'beers.img_url AS img_url'])
+    .from('beers_breweries')
+    .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
+    .innerJoin('beers', 'beers_breweries.beer_id', 'beers.id')
+    .innerJoin('categories', 'beers.category_id', 'categories.id')
+    .where('beers_breweries.brewery_id', request.params.brewery_id)
+    .then((result) => {
+      response.json({
+        result
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 }

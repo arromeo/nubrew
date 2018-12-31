@@ -2,10 +2,11 @@ const express = require('express');
 const knexConfig  = require("../knexfile");
 const knex        = require("knex")(knexConfig['development']);
 
-const indexQueries = require('./queries/indexQueries.js')
-const detailsQueries = require('./queries/detailsQueries.js')
-const recommendationQueries = require('./queries/recommendationQueries.js')
-const inventoryQueries = require('./queries/inventoryQueries.js')
+const indexQueries = require('./queries/indexQueries.js');
+const detailsQueries = require('./queries/detailsQueries.js');
+const recommendationQueries = require('./queries/recommendationQueries.js');
+const inventoryQueries = require('./queries/inventoryQueries.js');
+const searchQueries = require('./queries/searchQueries.js');
 
 const automlapi = require('./automlvision.js');
 const cred = require('../dev_port.json');
@@ -243,62 +244,14 @@ app.post('/api/:location_id/inventory', (request, response) => {
   }
 });
 
-// Gets list of locations that sells a specific beer
-// app.get('/api/:beer_id/locations', (request, response) => {
-//   knex
-//     .select([
-
-//     ])
-// })
-
 // Returns list of beers made by brewery.
 app.get('/api/brewery/:brewery_id/beers', (request, response) => {
-  knex
-    .select([
-      'category',
-      'beers.name AS beer_name',
-      'breweries.name AS brewery_name',
-      'ibu',
-      'abv',
-      'beers.img_url AS img_url'])
-    .from('beers_breweries')
-    .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
-    .innerJoin('beers', 'beers_breweries.beer_id', 'beers.id')
-    .innerJoin('categories', 'beers.category_id', 'categories.id')
-    .where('beers_breweries.brewery_id', request.params.brewery_id)
-    .then((result) => {
-      response.json({
-        result
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  inventoryQueries.getBeersCreatedByBrewery(request, response);
 });
 
 // Returns list of upcoming events.
 app.get('/api/events', (request, response) => {
-  knex
-    .select([
-      'events.id AS id',
-      'events.details AS event_details',
-      'stores.name AS store_name',
-      'events.name AS event_name',
-      'stores.city',
-      'stores.province',
-      'stores.img_url AS store_img_url',
-      'time'
-      ])
-    .from('events')
-    .innerJoin('stores', 'events.store_id', 'stores.id')
-    .then((result) => {
-      response.json({
-        result
-      })
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  searchQueries.getListOfEvents(request, response);
 });
 
 app.post('/api/find', (request, response) => {
@@ -306,78 +259,18 @@ app.post('/api/find', (request, response) => {
   let keywords = request.body.keywords.split(" ").join("|");
   let regex = new RegExp(keywords, 'ig');
 
-
-  const filterSearch = (criteria, category, queryResult, requiredData) => {
-    let searchResult = [];
-    queryResult.forEach((list) => {
-      let words = ""
-      requiredData.forEach((data) => {
-        words += `${list[data]} `;
-      })
-      if (criteria.test(words)) {
-        searchResult.push(list);
-      }
-    })
-    if (!searchResult.length) {
-      response.json({searchResultCategory: "None"})
-    } else {
-      response.json({searchResult: searchResult, searchResultCategory: category});
-    }
-  }
-
   if (request.body.keywords === "") {
     return;
   } else {
     switch (request.body.category) {
       case "Beer":
-        return knex
-          .select(["beers.img_url AS img_url", 'category', 'beers.id AS beer_id', 'beers.name AS beer_name', 'breweries.name AS brewery_name', 'beers.description AS beer_description'])
-          .from("beers")
-          .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
-          .innerJoin('categories', 'beers.category_id', 'categories.id')
-          .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
-          .then((result) => {
-            filterSearch(regex, "Beer", result, ['beer_name', 'beer_description', 'brewery_name', 'category']);
-          })
+        return searchQueries.searchListOfBeers(request, response, regex);
       case "Brewery":
-        return knex
-          .select("*")
-          .from("breweries")
-          .then((result) => {
-            filterSearch(regex, "Brewery", result, ['name', 'description', 'address', 'city', 'province', 'img_url']);
-          })
+        return searchQueries.searchListOfBreweries(request, response, regex);
       case "Event":
-        return knex
-          .select(["*", 'stores.name AS store_name', 'stores.img_url AS img_url'])
-          .from("events")
-          .innerJoin('stores', 'events.store_id', 'stores.id')
-          .then((result) => {
-            filterSearch(regex, "Event", result, ['name', 'details', 'time']);
-          })
+        return searchQueries.searchListOfEvents(request, response, regex);
       case "Store":
-        let beerSearch = new RegExp(/^:beer=[0-9]+$/);
-        if (beerSearch.test(request.body.keywords)) {
-          let beer_id = request.body.keywords.slice(6);
-          return knex
-            .select("stores.*")
-            .from("stores")
-            .innerJoin("beers_stores", "stores.id", "beers_stores.store_id")
-            .where('beers_stores.beer_id', beer_id)
-            .then((result) => {
-              if (result.length > 0) {
-                response.json({searchResult: result, searchResultCategory: "Store"});
-              } else {
-                response.json({searchResultCategory: "None"});
-              }
-            });
-        }
-
-        return knex
-          .select("*")
-          .from("stores")
-          .then((result) => {
-            filterSearch(regex, "Store", result, ['name', 'description', 'street_address', 'city', 'postal_code']);
-          })
+        return searchQueries.searchListOfStores(request, response, regex);
     }
   }
 })
