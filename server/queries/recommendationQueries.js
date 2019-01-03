@@ -41,11 +41,14 @@ module.exports = {
         'beers.img_url AS img_url'])
       .distinct('beers.id AS beer_id')
       .from('beers')
-      .innerJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
       .innerJoin('beers_breweries', 'beers.id', 'beers_breweries.beer_id')
       .innerJoin('breweries', 'beers_breweries.brewery_id', 'breweries.id')
       .innerJoin('categories', 'beers.category_id', 'categories.id')
-      .where('vote', '0')
+      .whereRaw(`
+        beers.id NOT IN (SELECT beer_id 
+                        FROM beers_users_tried
+                        WHERE user_id = ${request.params.user_id})
+      `)
       .then((result) => {
         return result;
       })

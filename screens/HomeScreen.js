@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 
 import EventList from './home/EventList.js';
@@ -46,9 +46,7 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    console.log(this.props.navigation);
     const { navigate } = this.props.navigation;
-
     return (
       <View style={styles.container}>
         {this.state.loading &&

@@ -8,8 +8,8 @@
     "emulator": "sudo ~/Android/Sdk/emulator/emulator -avd doo1",
     "test": "jest"
   },
-  "jest-expo": {
-    "preset": "jest-expo"
+  "jest": {
+    "preset": "react-native"
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
@@ -25,7 +25,6 @@
     "react-navigation": "^2.18.2"
   },
   "devDependencies": {
-    "babel-preset-expo": "4.0.0",
     "jest-expo": "^31.0.0",
     "knex": "^0.16.2"
   },

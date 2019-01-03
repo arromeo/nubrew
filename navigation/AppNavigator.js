@@ -121,6 +121,7 @@ const tabNavigator = createMaterialTopTabNavigator({
  // add routes to mainNavigator for those you don't want to appear on the top tab
 const mainNavigator = createStackNavigator(
   {
+    tabNavigator, 
     [Routes.TabStack.key]: tabNavigator,
     [Routes.Rate.key]: RateDrinkScreen,
     [Routes.CrowdFav.key]: CrowdRecScreen,
@@ -153,4 +154,5 @@ const mainNavigator = createStackNavigator(
     },
     
   });
+
 export default mainNavigator
