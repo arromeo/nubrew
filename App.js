@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import VoteComponent from './screens/vote/VoteComponent';
 const port = require('./dev_port.json');
 
 export default class App extends React.Component {
