@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 
 export default class BeerInformation extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <View style={styles.verticalContainer}>
         <Text style={styles.headerFont}>{this.props.data.brewery_name}'s {this.props.data.beer_name}</Text>

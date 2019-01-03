@@ -46,6 +46,7 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    console.log(this.props.navigation);
     const { navigate } = this.props.navigation;
 
     return (
