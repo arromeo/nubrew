@@ -16,6 +16,9 @@ export default {
       }
     }
   },
+  navigationParams: {
+    id: 1,
+  },
   screenProps: {
     user_id: 1,
     currentSearch: "Pilsner",
@@ -39,6 +42,14 @@ export default {
       abv: "5.3%",
       img_url: "https://www.totalwine.com/media/sys_master/twmmedia/h7c/he3/8820602306590.png"
       }
-      ]
-  }
+    ]
+  },
+  data: {
+    img_url: "",
+    brewer_name: "",
+    beer_name: "",
+
+  },
+  couldNotFind: false,
 }
+

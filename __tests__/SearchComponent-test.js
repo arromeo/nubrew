@@ -9,7 +9,7 @@ import EventSearch from '../screens/search/EventSearch';
 import StoreSearch from '../screens/search/StoreSearch';
 import SearchComponent from '../screens/search/SearchComponent';
 
-import props from './props';
+import props from '../__mock__/props';
 
 describe('Search components render appropriately', () => {
   it('renders the BeerSearch component', () => {

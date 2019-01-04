@@ -9,7 +9,7 @@ import EventsButton from '../screens/home/EventsButton';
 import RecommendedBeer from '../screens/home/RecommendedBeer';
 import RecommendedButton from '../screens/home/RecommendedButton';
 
-import props from './props';
+import props from '../__mock__/props';
 
 describe('Home page components render correctly', () => {
   it('renders the CrowdFavorite component', () => {

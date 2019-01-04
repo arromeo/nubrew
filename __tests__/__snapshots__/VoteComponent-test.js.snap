@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Vote Components render properly Confirm prompt component renders 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "paddingTop": 15,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "margin": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "black",
+          "flex": 1,
+          "fontSize": 20,
+          "fontWeight": "bold",
+          "justifyContent": "center",
+          "textAlign": "center",
+        }
+      }
+    >
+      's 
+      
+    </Text>
+    <Image
+      source={
+        Object {
+          "uri": "",
+        }
+      }
+      style={
+        Object {
+          "height": 200,
+          "width": 150,
+        }
+      }
+    />
+    <Text>
+      Is this the correct drink?
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 0.5,
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "paddingBottom": 5,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#61170E",
+          "borderRadius": 25,
+          "flex": 0.2,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "opacity": 1,
+          "padding": 5,
+          "width": "75%",
+        }
+      }
+    >
+      <Text />
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#61170E",
+          "borderRadius": 25,
+          "flex": 0.2,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "opacity": 1,
+          "padding": 5,
+          "width": "75%",
+        }
+      }
+    >
+      <Text />
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#61170E",
+          "borderRadius": 25,
+          "flex": 0.2,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "opacity": 1,
+          "padding": 5,
+          "width": "75%",
+        }
+      }
+    >
+      <Text />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Vote Components render properly VoteComponent renders properly 1`] = `<View />`;

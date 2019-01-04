@@ -15,7 +15,7 @@ import EventsScreen from '../screens/EventsScreen';
 import InventoryScreen from '../screens/InventoryScreen';
 import RecommendationListScreen from '../screens/RecommendationListScreen';
 
-import props from './props';
+import props from '../__mock__/props';
 
 describe('Main screens render properly', () => {
 
