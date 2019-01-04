@@ -16,6 +16,26 @@ export default {
       }
     }
   },
+  beerData: [{
+    beer_id: 1,
+    description: "",
+    img_url: "",
+  }],
+  breweryData: [{
+    id: 1,
+    description: "",
+    img_url: "",
+  }],
+  eventData: [{
+    id: 1,
+    description: "",
+    img_url: "",
+  }],
+  storeData: [{
+    id: 1,
+    description: "",
+    img_url: "",
+  }],
   navigationParams: {
     id: 1,
   },
@@ -48,6 +68,7 @@ export default {
     img_url: "",
     brewer_name: "",
     beer_name: "",
+    beer_id: 1,
 
   },
   couldNotFind: false,

@@ -190,7 +190,9 @@ exports[`Home page components render correctly renders the RecommendedBeer compo
           "fontWeight": "bold",
         }
       }
-    />
+    >
+      
+    </Text>
     <Text
       style={
         Object {
