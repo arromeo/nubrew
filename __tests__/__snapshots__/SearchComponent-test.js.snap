@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search components render appropriately renders the BeerSearch component 1`] = `null`;
+
+exports[`Search components render appropriately renders the BrewerySearch component 1`] = `null`;
+
+exports[`Search components render appropriately renders the EventSearch component 1`] = `null`;
+
+exports[`Search components render appropriately renders the SearchComponent component 1`] = `
+<View>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#393e42",
+          "borderBottomColor": "#000",
+          "borderBottomWidth": 1,
+          "borderTopColor": "#000",
+          "borderTopWidth": 1,
+        },
+        Object {
+          "backgroundColor": "#e1e8ee",
+          "borderBottomColor": "#e1e1e1",
+          "borderTopColor": "#e1e1e1",
+        },
+        undefined,
+      ]
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Type Here..."
+      placeholderTextColor="#86939e"
+      showLoading={true}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#303337",
+            "borderRadius": 3,
+            "color": "#86939e",
+            "fontSize": 17.5,
+            "height": 30,
+            "margin": 8,
+            "overflow": "hidden",
+            "paddingLeft": 26,
+            "paddingRight": 19,
+          },
+          Object {
+            "backgroundColor": "#bdc6cf",
+          },
+          false,
+          false,
+          undefined,
+          undefined,
+          false,
+        ]
+      }
+      underlineColorAndroid="transparent"
+    />
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": "#86939e",
+            "fontSize": 16,
+          },
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "position": "absolute",
+              "top": 15.5,
+            },
+            Object {
+              "left": 16,
+            },
+            undefined,
+          ],
+          Object {
+            "fontFamily": "Material Icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 0.5,
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 0.5,
+          "justifyContent": "center",
+          "width": "100%",
+        }
+      }
+    >
+      <RCTPicker
+        items={
+          Array [
+            Object {
+              "label": "Beers",
+              "textColor": undefined,
+              "value": "Beer",
+            },
+            Object {
+              "label": "Breweries",
+              "textColor": undefined,
+              "value": "Brewery",
+            },
+            Object {
+              "label": "Stores",
+              "textColor": undefined,
+              "value": "Store",
+            },
+            Object {
+              "label": "Events",
+              "textColor": undefined,
+              "value": "Event",
+            },
+          ]
+        }
+        onChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        selectedIndex={0}
+        style={
+          Array [
+            Object {
+              "height": 216,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Search components render appropriately renders the StoreSearch component 1`] = `null`;

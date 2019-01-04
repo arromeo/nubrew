@@ -1,0 +1,224 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page components render correctly renders RecommendedButton component 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#61170E",
+      "borderRadius": 25,
+      "flex": 0.2,
+      "flexDirection": "row",
+      "justifyContent": "flex-start",
+      "marginBottom": 10,
+      "marginTop": 10,
+      "opacity": 1,
+      "padding": 5,
+      "width": "100%",
+    }
+  }
+>
+  <Text />
+  <Text
+    style={
+      Object {
+        "color": "#FFBC02",
+      }
+    }
+  >
+      Recommendations
+  </Text>
+</View>
+`;
+
+exports[`Home page components render correctly renders the CrowdFavorite component 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#61170E",
+      "borderRadius": 25,
+      "flex": 0.2,
+      "flexDirection": "row",
+      "justifyContent": "flex-start",
+      "marginBottom": 10,
+      "marginTop": 10,
+      "opacity": 1,
+      "padding": 5,
+      "width": "100%",
+    }
+  }
+>
+  <Text />
+  <Text
+    style={
+      Object {
+        "color": "#FFBC02",
+      }
+    }
+  >
+      Crowd Favorites
+  </Text>
+</View>
+`;
+
+exports[`Home page components render correctly renders the EventList component 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "flex-start",
+      "flexDirection": "row",
+      "justifyContent": "center",
+      "paddingBottom": 5,
+    }
+  }
+/>
+`;
+
+exports[`Home page components render correctly renders the EventsButton component 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#61170E",
+      "borderRadius": 25,
+      "flex": 0.2,
+      "flexDirection": "row",
+      "justifyContent": "flex-start",
+      "marginBottom": 10,
+      "marginTop": 10,
+      "opacity": 1,
+      "padding": 5,
+      "width": "100%",
+    }
+  }
+>
+  <Text />
+  <Text
+    style={
+      Object {
+        "color": "#FFBC02",
+      }
+    }
+  >
+      Local Events
+  </Text>
+</View>
+`;
+
+exports[`Home page components render correctly renders the RecommendedBeer component 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "flex-start",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#61170E",
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "marginLeft": 10,
+        "marginTop": 12,
+        "textAlign": "center",
+        "textDecorationLine": "underline",
+      }
+    }
+  >
+    Featured Beer
+  </Text>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "opacity": 1,
+      }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "uri": undefined,
+        }
+      }
+      style={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    />
+    <Text
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    />
+    <Text
+      style={
+        Object {
+          "fontSize": 12,
+          "textAlign": "center",
+        }
+      }
+    />
+    <Text
+      style={
+        Object {
+          "fontSize": 12,
+          "textAlign": "center",
+        }
+      }
+    >
+      IBU: 
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 12,
+          "textAlign": "center",
+        }
+      }
+    >
+      ABV: 
+    </Text>
+  </View>
+</View>
+`;
