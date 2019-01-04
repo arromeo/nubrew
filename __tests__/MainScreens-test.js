@@ -12,6 +12,7 @@ import EventsScreen from '../screens/EventsScreen';
 import InventoryScreen from '../screens/InventoryScreen';
 import RecommendationListScreen from '../screens/RecommendationListScreen';
 import renderer from 'react-test-renderer';
+import '../__mock__/xhr-mock';
 
 const props = {
   navigation: {
@@ -56,9 +57,7 @@ const props = {
       }
       ]
   }
-
 }
-
 
 describe('Main screens render properly', () => {
 
