@@ -91,14 +91,17 @@ export default class App extends React.Component {
   }
 
   _loadResourcesAsync = async () => {
-    return Font.loadAsync({
+    return Promise.all([
+      Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Ionicons.font,
+        'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
         'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      })
-  };
+      }),
+    ]);
+   };
 
   _handleLoadingError = error => {
     // In this case, you might want to report the error to your error
