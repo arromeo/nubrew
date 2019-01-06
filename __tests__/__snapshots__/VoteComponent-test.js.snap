@@ -24,10 +24,8 @@ exports[`Vote Components render properly Confirm prompt component renders 1`] = 
       style={
         Object {
           "color": "black",
-          "flex": 1,
           "fontSize": 20,
           "fontWeight": "bold",
-          "justifyContent": "center",
           "textAlign": "center",
         }
       }
