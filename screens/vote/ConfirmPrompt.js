@@ -10,7 +10,8 @@ export default class ConfirmPrompt extends React.Component {
         {this.props.couldNotFind &&
           <View style={styles.verticalContainer}>
             <Text style={styles.headerFont}>We couldn't find your drink!</Text>
-            <Text style={styles.paragraphFont}>Sometimes the labels change or maybe we don't have it in our database just yet! We'll keep this in mind for the future. Try taking up the entire label in the photo or searching by the drink's name!</Text>
+            <Ionicons name="md-sad" size={50} color="red"/>
+            <Text style={styles.paragraphFont}>Sometimes the labels change or maybe we don't have it in our database yet! Try again and reposition the beer label to fill the guide box or searching by the drink's name!</Text>
           </View>
         }
         {!this.props.couldNotFind &&
@@ -82,19 +83,15 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 20,
-    flex: 1,
     textAlign: 'center',
-    justifyContent: 'center',
   },
   paragraphFont: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 15,
-    flex: 1,
-    paddingTop: 3,
+    fontSize: 18,
+    paddingTop: 10,
     width: '90%',
     textAlign: 'center',
-    justifyContent: 'center',
   },
   verticalContainer: {
     flex: 1,
