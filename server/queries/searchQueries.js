@@ -72,7 +72,24 @@ module.exports = {
       })
   },
   searchListOfStores: function(request, response, regex) {
-    knex
+    let beerSearch = new RegExp(/^:beer=[0-9]+$/);
+    if (beerSearch.test(request.body.keywords)) {
+      let beer_id = request.body.keywords.slice(6);
+      return knex
+        .select("stores.*")
+        .from("stores")
+        .innerJoin("beers_stores", "stores.id", "beers_stores.store_id")
+        .where('beers_stores.beer_id', beer_id)
+        .then((result) => {
+          if (result.length > 0) {
+            response.json({searchResult: result, searchResultCategory: "Store"});
+          } else {
+            response.json({searchResultCategory: "None"});
+          }
+        });
+    }
+
+    return knex
       .select("*")
       .from("stores")
       .then((result) => {
