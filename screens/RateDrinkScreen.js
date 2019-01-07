@@ -41,8 +41,8 @@ export default class RateDrinkScreen extends React.Component {
     const imageCopy = await ImageManipulator.manipulateAsync(
       photo.uri, 
       [{ resize: { width: 320, height: 200 }}], 
-      { compress: 0, format: 'png', base64: true });
-    return fetch(`${port.DEV_PORT}/api/visionML`, 
+      { compress: 0.5, format: 'png', base64: true });
+    return fetch(`${port.DEV_PORT}/api/visionML`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -50,6 +50,7 @@ export default class RateDrinkScreen extends React.Component {
         })
       .then(res => res.json())
       .then(data => {
+        console.log("Hello data: ", data);
         if (data.couldNotFind) {
           this.setState({
             confirmDrink: true,
