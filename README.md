@@ -39,7 +39,7 @@ We want to make it as easy as possible, so for those that bought their drinks wi
 
 # Demo
 
-Images and/or videos go here
+![Demo Gif](/docs/nubrewExample.gif)
 
 # To get started
 
