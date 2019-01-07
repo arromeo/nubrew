@@ -2,7 +2,13 @@ import React from 'react';
 import { ScrollView, StyleSheet, Image, TouchableOpacity, View, Text, FlatList } from 'react-native';
 
 export default class EventSearch extends React.Component {
+
+  distanceTo = (item) => {
+    return item.distanceTo ? (<Text style={styles.distance}>{item.distanceTo} kms</Text>) : undefined;
+  }
+
   render() {
+    console.log(this.props.data);
     return (
         <ScrollView style={styles.container}>
             <View>
@@ -19,17 +25,23 @@ export default class EventSearch extends React.Component {
                     });
                 }}>
                   <View style={[styles.eventDetailsContainer, styles.homeScreenFilename]}>
+                  <View style={{flexDirection: "row"}}>
+
                   <View>
                     <Image
                       style={{width: 75, height: 75}}
                       source={{uri: item.img_url }}
-                    />
+                      />
                   </View>
                   <View>
                     <Text style={styles.eventTitle}>{item.name}</Text>
                     <Text style={styles.eventDetails}>{item.street_address}</Text>
                     <Text style={styles.eventDetails}>{item.city}, {item.province}</Text>
                     <Text style={styles.eventDetails}>{item.postal_code}</Text>
+                  </View>
+                      </View>
+                  <View style={styles.distance}>
+                    {this.distanceTo(item)}
                   </View>
                 </View>
               </TouchableOpacity>
@@ -54,6 +66,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
   },
+  distance: {
+    fontSize: 16
+  },
   contentContainer: {
     paddingBottom: 5,
     flexDirection: "row",
@@ -62,6 +77,7 @@ const styles = StyleSheet.create({
   },
   eventDetailsContainer: {
     flexDirection: "row",
+    justifyContent: "space-between",
     flex: 1,
     margin: 5,
   },

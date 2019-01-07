@@ -2,7 +2,9 @@ import React from 'react';
 import { ScrollView, StyleSheet, Image, TouchableOpacity, View, Text, FlatList } from 'react-native';
 
 export default class BrewerySearch extends React.Component {
+
   render() {
+    console.log(this.props.data);
     return (
         <ScrollView style={styles.container}>
           <FlatList

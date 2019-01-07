@@ -1,6 +1,21 @@
 const knexConfig  = require("../../knexfile");
 const knex        = require("knex")(knexConfig['development']);
 
+const distanceTo = (meridians) => {
+  let r = 6371e3;
+  let user_lat = 49.281347;
+  let user_long = -123.114854;
+  let rad1 = (user_lat * (Math.PI / 180));
+  let rad2 = (meridians.latitude * (Math.PI / 180));
+  let deltaLat = (meridians.latitude - user_lat) * (Math.PI / 180);
+  let deltaLong = (meridians.longitude - user_long) * (Math.PI / 180);
+  let a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
+      Math.cos(rad1) * Math.cos(rad2) *
+      Math.sin(deltaLong/2) * Math.sin(deltaLong/2);
+  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return ((r * c) / 1000).toFixed(1);
+}
+
 const filterSearch = (criteria, category, queryResult, requiredData, response) => {
   let searchResult = [];
   queryResult.forEach((list) => {
@@ -82,7 +97,19 @@ module.exports = {
         .where('beers_stores.beer_id', beer_id)
         .then((result) => {
           if (result.length > 0) {
-            response.json({searchResult: result, searchResultCategory: "Store"});
+
+            // Calculates and adds distance to store from user location
+            const supplementedResult = result.map(item => {
+              item.distanceTo = distanceTo(item.meridians);
+              return item;
+            });
+
+            // Sorts the results based off off of distanceTo value
+            const sortedResult = supplementedResult.sort((a, b) => {
+              return a.distanceTo - b.distanceTo;
+            });
+
+            response.json({searchResult: sortedResult, searchResultCategory: "Store"});
           } else {
             response.json({searchResultCategory: "None"});
           }
