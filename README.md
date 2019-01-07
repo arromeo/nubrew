@@ -195,78 +195,7 @@ From Index
 
 ## ERD
 
-- Categories (style of beer) 
-  - Amber
-  - Brown
-  - Cream
-  - IPA
-  - Kolsch
-  - Pale
-  - Scotch
-  - Dunkleweizen
-  - Hefeweizen
-  - Wheat
-  - Lager
-  - Pilsner
-  - Radler
-  - Shandy
-  - Pale Lager
-  - Sour
-  - Lambic
-  - Stout
-  - Porter
-  - Belgian
-  - Saison
-  - Fruit
-  - ... + (?)
-
-- Beers
-  - Categories_ID (FK)
-  - Seasonal_ID (FK)
-  - IBU (#)
-  - ABV (%)
-  - Name
-  - Description
-  - Vote_count (for community favorites, cannot be less than 0)
-  - Image
-
-- Breweries
-  - Name
-  - Description
-  - Address
-  - Meridians
-
-- Beers_Breweries (collaboration)
-  - Brewery_ID (FK)
-  - Beer_ID (FK)
-
-- Beers_Stores (join)
-  - Store_id (FK)
-  - Beer_id (FK)
-
-- Stores
-  - Name
-  - Hours
-  - Address
-  - Meridians
-
-- Events (feature)
-  - Store_ID (FK)
-  - Name
-  - Details
-  - Time
-
-- Users
-  - First_Name
-  - Last_Name
-  - Email
-  - Password
-
-- BeersUserTried *
-  - User_ID (FK)
-  - Beer_ID (FK)
-  - Vote (-1: disliked, 0: no-vote, 1: liked)
-  - Favorite (boolean)
+![erd diagram](./docs/erd.png)
 
 ## Google API Set-up
 
