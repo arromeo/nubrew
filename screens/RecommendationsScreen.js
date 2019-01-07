@@ -19,7 +19,7 @@ export default class Recommendations extends React.Component {
   }
 
   componentDidMount() {
-
+    // TODO: read up on CORS and how to move this request to server side with proxy
     let url = `${port.DEV_PORT}/api/user/${this.props.screenProps.user_id}/recommended`;
     fetch(url)
       .then(res => res.json())

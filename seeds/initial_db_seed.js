@@ -448,6 +448,186 @@ exports.seed = function(knex, Promise) {
         category_id: 18,
         img_url: 'https://www.highpointbws.com/wp-content/uploads/2017/11/167682.jpg',
       },
+      {
+        id: 14,
+        name: 'Mocha Porter',
+        description: 'We brew Mocha Porter in partnership with JJ Bean, our long-time Granville Island neighbour. Fresh-ground JJ Bean decaf dark roast coffee, real cocoa and roasted malts greet you up front, with lightly bitter hop.',
+        ibu: 25,
+        abv: '6.0%',
+        vote_count: 30,
+        category_id: 19,
+        img_url: 'http://www.gib.ca/app/uploads/2018/10/mocha_porter-1.png',
+      },
+      {
+        id: 15,
+        name: 'Lions Summer Ale',
+        description: 'Lively tropical fruit notes are balanced with subtle biscuity flavours and a slightly tart, refreshing finish.',
+        ibu: 19,
+        abv: '4.7%',
+        vote_count: 12,
+        category_id: 6,
+        img_url: 'http://www.gib.ca/app/uploads/2017/03/lions_summer_ale.png',
+      },
+      {
+        id: 16,
+        name: 'English Bay Pale Ale',
+        description: 'Lively tropical fruit notes are balanced with subtle biscuity flavours and a slightly tart, refreshing finish.',
+        ibu: 18,
+        abv: '5.0%',
+        vote_count: 12,
+        category_id: 6,
+        img_url: 'http://www.gib.ca/app/uploads/2016/07/coastal_english_bay_pale_ale.png',
+      },
+      {
+        id: 17,
+        name: 'Sunshine Coast Hefeweizen',
+        description: 'Crisp with notes of banana and clove.',
+        ibu: 15,
+        abv: '5.0%',
+        vote_count: 27,
+        category_id: 9,
+        img_url: 'http://www.gib.ca/app/uploads/2016/07/coastal_sunshine_coast_hefeweizen.png',
+      },
+      {
+        id: 18,
+        name: 'Lions Winter Ale',
+        description: 'The après anything beer.',
+        ibu: 22,
+        abv: '5.5%',
+        vote_count: 50,
+        category_id: 19,
+        img_url: 'http://www.gib.ca/app/uploads/2016/07/coastal_lions_winter_ale.png',
+      },
+      {
+        id: 19,
+        name: '33 Acres of Life',
+        description: 'A fruit like quality is created by fermenting the lager at ale temperatures. Gaining a complex taste through subtle approach; hints at a full-bodied ale yet retains a crisp finish.',
+        ibu: 25,
+        abv: '4.8%',
+        vote_count: 50,
+        category_id: 1,
+        img_url: 'http://33acresbrewing.com/app/uploads/2013/05/Life.png',
+      },
+      {
+        id: 20,
+        name: '33 Acres of Ocean',
+        description: 'This is a full flavoured beer integrated with a distinct floral hop which gives it a quality unique to our Pacific Northwest surroundings. This style is evolutionary from a typical IPA.',
+        ibu: 30,
+        abv: '5.3%',
+        vote_count: 20,
+        category_id: 6,
+        img_url: 'http://33acresbrewing.com/app/uploads/2013/05/Ocean.png',
+      },
+      {
+        id: 21,
+        name: '33 Acres of Echo',
+        description: 'A low alcohol content lets the beer be enjoyed over entire afternoons, sipped all day with ease—but a careful selection of hops resulting in notes of citrus peel, tropical fruit, and pine.',
+        ibu: 20,
+        abv: '4.5%',
+        vote_count: 12,
+        category_id: 10,
+        img_url: 'http://33acresbrewing.com/app/uploads/2013/05/Ocean.png',
+      },
+      {
+        id: 22,
+        name: '33 Acres of Euphoria',
+        description: 'Eyes wide enclosing, the potency of this feverish blending remains a secret until feeling the creamy golden rushes readied inside 33 acres of Euphoria.',
+        ibu: 25,
+        abv: '9.2%',
+        vote_count: 34,
+        category_id: 20,
+        img_url: 'http://33acresbrewing.com/app/uploads/2013/05/Euphoria1.png',
+      },
+      {
+        id: 23,
+        name: '33 Acres of Nirvana',
+        description: 'With a higher % then average, these skillful co~creations invigorate bitter-fresh pine with infused offerings of pink+orange citrusness.',
+        ibu: 50,
+        abv: '7.0%',
+        vote_count: 47,
+        category_id: 4,
+        img_url: 'http://33acresbrewing.com/app/uploads/2013/05/Nirvana_02.png',
+      },
+      {
+        id: 24,
+        name: 'Punchbowl Mango IPA',
+        description: 'Our award-winning punch bowl NW IPA is dry hopped with a mix of mosaic, Citra, Amarillo, and Ella hops.',
+        ibu: 45,
+        abv: '6.3%',
+        vote_count: 7,
+        category_id: 4,
+        img_url: 'https://www.russellbeer.com/wp-content/uploads/2018/06/mango_ipa.png',
+      },
+      {
+        id: 25,
+        name: 'Blood Alley Bitter',
+        description: 'Blood Alley Bitter is an Extra Special Bitter named after a notorious cobblestone laneway in Vancouver’s Gastown district.',
+        ibu: 50,
+        abv: '5.5%',
+        vote_count: 29,
+        category_id: 4,
+        img_url: 'https://www.russellbeer.com/wp-content/uploads/2018/06/Blood_Alley.png',
+      },
+      {
+        id: 26,
+        name: 'White Rabbit',
+        description: 'Brewed with Citra hops that display stone fruit and grape flavours which combine with the banana and clove character of the hefe yeast.',
+        ibu: 65,
+        abv: '6.0%',
+        vote_count: 18,
+        category_id: 9,
+        img_url: 'https://www.russellbeer.com/wp-content/uploads/2018/07/whiterabbitbtl-1.jpg',
+      },
+      {
+        id: 27,
+        name: 'Naughty & Spiced Porter',
+        description: 'Spiked with seasonal spices like cinnamon, all-spice, ginger and nutmeg, then aged on oak and vanilla beans, the result is a balance of roasted malt and subtle pudding spices.',
+        ibu: 30,
+        abv: '6.0%',
+        vote_count: 5,
+        category_id: 19,
+        img_url: 'https://www.russellbeer.com/wp-content/uploads/2018/07/whiterabbitbtl-1.jpg',
+      },
+      {
+        id: 28,
+        name: 'Western Promises',
+        description: 'A strong pilsner malt base but with a seductive west coast twist of Citra hops unique to our neck of the woods.',
+        ibu: 30,
+        abv: '6.0%',
+        vote_count: 64,
+        category_id: 12,
+        img_url: 'https://www.russellbeer.com/wp-content/uploads/2018/06/western_promises.png',
+      },
+      {
+        id: 29,
+        name: 'Wee Heavy',
+        description: 'Wee Heavy Scotch Ale / Wee Heavy 7.5% ABV  20 IBU Rich and malty aroma with dark fruit and caramel notes. Caramel and toasted malt and raisin-like flavours with a slight sweetness and warming sensation from the alcohol.',
+        ibu: 20,
+        abv: '7.5%',
+        vote_count: 32,
+        category_id: 7,
+        img_url: 'https://beermebc.com/wp-content/uploads/2014/03/2013_03_BMBC-2029-590x884.jpg',
+      },
+      {
+        id: 30,
+        name: 'Black Lager',
+        description: 'A full bodied dark lager. Roasty, clean and chocolaty with a graham cracker finish.',
+        ibu: 31,
+        abv: '4.5%',
+        vote_count: 32,
+        category_id: 11,
+        img_url: 'https://cdn.justwineapp.com/assets/beer/bottle/persephone-brewing-black-lager_1477523384.png',
+      },
+      {
+        id: 31,
+        name: 'India Pale Ale',
+        description: 'A classic Northwest IPA with big citrus and grapefruit flavours with hints of mango and passionfruit on the nose. Medium bodied, with a light biscuity malt character.',
+        ibu: 60,
+        abv: '6.5%',
+        vote_count: 23,
+        category_id: 4,
+        img_url: 'https://beermebc.com/wp-content/uploads/2014/01/2014_01_BMBC-0475-590x884.jpg',
+      },
     ]);
   }
 
@@ -517,6 +697,96 @@ exports.seed = function(knex, Promise) {
         id: 13,
         beer_id: 13,
         brewery_id: 12
+      },
+      {
+        id: 14,
+        beer_id: 14,
+        brewery_id: 1
+      },
+      {
+        id: 15,
+        beer_id: 15,
+        brewery_id: 1
+      },
+      {
+        id: 16,
+        beer_id: 16,
+        brewery_id: 1
+      },
+      {
+        id: 17,
+        beer_id: 17,
+        brewery_id: 1
+      },
+      {
+        id: 18,
+        beer_id: 18,
+        brewery_id: 1
+      },
+      {
+        id: 19,
+        beer_id: 19,
+        brewery_id: 3
+      },
+      {
+        id: 20,
+        beer_id: 20,
+        brewery_id: 3
+      },
+      {
+        id: 21,
+        beer_id: 21,
+        brewery_id: 3
+      },
+      {
+        id: 22,
+        beer_id: 22,
+        brewery_id: 3
+      },
+      {
+        id: 23,
+        beer_id: 23,
+        brewery_id: 3
+      },
+      {
+        id: 24,
+        beer_id: 24,
+        brewery_id: 11
+      },
+      {
+        id: 25,
+        beer_id: 25,
+        brewery_id: 11
+      },
+      {
+        id: 26,
+        beer_id: 26,
+        brewery_id: 11
+      },
+      {
+        id: 27,
+        beer_id: 27,
+        brewery_id: 11
+      },
+      {
+        id: 28,
+        beer_id: 28,
+        brewery_id: 11
+      },
+      {
+        id: 29,
+        beer_id: 29,
+        brewery_id: 8
+      },
+      {
+        id: 30,
+        beer_id: 30,
+        brewery_id: 8
+      },
+      {
+        id: 31,
+        beer_id: 31,
+        brewery_id: 8
       },
     ])
   }
@@ -622,7 +892,187 @@ exports.seed = function(knex, Promise) {
         id: 20,
         beer_id: 10,
         store_id: 5
-      }
+      },
+      {
+        id: 21,
+        beer_id: 14,
+        store_id: 1
+      },
+      {
+        id: 22,
+        beer_id: 15,
+        store_id: 2
+      },
+      {
+        id: 23,
+        beer_id: 16,
+        store_id: 1
+      },
+      {
+        id: 24,
+        beer_id: 17,
+        store_id: 2
+      },
+      {
+        id: 25,
+        beer_id: 18,
+        store_id: 1
+      },
+      {
+        id: 26,
+        beer_id: 19,
+        store_id: 1
+      },
+      {
+        id: 27,
+        beer_id: 20,
+        store_id: 1
+      },
+      {
+        id: 28,
+        beer_id: 21,
+        store_id: 2
+      },
+      {
+        id: 29,
+        beer_id: 22,
+        store_id: 2
+      },
+      {
+        id: 30,
+        beer_id: 23,
+        store_id: 1
+      },
+      {
+        id: 31,
+        beer_id: 24,
+        store_id: 1
+      },
+      {
+        id: 32,
+        beer_id: 25,
+        store_id: 2
+      },
+      {
+        id: 33,
+        beer_id: 26,
+        store_id: 2
+      },
+      {
+        id: 34,
+        beer_id: 27,
+        store_id: 1
+      },
+      {
+        id: 35,
+        beer_id: 28,
+        store_id: 1
+      },
+      {
+        id: 36,
+        beer_id: 29,
+        store_id: 2
+      },
+      {
+        id: 37,
+        beer_id: 30,
+        store_id: 2
+      },
+      {
+        id: 38,
+        beer_id: 31,
+        store_id: 1
+      },
+      {
+        id: 39,
+        beer_id: 14,
+        store_id: 3
+      },
+      {
+        id: 40,
+        beer_id: 15,
+        store_id: 3
+      },
+      {
+        id: 41,
+        beer_id: 16,
+        store_id: 4
+      },
+      {
+        id: 42,
+        beer_id: 17,
+        store_id: 4
+      },
+      {
+        id: 43,
+        beer_id: 18,
+        store_id: 5
+      },
+      {
+        id: 44,
+        beer_id: 19,
+        store_id: 5
+      },
+      {
+        id: 45,
+        beer_id: 20,
+        store_id: 5
+      },
+      {
+        id: 46,
+        beer_id: 21,
+        store_id: 3
+      },
+      {
+        id: 47,
+        beer_id: 22,
+        store_id: 3
+      },
+      {
+        id: 48,
+        beer_id: 23,
+        store_id: 4
+      },
+      {
+        id: 49,
+        beer_id: 24,
+        store_id: 4
+      },
+      {
+        id: 50,
+        beer_id: 25,
+        store_id: 3
+      },
+      {
+        id: 51,
+        beer_id: 26,
+        store_id: 4
+      },
+      {
+        id: 52,
+        beer_id: 27,
+        store_id: 5
+      },
+      {
+        id: 53,
+        beer_id: 28,
+        store_id: 5
+      },
+      {
+        id: 54,
+        beer_id: 29,
+        store_id: 3
+      },
+      {
+        id: 55,
+        beer_id: 30,
+        store_id: 4
+      },
+      {
+        id: 56,
+        beer_id: 31,
+        store_id: 3
+      },
     ]);
   }
 
