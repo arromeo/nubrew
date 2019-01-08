@@ -4,25 +4,73 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default class VoteComponent extends React.Component {
   render() {
+    let thumbUpStyle = (vote) => {
+      if (vote > 0) {
+        return {
+          flex: 0.2,
+          padding: 10,
+          borderRadius: 25,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'gold',
+          opacity: 0.8,
+        }
+      } else {
+        return {
+          flex: 0.2,
+          padding: 10,
+          borderRadius: 25,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'lightgrey',
+          opacity: 0.8,
+        }
+      }
+    }
+
+    let thumbDownStyle = (vote) => {
+      if (vote < 0) {
+        return {
+          flex: 0.2,
+          padding: 10,
+          borderRadius: 25,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'gold',
+          opacity: 0.8,
+        }
+      } else {
+        return {
+          flex: 0.2,
+          padding: 10,
+          borderRadius: 25,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'lightgrey',
+          opacity: 0.8,
+        }
+      }
+    }
+
     return (
       <View>
         {this.props.voteCast === 'None' &&
           <View style={styles.voteContainer}>
             <TouchableOpacity
-              style={styles.buttonStyle}
+              style={thumbDownStyle(this.props.previousVote)}
               onPress={() => {
                 this.props.profileUpdate();
                 this.props.updateVote(-1, this.props.navigationParams.id, this.props.user_id)
               }}>
-              <Ionicons style={{zIndex: 2}} name="md-thumbs-down" size={45} color="red"/>
+              <Ionicons name="md-thumbs-down" size={45} color="red"/>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.buttonStyle}
+              style={thumbUpStyle(this.props.previousVote)}
               onPress={() => {
                 this.props.profileUpdate();
                 this.props.updateVote(1, this.props.navigationParams.id, this.props.user_id)
               }}>
-              <Ionicons style={{zIndex: 2}} name="md-thumbs-up" size={45} color="green"/>
+              <Ionicons name="md-thumbs-up" size={45} color="green"/>
             </TouchableOpacity>
           </View>
         }

@@ -50,7 +50,6 @@ export default class RateDrinkScreen extends React.Component {
         })
       .then(res => res.json())
       .then(data => {
-        console.log("Hello data: ", data);
         if (data.couldNotFind) {
           this.setState({
             confirmDrink: true,

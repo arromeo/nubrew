@@ -15,6 +15,7 @@ export default class DetailScreen extends React.Component {
       category: null,
       searchResult: null,
       searchResultCategory: null,
+      previousVote: null,
       loading: true,
     }
 
@@ -37,6 +38,7 @@ export default class DetailScreen extends React.Component {
           category: navigationParams.category,
           searchResult: data.searchResult,
           searchResultCategory: data.searchResultCategory,
+          previousVote: data.searchResult[0].vote,
           loading: false,
         })
       })
@@ -73,6 +75,7 @@ export default class DetailScreen extends React.Component {
                 styles={styles} navigate={navigate}
                 navigationParams={this.props.navigation.state.params}
                 user_id={user_id}
+                previousVote={this.state.previousVote}
                 updateFavorites={this.props.screenProps.updateFavorites}
                 changeSearch={this.props.screenProps.changeSearch}
                 changeSearchCategory={this.props.screenProps.changeSearchCategory}
