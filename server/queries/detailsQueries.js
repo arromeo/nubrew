@@ -13,12 +13,15 @@ module.exports = {
         'beers.id AS beer_id',
         'beers.name AS beer_name',
         'breweries.name AS brewery_name',
-        'beers.description AS beer_description'])
+        'beers.description AS beer_description',
+        'vote'
+      ])
       .from("beers")
       .innerJoin('beers_breweries', 'beers_breweries.beer_id', 'beers.id')
+      .fullOuterJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
       .innerJoin('categories', 'beers.category_id', 'categories.id')
       .innerJoin('breweries', 'breweries.id', 'beers_breweries.brewery_id')
-      .where('beer_id', request.body.id)
+      .where('beers.id', request.body.id)
       .then((result) => {
         response.json({searchResult: result, searchResultCategory: "Beer"});
       })

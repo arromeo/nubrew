@@ -30,6 +30,7 @@ export default class BeerDetails extends React.Component {
           }
         })
         this.setState({
+          previousVote: data.vote,
           favorited: found,
         })
       })
@@ -124,7 +125,7 @@ export default class BeerDetails extends React.Component {
           </View>
         </View>
         <BeerInformation data={beer}/>
-        <VoteComponent updateVote={updateVote} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast} user_id={this.props.user_id} profileUpdate={this.props.profileUpdate}/>
+        <VoteComponent updateVote={updateVote} navigationParams={this.props.navigationParams} value={this.state.value} voteCast={this.state.voteCast} user_id={this.props.user_id} profileUpdate={this.props.profileUpdate} previousVote={this.props.previousVote}/>
       </View>
     );
   }
