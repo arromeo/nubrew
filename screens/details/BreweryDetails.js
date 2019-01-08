@@ -13,25 +13,27 @@ export default class BreweryDetails extends React.Component {
         <AddressCard type={brewery}/>
 
         <Text style={styles.description}>{brewery.description}</Text>
-        <TouchableOpacity 
-          style={styles.buttonStyle}
-          onPress={() => {
-            this.props.navigate('Inventory', {
-              id: brewery.id,
-              category: 'Brewery'
-            })
-          }}>
-          <Ionicons style={styles.buttonIcon} name="md-list" size={25} color="#FFBC02"/>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.buttonStyle}
-          onPress={() => {
-            this.props.navigate('Map', {
-              data: brewery,
-            })
-          }}>
-          <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={() => {
+              this.props.navigate('Inventory', {
+                id: brewery.id,
+                category: 'Brewery'
+              })
+            }}>
+            <Ionicons style={styles.buttonIcon} name="md-list" size={25} color="#FFBC02"/>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={() => {
+              this.props.navigate('Map', {
+                data: brewery,
+              })
+            }}>
+            <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -45,7 +47,16 @@ const styles = StyleSheet.create({
     padding: 15
   },
   description: {
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 15
+  },
+  buttonContainer: {
+    flex: 0.2,
+    width: '100%',
+    paddingTop: "5%",
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   buttonStyle: {
     marginTop: 10,

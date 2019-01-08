@@ -13,25 +13,27 @@ export default class StoreDetails extends React.Component {
         <AddressCard type={store}/>
 
         <Text>{store.description}</Text>
-        <TouchableOpacity 
-          style={styles.buttonStyle}
-          onPress={() => {
-            this.props.navigate('Inventory', {
-              id: store.id,
-              category: 'Store'
-            })
-          }}>
-          <Ionicons style={styles.buttonIcon} name="md-list" size={25} color="#FFBC02"/>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.buttonStyle}
-          onPress={() => {
-            this.props.navigate('Map', {
-              data: store,
-            })
-          }}>
-          <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={() => {
+              this.props.navigate('Inventory', {
+                id: store.id,
+                category: 'Store'
+              })
+            }}>
+            <Ionicons style={styles.buttonIcon} name="md-list" size={25} color="#FFBC02"/>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={() => {
+              this.props.navigate('Map', {
+                data: store,
+              })
+            }}>
+            <Ionicons style={styles.buttonIcon} name="md-pin" size={25} color="#FFBC02"/>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -47,6 +49,13 @@ const styles = StyleSheet.create({
   },
   description: {
     marginTop: 15
+  },
+  buttonContainer: {
+    flex: 0.2,
+    width: '100%',
+    paddingTop: "5%",
+    justifyContent: 'center',
+    alignItems: 'center'
   },
    buttonStyle: {
     marginTop: 10,
