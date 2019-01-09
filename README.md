@@ -39,7 +39,13 @@ We want to make it as easy as possible, so for those that bought their drinks wi
 
 # Demo
 
+App Demo
+
 ![Demo Gif](/docs/nubrewExample.gif)
+
+Label Recognition
+
+![Label Recognition Gif](/docs/ezgif.com-optimize.gif)
 
 # To get started
 
