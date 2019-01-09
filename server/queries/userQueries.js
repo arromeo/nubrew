@@ -81,6 +81,7 @@ module.exports = {
       .select('*')
       .from('beers_users_tried')
       .innerJoin('beers', 'beers_users_tried.beer_id', 'beers.id')
+      .innerJoin('categories', 'beers.category_id', 'categories.id')
       .where('user_id', request.params.user_id)
       .then((result) => {
         let favorites = [];

@@ -13,7 +13,7 @@ export default class ProfileScreen extends React.Component {
       user: this.props.screenProps.user_id,
       favoriteBeers: null,
       totalBeers: null,
-      avgIBU: 23,
+      avgIBU: null,
       topStyles: []
     }
   }
@@ -54,9 +54,38 @@ export default class ProfileScreen extends React.Component {
   }
 
   calculateAvg() {
-    let totalIBU = this.state.favoriteBeers.reduce((a, b) => {return a + b});
-    return totalIBU / this.state.favoriteBeers;
+    let totalIBU = 0;
+    this.state.favoriteBeers.forEach(beer => {
+      totalIBU += beer.ibu;
+    });
+    return totalIBU / this.state.favoriteBeers.length;
   }
+
+  // listCategories() {
+  //   let categories = {};
+  //   this.state.totalBeers.forEach(beer => {
+  //     categories[beer.category] = 0;
+  //   });
+
+  //   this.state.totalBeers.forEach(beer => {
+  //     categories[beer.category] += 1;
+  //   });
+
+  //   categories.sort((a, b) => { return a + b });
+
+  //   for (category in categories) {
+
+  //   }
+
+  //   return (
+  //     <View style={styles.topList}>
+  //       <Text style={styles.topListTitle}>Top 3 Categories</Text>
+  //       <Text style={styles.topListItem}>{categories[0]}</Text>
+  //       <Text style={styles.topListItem}>{categories[1]}</Text>
+  //       <Text style={styles.topListItem}>{categories[2]}</Text>
+  //     </View>
+  //   )
+  // }
 
   render() {
     console.log(this.state.favoriteBeers);
@@ -94,6 +123,12 @@ export default class ProfileScreen extends React.Component {
             <View style={{height: 100, backgroundColor: '#fff'}}></View>
           </View>
         }
+        <View style={styles.topList}>
+          <Text style={styles.topListTitle}>Top 3 Categories</Text>
+          <Text style={styles.topListItem}>1. Porter</Text>
+          <Text style={styles.topListItem}>2. Wheat</Text>
+          <Text style={styles.topListItem}>3. Pilsner</Text>
+        </View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -125,6 +160,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    justifyContent: 'space-between'
   },
   profileContainer: {
     backgroundColor: '#61170E',
@@ -144,8 +180,16 @@ const styles = StyleSheet.create({
   countNumber: {
     fontSize: 24
   },
-  countLabel: {
-
+  topList: {
+    flex: 0.25,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 10
+  },
+  topListTitle: {
+    fontSize: 18
+  },
+  topListItem: {
   },
   detailsContainer: {
     flex: 1,
@@ -163,6 +207,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
+    marginBottom: 10,
     backgroundColor: '#61170E',
     borderRadius: 50,
     width: '80%',
