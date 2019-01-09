@@ -15,6 +15,8 @@ const cred = require('../dev_port.json');
 const app = express();
 const PORT = 5000;
 
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 app.use(require("body-parser").json())
 
 app.get('/api/index', (request, response) => {
