@@ -22,11 +22,11 @@
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
-    "react-navigation": "^2.18.2"
+    "react-navigation": "^2.18.2",
+    "knex": "^0.16.2"
   },
   "devDependencies": {
-    "jest-expo": "^31.0.0",
-    "knex": "^0.16.2"
+    "jest-expo": "^31.0.0"
   },
   "private": true
 }

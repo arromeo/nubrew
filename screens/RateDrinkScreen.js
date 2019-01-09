@@ -41,7 +41,7 @@ export default class RateDrinkScreen extends React.Component {
     const imageCopy = await ImageManipulator.manipulateAsync(
       photo.uri, 
       [{ resize: { width: 320, height: 200 }}], 
-      { compress: 0.5, format: 'png', base64: true });
+      { compress: 0.85, format: 'png', base64: true });
     return fetch(`${port.DEV_PORT}/api/visionML`,
         {
           method: "POST",
