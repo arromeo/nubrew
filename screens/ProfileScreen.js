@@ -13,6 +13,8 @@ export default class ProfileScreen extends React.Component {
       user: this.props.screenProps.user_id,
       favoriteBeers: null,
       totalBeers: null,
+      avgIBU: 23,
+      topStyles: []
     }
   }
 
@@ -51,7 +53,13 @@ export default class ProfileScreen extends React.Component {
       }
   }
 
+  calculateAvg() {
+    let totalIBU = this.state.favoriteBeers.reduce((a, b) => {return a + b});
+    return totalIBU / this.state.favoriteBeers;
+  }
+
   render() {
+    console.log(this.state.favoriteBeers);
     const user = this.state.user;
     const logout = () => {
       console.log("This is in the profile screen. We need to implement a log out function here");
@@ -78,6 +86,10 @@ export default class ProfileScreen extends React.Component {
             <View style={styles.countBox}>
               <Text style={styles.countNumber}>{ this.state.totalBeers.length}</Text>
               <Text style={styles.countLabel}>Tried</Text>
+            </View>
+            <View style={styles.countBox}>
+              <Text style={styles.countNumber}>{ this.calculateAvg() }</Text>
+              <Text style={styles.countLabel}>Avg IBU</Text>
             </View>
             <View style={{height: 100, backgroundColor: '#fff'}}></View>
           </View>
@@ -125,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   countBox: {
-    flex: 0.5,
+    flex: 0.33,
     justifyContent: 'center',
     alignItems: 'center'
   },

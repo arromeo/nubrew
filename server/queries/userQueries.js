@@ -80,6 +80,7 @@ module.exports = {
     knex
       .select('*')
       .from('beers_users_tried')
+      .innerJoin('beers', 'beers_users_tried.beer_id', 'beers.id')
       .where('user_id', request.params.user_id)
       .then((result) => {
         let favorites = [];
