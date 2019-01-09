@@ -8,7 +8,6 @@ export default class EventSearch extends React.Component {
   }
 
   render() {
-    console.log(this.props.data);
     return (
         <ScrollView style={styles.container}>
             <View>
