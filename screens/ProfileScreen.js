@@ -58,7 +58,7 @@ export default class ProfileScreen extends React.Component {
     this.state.favoriteBeers.forEach(beer => {
       totalIBU += beer.ibu;
     });
-    return totalIBU / this.state.favoriteBeers.length;
+    return Math.round(totalIBU / this.state.favoriteBeers.length);
   }
 
   // listCategories() {
@@ -88,7 +88,6 @@ export default class ProfileScreen extends React.Component {
   // }
 
   render() {
-    console.log(this.state.favoriteBeers);
     const user = this.state.user;
     const logout = () => {
       console.log("This is in the profile screen. We need to implement a log out function here");

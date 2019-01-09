@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   verticalContainer: {
     flex: 1,
     margin: 10,
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: 'center',
   },
   contentContainer: {
