@@ -120,7 +120,19 @@ module.exports = {
       .select("*")
       .from("stores")
       .then((result) => {
-        filterSearch(regex, "Store", result, ['name', 'description', 'street_address', 'city', 'postal_code'], response);
+
+        // Calculates and adds distance to store from user location
+        const supplementedResult = result.map(item => {
+          item.distanceTo = distanceTo(item.meridians);
+          return item;
+        });
+
+        // Sorts the results based off off of distanceTo value
+        const sortedResult = supplementedResult.sort((a, b) => {
+          return a.distanceTo - b.distanceTo;
+        });
+
+        filterSearch(regex, "Store", sortedResult, ['name', 'description', 'street_address', 'city', 'postal_code'], response);
       })
   }
 }
