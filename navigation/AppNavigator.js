@@ -46,7 +46,7 @@ const Routes = {
   Events: { key: "Events", title: "Events" },
   CrowdFav: { key: "CrowdFav", title: "Crowd Recommendations" },
   Favorites: { key: "Favorites", title: "Favorites" },
-  Profile: { key: "Profile", title: "Title" },
+  Profile: { key: "Profile", title: "Profile" },
   Map: { key: 'Map', title: 'Map'},
   Inventory: { key: 'Inventory', title: 'Inventory'},
   RecommendationList: { key: 'RecommendationListScreen', title: 'Recommendations'}
