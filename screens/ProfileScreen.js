@@ -14,7 +14,7 @@ export default class ProfileScreen extends React.Component {
       favoriteBeers: null,
       totalBeers: null,
       avgIBU: null,
-      topStyles: []
+      topStyles: null
     }
   }
 
@@ -34,7 +34,8 @@ export default class ProfileScreen extends React.Component {
       .then(data => {
         this.setState({
         favoriteBeers: data.result.totalFavorites,
-        totalBeers: data.result.totalTried
+        totalBeers: data.result.totalTried,
+        topStyles: data.result.topStyles
       })})
 
   }
@@ -48,7 +49,8 @@ export default class ProfileScreen extends React.Component {
         this.props.screenProps.profileUpdate();
         this.setState({
           favoriteBeers: data.result.totalFavorites,
-          totalBeers: data.result.totalTried
+          totalBeers: data.result.totalTried,
+          topStyles: data.result.topStyles
         })})
       }
   }
@@ -61,31 +63,16 @@ export default class ProfileScreen extends React.Component {
     return Math.round(totalIBU / this.state.favoriteBeers.length);
   }
 
-  // listCategories() {
-  //   let categories = {};
-  //   this.state.totalBeers.forEach(beer => {
-  //     categories[beer.category] = 0;
-  //   });
-
-  //   this.state.totalBeers.forEach(beer => {
-  //     categories[beer.category] += 1;
-  //   });
-
-  //   categories.sort((a, b) => { return a + b });
-
-  //   for (category in categories) {
-
-  //   }
-
-  //   return (
-  //     <View style={styles.topList}>
-  //       <Text style={styles.topListTitle}>Top 3 Categories</Text>
-  //       <Text style={styles.topListItem}>{categories[0]}</Text>
-  //       <Text style={styles.topListItem}>{categories[1]}</Text>
-  //       <Text style={styles.topListItem}>{categories[2]}</Text>
-  //     </View>
-  //   )
-  // }
+  listCategories() {
+    return (
+      <View style={styles.topList}>
+        <Text style={styles.topListTitle}>Top 3 Categories</Text>
+        <Text style={styles.topListItem}>1. {this.state.topStyles[0].category}</Text>
+        <Text style={styles.topListItem}>2. {this.state.topStyles[1].category}</Text>
+        <Text style={styles.topListItem}>3. {this.state.topStyles[2].category}</Text>
+      </View>
+    )
+  }
 
   render() {
     const user = this.state.user;
@@ -122,12 +109,8 @@ export default class ProfileScreen extends React.Component {
             <View style={{height: 100, backgroundColor: '#fff'}}></View>
           </View>
         }
-        <View style={styles.topList}>
-          <Text style={styles.topListTitle}>Top 3 Categories</Text>
-          <Text style={styles.topListItem}>1. Porter</Text>
-          <Text style={styles.topListItem}>2. Wheat</Text>
-          <Text style={styles.topListItem}>3. Pilsner</Text>
-        </View>
+        {this.state.topStyles && this.listCategories()}
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => {

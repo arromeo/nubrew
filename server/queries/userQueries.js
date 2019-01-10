@@ -84,20 +84,37 @@ module.exports = {
       .innerJoin('categories', 'beers.category_id', 'categories.id')
       .where('user_id', request.params.user_id)
       .then((result) => {
-        let favorites = [];
-        result.forEach(beer => {
-          if (beer.favorite === true) {
-            favorites.push(beer);
-          }
-        })
-        let data = {
-          totalFavorites: favorites,
-          totalTried: result
-        }
-        response.json({
-          result: data,
-        });
-      })
+        knex
+          .select('categories.category')
+          .count('categories.id as category_count')
+          .from('beers')
+          .innerJoin('categories', 'beers.category_id', 'categories.id')
+          .innerJoin('beers_users_tried', 'beers.id', 'beers_users_tried.beer_id')
+          .where('user_id', request.params.user_id)
+          .andWhere('vote', 1)
+          .groupBy('categories.id')
+          .orderBy('category_count', 'desc')
+          .limit(3)
+          .then((categoryResult) => {
+            let favorites = [];
+            result.forEach(beer => {
+              if (beer.favorite === true) {
+                favorites.push(beer);
+              }
+            })
+            let data = {
+              totalFavorites: favorites,
+              totalTried: result,
+              topStyles: categoryResult
+            }
+            response.json({
+              result: data,
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+          })
       .catch((err) => {
         console.error("This is the error " + err);
       });
